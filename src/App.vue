@@ -1,32 +1,41 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+	<router-view></router-view>
+	<gotop></gotop>
   </div>
 </template>
 
+<script>
+	import gotop from'./components/gotop/gotop'
+	export default {
+		name:'app',
+		components:{
+			gotop
+		}
+	}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+::-webkit-scrollbar
+{
+    width:10px;
+    height:10px;
+    background-color:#F5F5F5;
 }
-
-#nav {
-  padding: 30px;
+/*定义滚动条轨道
+ 内阴影+圆角*/
+::-webkit-scrollbar-track
+{
+    -webkit-box-shadow:inset 0 0 6px rgba(61, 61, 61, 0.2);
+    border-radius:10px;
+    background-color:#F5F5F5;
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+/*定义滑块
+ 内阴影+圆角*/
+::-webkit-scrollbar-thumb
+{
+    border-radius:10px;
+    -webkit-box-shadow:inset 0 0 6px rgba(59, 59, 59, 0.2);
+    background-color:#7c7c7c;
 }
 </style>
