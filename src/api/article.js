@@ -1,11 +1,11 @@
 import axios from 'axios'
 
-let base = 'http://49.234.38.85:2235';
+let base = '';
 
 export function getarticles(params) {
 	return axios({
 		method:'post',
-		url:`${base}/article`,
+		url:`${base}/api/article/all`,
 		data:params
 	})
 }

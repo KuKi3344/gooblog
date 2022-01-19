@@ -1,6 +1,6 @@
 <template>
 	<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load">
-		<articleitem v-for="article in articles" v-bind="article" :key="article.id" style="flex:1;margin-bottom: 25px;">
+		<articleitem v-for="article in articles" v-bind="article" :key="article.id" style="flex:1;margin-bottom: 40px;">
 		</articleitem>
 	</scroll-page>
 </template>
@@ -21,7 +21,7 @@
 				articles: [],
 				innerPage: {
 					page: 1,
-					pageSize: 10
+					pageSize: 5
 				},
 				canRun: true,
 			}
@@ -36,6 +36,7 @@
 		methods: {
 			load() {
 				//如果触发分页，需要调用接口加载文章列表
+				//这里用了节流思想
 				if (this.canRun) {
 					this.canRun = false;
 					this.getArticles();

@@ -4,7 +4,7 @@
 	  <div class="me-footer">
 	    <p>Designed by
 	      <strong>
-	        LULU and MIN
+	       KuKi and Noblegasesgoo
 	      </strong>
 	    </p>
 	  </div>
@@ -24,10 +24,7 @@
 	}
 	.el-footer {
 	  min-width: 100%;
-	  position: absolute;
-	  bottom: 0;
-	  left: 0;
-	  z-index: 1024;
+	  margin-top: 10px;
 	}
 	
 	.me-footer {

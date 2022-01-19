@@ -4,7 +4,7 @@
 			<span id="name">GOO BLOG</span>
 			<el-menu :router=true menu-trigger="click" active-text-color="#8bbc69" :default-active="avtiveIndex"
 			         mode="horizontal">
-			  <el-menu-item index="/">首页</el-menu-item>
+			  <el-menu-item index="/home">首页</el-menu-item>
 			  <el-menu-item index="/category/all">文章分类</el-menu-item>
 			  <el-menu-item index="/tag/all">标签</el-menu-item>
 			  <el-menu-item index="/archives">文章归档</el-menu-item>

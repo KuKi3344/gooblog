@@ -13,9 +13,7 @@ import {formatTime} from './utils/time'
 
 Vue.config.productionTip = false;
 
-Vue.directive('title',function(el,binding){
-	document.title = el.dataset.title
-})
+
 
 Vue.filter('format',formatTime)
 
@@ -24,3 +22,4 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
