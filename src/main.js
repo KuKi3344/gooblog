@@ -4,10 +4,14 @@ import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
-
+Vue.use(VueAxios,axios)
 Vue.use(ElementUI);
 import {formatTime} from './utils/time'
+
+Vue.config.productionTip = false;
 
 Vue.directive('title',function(el,binding){
 	document.title = el.dataset.title

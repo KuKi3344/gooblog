@@ -1,64 +1,61 @@
 <template>
 	<div class="home">
+	<homeheader :avtiveIndex="activeIndex"></homeheader>
+		<div class="homeimg"></div>
 		<el-container>
 			<el-main class="me-articles">
-				<articleitem v-for="article in articles" v-bind="article" :key="article.id" style="flex:1;margin-bottom: 10px;"></articleitem>
+				<articlescrollpage></articlescrollpage>
 			</el-main>
-			<el-aside>Aside</el-aside>
+			<el-aside>
+				<homeaside></homeaside>
+			</el-aside>
 		</el-container>
+		<homefooter v-show="footerShow"></homefooter>
 	</div>
 </template>
 
 <script>
-	import articleitem from '../components/articles/articleitem'
-
+	import homeheader from '../components/header/homeheader'
+	import homefooter from '../components/footer/homefooter'
+	import homeaside from '../components/aside/homeaside'
+	import articlescrollpage from '../components/common/articlescrollpage'
 	export default {
 		name: 'Home',
 		components: {
-			articleitem
+			articlescrollpage,
+			homeheader,
+			homefooter,
+			homeaside
 		},
 		data() {
 			return {
-				articles: [{
-						id: "1",
-						weight: 1,
-						title: "我是小王璐",
-						commentCounts: 123,
-						viewCounts: 123,
-						summary: "概要11",
-						author: "王璐",
-						tags: [{
-							"tagName": "vue"
-						}],
-						createDate: "2022-01-18 00:00:00"
-					},
-					{
-						id: "2",
-						weight: 1,
-						title: "我是小力民",
-						commentCounts: 99,
-						viewCounts: 66,
-						summary: "概要21",
-						author: "赵力民",
-						tags: [{
-							"tagName": "java"
-						}],
-						createDate: "2022-01-18 12:00:00"
-					}
-				]
+				activeIndex:"/",
+				footerShow:false
 			}
 		}
 	}
 </script>
 
 <style scoped="scoped">
+	*,
+	html{
+		margin: 0;
+		padding: 0;
+	}
 	.el-container {
 		height: auto;
+		display: flex;
+		justify-content: space-around;
+		min-width:700px;
 	}
 
 	.el-aside {
-		width: 260px;
+		width: 250px;
+		min-width: 200px;
 		margin-left: 20px;
+		box-shadow: 0 15px 25px rgba(212, 212, 212, 0.8);
+		border-radius: 10px;
+		margin-bottom: 20px;
 	}
 
 	.el-main {
@@ -76,7 +73,20 @@
 	.me-articles{
 		display:flex;
 		flex-direction: column;
-		min-width:300px;
+		min-width:400px;
+		max-width: 600px;
 	}
-
+	.homeimg{
+		height:40vw;
+		min-height: 300px;
+		width:100vw;
+		min-width:720px;
+		background: url(../assets/img/v2-09ea7304a416d1a5561a9f82fd1d2bcd_r.jpg);
+		background-position-x: 50%;
+		background-position-y: center;
+		background-size: cover;
+		transform: translateX(-10px);
+		margin-bottom: 50px;
+		
+	}
 </style>

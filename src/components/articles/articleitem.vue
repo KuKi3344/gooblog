@@ -4,7 +4,7 @@
 		  <div class="me-article-header">
 		
 		    <a @click="view(id)" class="me-article-title">{{title}}</a>
-		    <el-button v-if="weight > 0" class="me-article-icon" type="text">置顶</el-button>
+		    <el-button v-if="isTop" class="me-article-icon" type="text">置顶</el-button>
 		    <span class="me-pull-right me-article-count">
 			    	<i class="el-icon-chat-line-square"></i>&nbsp;{{commentCounts}}
 			    </span>
@@ -18,13 +18,13 @@
 		  </div>
 		  <div class="me-article-footer">
 			  	<span class="me-article-author">
-			    	<i class="me-icon-author"></i>&nbsp;{{author}}
+			    	<i class="me-icon-author"></i>&nbsp;{{authorName}}
 			    </span>
 		
 		    <el-tag v-for="t in tags" :key="t.tagName" size="mini" type="success">{{t.tagName}}</el-tag>
 		
 		    <span class="me-pull-right me-article-count">
-			    	<i class="el-icon-time"></i>&nbsp;{{createDate | format}}
+			    	<i class="el-icon-time"></i>&nbsp;{{gmtCreate | format}}
 			    </span>
 		
 		  </div>
@@ -36,15 +36,15 @@
 	export default{
 		name:'articleitem',
 		props:{
-			id: String,
-			weight: Number,
+			id: Number,
+			isTop:Boolean,
 			title: String,
 			commentCounts: Number,
 			viewCounts: Number,
 			summary: String,
-			author: String,
+			authorName: String,
 			tags: Array,
-			createDate: String
+			gmtCreate: String
 		},
 		data(){
 			return{

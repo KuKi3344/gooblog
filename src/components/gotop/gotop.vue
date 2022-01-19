@@ -41,7 +41,7 @@
 		background-color: #fff;
 		position: fixed;
 		right:100px;
-		bottom:150px;
+		bottom:100px;
 		width:40px;
 		height:40px;
 		border-radius: 20px;
@@ -51,7 +51,7 @@
 		z-index:5;
 	}
 	.me-to-top i{
-		color:#7cd1a9;
+		color:#6abf91;
 		display:block ;
 		line-height: 40px;
 		text-align: center;

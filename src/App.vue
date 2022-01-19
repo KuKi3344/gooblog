@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+	  <canvas width="1777" height="841" style="position: fixed; left: 0px; top: 0px; z-index: 2147483647; pointer-events: none;"></canvas>
 	<router-view></router-view>
 	<gotop></gotop>
   </div>
@@ -16,6 +17,13 @@
 </script>
 
 <style>
+	body{
+		cursor: url(https://files.cnblogs.com/files/wkfvawl/cursor.ico),auto;
+	}
+	*{
+		margin:0;
+		padding:0;
+	}
 ::-webkit-scrollbar
 {
     width:10px;
