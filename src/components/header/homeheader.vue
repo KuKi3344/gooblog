@@ -41,7 +41,7 @@
 		font-size: 15px;
 	}
 	.head{
-		position: fixed;
+		position: absolute;
 		display: flex;
 		height:50px;
 		width:100%;
@@ -60,34 +60,34 @@
 		flex:1;
 		min-width:20px;
 		display: flex;
-		justify-content: flex-start;
+		justify-content: center;
 		align-items: center;
 		min-width: 20px;
 	}
 	#name{
 		color:#242635;
-		font-size: 1.5vw;
+		font-size: 25px;
 		display: inline-block;
 		font-weight: 600;
 		font-family:"bodoni mt";
 		margin-left:20px;
-		margin-right:4vw;
+		margin-right:50px;
 		line-height: 50px;
 		flex:1
 		}
 		.el-menu-item{
 			font-size:13px;
-			padding:0 2vw !important;
 			height:49px !important;
 			line-height:49px !important;
+			margin-right: 20px !important;
 		}
 
 		.write{
-			margin-left:5vw !important;
+			margin-left:60px !important;
 		}
 		.el-button{
-			margin-left:5vw;
-			margin-right:2vw;
+			margin-right:40px;
 			font-size: 14px;
 		}
 </style>
+

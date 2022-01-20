@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="max-width: 1540px;overflow-x: hidden;">
 		<div class="homeimg"></div>
 		<el-container>
 			<el-main class="me-articles">
@@ -145,16 +145,14 @@
 	}
 
 	.homeimg {
-		height: 40vw;
-		min-height: 300px;
-		width: 100vw;
+		max-height:80%;
+		max-width: 100%;
 		min-width: 740px;
+		height:480px;
 		background: url(../assets/img/v2-09ea7304a416d1a5561a9f82fd1d2bcd_r.jpg);
 		background-position-x: 50%;
 		background-position-y: center;
 		background-size: cover;
-		transform: translateX(-10px);
-		margin-bottom: 50px;
-
+		margin-bottom: 50px; 
 	}
 </style>

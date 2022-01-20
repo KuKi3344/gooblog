@@ -1,6 +1,6 @@
 <template>
 	<div class="home">
-	<homeheader :avtiveIndex="activeIndex"></homeheader>
+		<homeheader :avtiveIndex="activeIndex"></homeheader>
 		<router-view></router-view>
 		<homefooter v-show="footerShow"></homefooter>
 	</div>
@@ -17,19 +17,19 @@
 		},
 		data() {
 			return {
-				activeIndex:"/home",
-				footerShow:true,
+				activeIndex: "/home",
+				footerShow: true,
 			}
 		},
-		beforeRouteEnter(to,from,next) {
-			next(vm=>{
+		beforeRouteEnter(to, from, next) {
+			next(vm => {
 				vm.activeIndex = to.path;
 			})
 		},
-		beforeRouteUpdate(to,from,next) {
-			if(to.path =='/'){
+		beforeRouteUpdate(to, from, next) {
+			if (to.path == '/') {
 				this.footerShow = true;
-			}else{
+			} else {
 				this.footerShow = false;
 			}
 			this.activeIndex = to.path;
@@ -40,8 +40,19 @@
 
 <style scoped="scoped">
 	*,
-	html{
+	html {
 		margin: 0;
 		padding: 0;
+	}
+
+	.home {
+		position: absolute;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		max-width: 1528px;
+		min-width:650px;
+		margin: 0 auto;
 	}
 </style>
