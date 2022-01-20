@@ -1,20 +1,42 @@
 <template>
   <div id="app">
-
+	
 	<router-view></router-view>
 	<gotop></gotop>
+	<!-- 加载动画 -->
+	<div id="loader-wrapper">
+	    <div id="loader"></div>
+	    <div class="loader-section section-left"></div>
+	    <div class="loader-section section-right"></div>
+	    <div class="load_title">LOADING......<br><span>lULU STORY</span></div>
+	</div>
   </div>
 </template>
 <script>
 	import gotop from'./components/gotop/gotop'
 	export default {
 		name:'app',
+		data(){
+			return{
+
+			}
+		},
 		components:{
 			gotop
+		},
+		mounted(){
+			var box = document.querySelector("#loader-wrapper");
+			setTimeout(()=>{
+				box.remove();
+				var box2 = document.getElementById("app");
+				app.setAttribute("style","animation-name: ease;animation-duration: 2s;")
+			},200)
+			
 		}
 	}
 </script>
 <style>
+	@import url("./assets/css/loader.css");
 	body{
 		padding:0;
 		margin:0;
@@ -42,5 +64,14 @@
     border-radius:10px;
     -webkit-box-shadow:inset 0 0 6px rgba(59, 59, 59, 0.2);
     background-color:#7c7c7c;
+}
+
+@keyframes ease{
+	0%{
+		opacity: 0.4;
+	}
+	100%{
+		opacity: 1;
+	}
 }
 </style>
