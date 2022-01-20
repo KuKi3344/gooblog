@@ -11,13 +11,20 @@ export function getarticles(params) {
 }
 export function hotArticles(params){
 	return axios({
-		methods:'get',
+		method:'get',
 		url:`${base}/api/article/hot/${params}`,
 	})
 }
 export function newArticles(){
 	return axios({
-		methods:'get',
+		method:'get',
 		url:`${base}/api/article/new`,
+	})
+}
+
+export function getallarchives(){
+	return axios({
+		method:'post',
+		url:`${base}/api/article/archives`,
 	})
 }
