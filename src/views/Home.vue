@@ -18,7 +18,7 @@
 		data() {
 			return {
 				activeIndex:"/home",
-				footerShow:true
+				footerShow:true,
 			}
 		},
 		beforeRouteEnter(to,from,next) {
