@@ -1,7 +1,13 @@
 import axios from 'axios'
 
-let base = '';
+var base = '';
 
+export function gethottag(){
+	return axios({
+		method:'get',
+		url:`${base}/api/tag/hot`,
+	})
+}
 export function getarticles(params) {
 	return axios({
 		method:'post',
@@ -15,6 +21,7 @@ export function hotArticles(params){
 		url:`${base}/api/article/hot/${params}`,
 	})
 }
+
 export function newArticles(){
 	return axios({
 		method:'get',

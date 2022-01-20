@@ -47,14 +47,16 @@
 
   .me-category-list {
     list-style-type: none;
+	padding:5px;
   }
 
   .me-category-item {
     display: inline-block;
     width: 40%;
-    padding: 2px;
+    padding: 5px;
     font-size: 13px;
     color: #5FB878;
+	margin-right:10px;
   }
 
   .me-category-item a:hover {

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-	import gethottag from '../../api/article.js'
+	import {gethottag} from '../../api/article.js'
 	export default {
 		name: 'tagaside',
 		data() {
@@ -18,23 +18,28 @@
 			}
 		},
 		created(){
-			this.$axios.get('/api/tag/hot').then(resp=>{
-				if(resp.data.code == 200){
-					if(resp.data.data.length<=0){
-						this.$message({
-							showClose: true,
-							message: '找不到热门标签了',
-							type: 'error'
-						})
+			this.gettag();
+		},
+		methods:{
+			gettag(){
+				gethottag().then(resp=>{
+					if(resp.data.code == 200){
+						if(resp.data.data.length<=0){
+							this.$message({
+								showClose: true,
+								message: '找不到热门标签了',
+								type: 'error'
+							})
+						}else{
+							this.datalist = resp.data.data;
+						}
 					}else{
-						this.datalist = resp.data.data;
+						this.$message.error(resp.data.msg)
 					}
-				}else{
-					this.$message.error(resp.data.msg)
-				}
-			}).catch(err => {
-					this.$message.error('加载失败')
-				})
+				}).catch(err => {
+						this.$message.error('加载失败')
+					})
+			}
 		}
 	}
 </script>
