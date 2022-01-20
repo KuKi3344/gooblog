@@ -1,5 +1,5 @@
 <template>
-	<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load">
+	<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load" class="main">
 		<articleitem v-for="article in articles" v-bind="article" :key="article.id" style="flex:1;margin-bottom: 40px;">
 		</articleitem>
 	</scroll-page>
@@ -42,7 +42,7 @@
 					this.getArticles();
 					setTimeout(() => {
 						this.canRun = true;
-					}, 500)
+					}, 1000)
 				}
 			},
 			getArticles() {
@@ -73,5 +73,18 @@
 	}
 </script>
 
-<style>
+<style scoped="scoped">
+	.main{
+		animation-name: ease;
+		animation-duration: 1s;
+	}
+	@keyframes ease{
+		0%{
+			opacity: 0.2;
+			transform:translateX(-50px)
+		}
+		100%{
+			opacity: 1;
+		}
+	}
 </style>

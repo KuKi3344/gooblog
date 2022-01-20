@@ -8,7 +8,7 @@
 				<span id="name">KuKi and Noblegasesgoo's home</span>
 				<span id="intro">这里有我们的故事</span>
 			</div>
-			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=86 src="//music.163.com/outchain/player?type=2&id=1361298714&auto=1&height=66"></iframe>
+			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=86 src="//music.163.com/outchain/player?type=2&id=1826307499&auto=1&height=66"></iframe>
 	</div>
 </template>
 
@@ -28,6 +28,8 @@
 		box-shadow: 0 10px 15px rgba(212, 212, 212, 0.8);
 		border-radius: 5px;
 		margin:15px;
+		animation-name: ease;
+		animation-duration: 2s;
 	}
 	#name {
 		display: inline-block;
@@ -61,5 +63,15 @@
 iframe{
 	margin-top:30px;
 	margin-bottom: 10px;
+}
+@keyframes ease{
+	0%{
+		opacity: 0.6;
+		transform: rotateY(60deg);
+		
+	}
+	100%{
+		opacity: 1;
+	}
 }
 </style>
