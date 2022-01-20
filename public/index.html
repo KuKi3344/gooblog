@@ -6,11 +6,21 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<link rel="icon" href="./1.ico">
     <title>GOO BLOG</title>
+	 <style>
+	    canvas {
+	        position: fixed;
+	        top: 0;
+	        left: 0;
+	        z-index: 99;
+	        width: 100%;
+	        height: 100%;
+	        pointer-events: none;
+	    }
+	    </style>
   </head>
   <body>	  
     <div id="app">
-		<canvas width="1777" height="841" style="position: fixed; left: 0px; top: 0px; z-index: 2147483647; pointer-events: none;"></canvas>
-	<!-- 	烟花特效 -->
+		<canvas width="1777" height="841" style="position: fixed; left: 0px; top: 0px; z-index:1; pointer-events: none;"></canvas>	<!-- 烟花 -->
 	</div>
   </body>
   <script>
