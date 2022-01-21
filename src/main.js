@@ -6,8 +6,16 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import {
+	getCookieValue,
+	setCookieValue,
+	clearCookie
+} from './assets/js/cookie.js'
  
 Vue.prototype.$axios = axios;
+Vue.prototype.getCookieValue = getCookieValue;
+Vue.prototype.setCookieValue = setCookieValue;
+Vue.prototype.clearCookie = clearCookie;
 Vue.use(VueAxios,axios)
 Vue.use(ElementUI);
 import {formatTime} from './utils/time'

@@ -46,7 +46,7 @@
 			Archiveaside,
 		},
 		created() {
-			if(getCookieValue('Authorization')){
+			if(this.getCookieValue('Authorization')){
 				this.showleft = true;
 			}
 			this.gethotArticles();
