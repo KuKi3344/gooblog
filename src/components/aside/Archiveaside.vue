@@ -41,8 +41,9 @@
 }
 .me-category-header {
 	  text-align: center;
-	  letter-spacing: 5px;
+	  letter-spacing: 2px;
 	  font-size: 14px;
+	  font-weight: 600;
 	}
 
   .me-category-list {

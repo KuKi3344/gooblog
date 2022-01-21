@@ -45,7 +45,7 @@
 		display: flex;
 		height:50px;
 		width:100%;
-		min-width: 700px;
+		min-width: 960px;
 		z-index:100;
 		background-color: #fff;
 		overflow: hidden;
@@ -71,7 +71,7 @@
 		font-weight: 600;
 		font-family:"bodoni mt";
 		margin-left:20px;
-		margin-right:50px;
+		margin-right:2vw;
 		line-height: 50px;
 		flex:1
 		}
@@ -79,11 +79,11 @@
 			font-size:13px;
 			height:49px !important;
 			line-height:49px !important;
-			margin-right: 20px !important;
+			margin-right:1vw !important;
 		}
 
 		.write{
-			margin-left:60px !important;
+			margin-left:1.5vw !important;
 		}
 		.el-button{
 			margin-right:40px;

@@ -1,5 +1,5 @@
 <template>
-	<el-card :body-style="{ padding: '8px 18px' }">
+	<el-card :body-style="{ padding: '8px 15px' }">
 	  <div slot="header" class="me-category-header">
 	    <span>{{cardHeader}}</span>
 	  </div>
@@ -44,16 +44,18 @@
 	}
 	.me-category-header {
 	  text-align: center;
-	  letter-spacing: 5px;
+	  letter-spacing: 2px;
 	  font-size: 14px;
+	  font-weight: 600;
 	  
 	}
 	.me-category-list {
 	  list-style-type: none;
+	  padding-left:5px;
+	  
 	}
 	
 	.me-category-item {
-	  padding: 4px;
 	  font-size: 14px;
 	  color: #5FB878;
 	  margin-bottom: 8px;

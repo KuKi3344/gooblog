@@ -57,10 +57,11 @@
 		height:30px;
 		text-align: center;
 		font-size: 14px;
-		letter-spacing: 5px;
+		letter-spacing: 2px;
 		color:#294154;
 		margin-top:20px;
 		margin-bottom:5px;
+		font-weight: 600;
 	}
 	.line{
 		height:0.5px;

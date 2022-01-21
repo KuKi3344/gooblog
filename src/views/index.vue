@@ -1,7 +1,12 @@
 <template>
-	<div style="max-width: 1540px;overflow-x: hidden;">
-		<div class="homeimg"></div>
+	<div style="max-width: 1540px;">
+		<div class="homeimg">
+		<video src="../assets/img/bkmv.mp4" autoplay="autoplay" preload="auto" loop="loop" muted="muted"></video>
+		</div>
 		<el-container>
+			<div class="leftaside" v-show="showleft">
+				
+			</div>
 			<el-main class="me-articles">
 				<articlescrollpage></articlescrollpage>
 			</el-main>
@@ -30,6 +35,7 @@
 				hotArticles:[],
 				newArticles:[],
 				articlearchives:[],
+				showleft:false,
 			}
 		},
 		components: {
@@ -40,6 +46,9 @@
 			Archiveaside,
 		},
 		created() {
+			if(getCookieValue('Authorization')){
+				this.showleft = true;
+			}
 			this.gethotArticles();
 			this.getnewArticles();
 			this.getarchives();
@@ -110,17 +119,27 @@
 </script>
 
 <style scoped="scoped">
+	.leftaside{
+		width:300px;
+		min-width:250px;
+		height:400px;
+		box-shadow: 0 10px 15px rgba(212, 212, 212, 0.8);
+		margin-top: 50px;
+		margin-right:30px;		
+		margin-left: 20px;
+	}
 	.el-container {
 		height: auto;
 		display: flex;
-		justify-content: space-around;
-		min-width: 700px;
+		justify-content:center;
+		min-width: 900px;
+		flex-wrap: nowrap;
 	}
 
 	.el-aside {
 		width: 310px !important;
 		margin-left: 20px;
-		margin-top: 10px;
+		margin-top: 40px;
 		border-radius: 10px;
 		margin-bottom: 20px;
 		overflow: hidden;
@@ -141,18 +160,19 @@
 		max-width: 700px;
 		padding: 0px;
 		line-height: 16px;
-		margin-top: 30px;
+		margin-top:50px !important;
 	}
 
 	.homeimg {
-		max-height:80%;
-		max-width: 100%;
-		min-width: 740px;
-		height:480px;
-		background: url(../assets/img/v2-09ea7304a416d1a5561a9f82fd1d2bcd_r.jpg);
-		background-position-x: 50%;
-		background-position-y: center;
-		background-size: cover;
-		margin-bottom: 50px; 
+		width: 100%;
+		min-width:960px;
+		max-height:600px;
+		overflow: hidden;
+	}
+	.homeimg video{
+		width:100%;
+		min-width:960px;
+		min-height:500px;
+		transform: translateY(-2%);
 	}
 </style>
