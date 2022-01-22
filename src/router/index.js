@@ -40,7 +40,12 @@ const routes = [
 			name:'write',
 			component:r=>require.ensure([],()=>r(require('../views/write')),
 			'write')
-		}
+		},
+		{
+			path:'article/:id',
+			name:'view',
+			component:r=>require.ensure([],()=>r(require('../views/articleview')),'article')
+		},
 	]
   }
 ]

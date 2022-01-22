@@ -5,8 +5,8 @@
 				<img src="../../assets/img/head1.jpg">
 			</div>
 			<div>
-				<span id="name">KuKi and Noblegasesgoo's home</span>
-				<span id="intro">这里有我们的故事</span>
+				<span id="name">站长</span>
+				<span id="intro">KuKi and Noblegasesgoo</span>
 			</div>
 			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=86 src="//music.163.com/outchain/player?type=2&id=1826307499&auto=1&height=66"></iframe>
 	</div>

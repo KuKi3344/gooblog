@@ -35,3 +35,9 @@ export function getallarchives(){
 		url:`${base}/api/article/archives`,
 	})
 }
+export function findarticle(id){
+	return axios({
+		method:'post',
+		url:`${base}/api/article/content/${id}`,
+	})
+}

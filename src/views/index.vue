@@ -35,7 +35,7 @@
 				hotArticles:[],
 				newArticles:[],
 				articlearchives:[],
-				showleft:false,
+				showleft:true,
 			}
 		},
 		components: {
@@ -121,7 +121,7 @@
 <style scoped="scoped">
 	.leftaside{
 		width:300px;
-		min-width:250px;
+		min-width:200px;
 		height:400px;
 		box-shadow: 0 10px 15px rgba(212, 212, 212, 0.8);
 		margin-top: 50px;

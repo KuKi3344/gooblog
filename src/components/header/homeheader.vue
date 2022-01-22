@@ -49,7 +49,8 @@
 		z-index:100;
 		background-color: #fff;
 		overflow: hidden;
-		justify-content: space-around;
+		justify-content: space-between;
+		box-shadow: 0 2px 2px hsla(0, 0%, 7%, .1), 0 0 0 1px hsla(0, 0%, 7%, .1);
 	}
 	.left{
 		display: flex;
@@ -57,12 +58,7 @@
 		align-items: center;
 	}
 	.right{
-		flex:1;
 		min-width:20px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		min-width: 20px;
 	}
 	#name{
 		color:#242635;
@@ -86,8 +82,10 @@
 			margin-left:1.5vw !important;
 		}
 		.el-button{
-			margin-right:40px;
+			margin-right:2vw;
 			font-size: 14px;
+			float: left;
+			height: 100%;
 		}
 </style>
 
