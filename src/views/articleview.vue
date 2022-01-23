@@ -8,7 +8,7 @@
 					<h1 class="me-view-title">{{article.title}}</h1>
 					<div class="me-view-author">
 						<a>
-							<img class="me-view-picture" :src="article.face"></img>
+							<img class="me-view-picture" :src="article.authorFace"></img>
 						</a>
 						<div class="me-view-info">
 							<span>{{article.authorName}}</span>
@@ -19,8 +19,8 @@
 							</div>
 
 						</div>
-						<!-- <el-button v-if="this.article.author.id == this.$store.state.id" @click="editArticle()"
-							style="position: absolute;left: 60%;" size="mini" round icon="el-icon-edit">编辑</el-button> -->
+						<el-button v-if="article.authorId == this.$store.state.id" @click="editArticle()"
+							size="medium" icon="el-icon-edit" class="edit">编辑</el-button>
 					</div>
 					<div class="me-view-content">
 						<markdown :editor="article.editor"></markdown>
@@ -33,7 +33,6 @@
 
 					<div class="me-view-tag">
 						标签：
-						<!--<el-tag v-for="t in article.tags" :key="t.id" class="me-view-tag-item" size="mini" type="success">{{t.tagName}}</el-tag>-->
 						<el-button @click="tagOrCategory('tag', t.id)" size="mini" type="primary"
 							v-for="t in article.tags" :key="t.id" round plain>{{t.tagName}}</el-button>
 					</div>
@@ -97,7 +96,9 @@
 				  commentCounts: 0,
 				  viewCounts: 0,
 				  summary: '',
+				  authorId:'',
 				  authorName:'',
+				  authorFace:'',
 				  tags: [],
 				  category:{},
 				  createDate: '',
@@ -121,7 +122,7 @@
 		mounted(){
 			setTimeout(()=>{
 				document.title = `${this.article.title}-文章详情`;
-			},500)		
+			},200)		
 		},
 		methods:{
 			findArticleById(){
@@ -136,7 +137,6 @@
 							})
 						}else{						
 							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g,"\n");
-							console.log(this.article.editor.value)
 							Object.assign(this.article,resp.data.data)
 						}
 					}else{
@@ -147,10 +147,10 @@
 					})
 			},
 			editArticle(){
-				
+				this.$router.push({path: `/write/${this.article.id}`})
 			},
 			tagOrCategory(type,id){
-				
+				this.$router.push({path: `/${type}/${id}`})
 			},
 			publishComment(){
 				
@@ -167,20 +167,23 @@
 
   .me-view-container {
     width:100%;
-	min-width:960px;
+	min-width:800px;
 	display: flex;
-	justify-content:center ;
+	justify-content:center;
   }
 
   .el-main {
-    min-width:550px;
-	max-width:800px;
+    min-width:400px;
+	max-width:900px;
+	margin: 60px;
+	margin-top: 20px;
   }
 
   .me-view-title {
     font-size: 34px;
     font-weight: 800;
     line-height: 1.3;
+	margin-bottom: 20px;
   }
 
   .me-view-author {
@@ -196,6 +199,7 @@
     border-radius: 50%;
     vertical-align: middle;
     background-color: #5fb878;
+	padding:0;
   }
 
   .me-view-info {
@@ -260,5 +264,8 @@
   .v-note-wrapper .v-note-panel .v-note-show .v-show-content, .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
     background: #fff !important;
   }
-
+	.edit{
+		margin-left: 50px;
+		float: right;
+	}
 </style>

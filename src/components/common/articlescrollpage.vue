@@ -1,6 +1,6 @@
 <template>
 	<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load" class="main">
-		<articleitem v-for="article in articles" v-bind="article" :key="article.id" style="flex:1;margin-bottom: 40px;">
+		<articleitem v-for="article in articles" v-bind="article" :key="article.title" style="flex:1;margin-bottom: 40px;">
 		</articleitem>
 	</scroll-page>
 </template>

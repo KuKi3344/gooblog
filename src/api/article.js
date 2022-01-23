@@ -41,3 +41,22 @@ export function findarticle(id){
 		url:`${base}/api/article/content/${id}`,
 	})
 }
+export function getuser(){
+	return axios({
+		method:'get',
+		url:`${base}/api/sys-user/current`,
+	})
+}
+export function logout(){
+	return axios({
+		method:'post',
+		url:`${base}/logout`,
+	})
+}
+export function tologin(params) {
+	return axios({
+		method:'post',
+		url:`${base}/login`,
+		data:params
+	})
+}

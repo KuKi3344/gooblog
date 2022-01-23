@@ -4,9 +4,6 @@
 		<video src="../assets/img/bkmv.mp4" autoplay="autoplay" preload="auto" loop="loop" muted="muted"></video>
 		</div>
 		<el-container>
-			<div class="leftaside" v-show="showleft">
-				
-			</div>
 			<el-main class="me-articles">
 				<articlescrollpage></articlescrollpage>
 			</el-main>
@@ -35,7 +32,6 @@
 				hotArticles:[],
 				newArticles:[],
 				articlearchives:[],
-				showleft:true,
 			}
 		},
 		components: {
@@ -46,9 +42,6 @@
 			Archiveaside,
 		},
 		created() {
-			if(this.getCookieValue('Authorization')){
-				this.showleft = true;
-			}
 			this.gethotArticles();
 			this.getnewArticles();
 			this.getarchives();
@@ -105,7 +98,6 @@
 						})
 					}else{
 						this.articlearchives = resp.data.data;
-						this.articlearchives = this.articlearchives.filter(item=> item.id <10);
 						
 					}
 				}else{
@@ -120,20 +112,11 @@
 </script>
 
 <style scoped="scoped">
-	.leftaside{
-		width:300px;
-		min-width:200px;
-		height:400px;
-		box-shadow: 0 10px 15px rgba(212, 212, 212, 0.8);
-		margin-top: 50px;
-		margin-right:30px;		
-		margin-left: 20px;
-	}
 	.el-container {
 		height: auto;
 		display: flex;
 		justify-content:center;
-		min-width: 900px;
+		min-width: 800px;
 		flex-wrap: nowrap;
 	}
 
@@ -162,17 +145,18 @@
 		padding: 0px;
 		line-height: 16px;
 		margin-top:50px !important;
+		margin-right: 20px;
 	}
 
 	.homeimg {
 		width: 100%;
-		min-width:960px;
+		min-width:800px;
 		max-height:600px;
 		overflow: hidden;
 	}
 	.homeimg video{
 		width:100%;
-		min-width:960px;
+		min-width:800px;
 		min-height:500px;
 		transform: translateY(-2%);
 	}

@@ -12,13 +12,24 @@
 			</el-menu>
 		</div>
 		<div class="right">
-			  <el-button type="text">登录</el-button>
-			  <el-button style="color:#57b3dd" type="text">注册</el-button>
+			  <el-button type="text" v-if="!islogin" @click="tologin">登录</el-button>
+			  <el-button type="text" v-if="!islogin" @click="toregist">注册</el-button>
+			  <el-dropdown class="userInfo" @command="commandHandler" v-if="islogin">
+			  	<span class="el-dropdown-link">
+			  		<i> <img :src="user.face"> </i>
+			  	</span>
+			  	<el-dropdown-menu slot="dropdown" class="dropmenu">
+			  		<el-dropdown-item disabled class="username">{{user.nickname}}</el-dropdown-item>
+			  		<el-dropdown-item command="logout">退出登录</el-dropdown-item>
+					<el-dropdown-item disabled class="lasttime">上次登录:{{user.lastLoginDate}}</el-dropdown-item>
+			  	</el-dropdown-menu>
+			  </el-dropdown>
 		</div>
 	</div>
 </template>
 
 <script>
+	import {logout} from '../../api/article.js'
 	export default{
 		name:'homeheader',
 		props:{
@@ -26,11 +37,46 @@
 		},
 		data(){
 			return{
-				user:{
-					login:false,
-					avatar:'',//头像
-				}
+				islogin:false,
+				user:JSON.parse(window.sessionStorage.getItem('user')),
 			}
+		},
+		created(){
+			if(window.sessionStorage.getItem('user')!=null){
+				this.islogin = true;
+				console.log(this.user)
+			}
+		},
+		methods:{
+			tologin(){
+				this.$router.push('/login');
+			},
+			toregist(){
+				this.$router.push('/regist')
+			},
+			commandHandler(command){
+					if(command=='logout'){
+						this.$confirm('此操作将注销登录, 是否继续?', '提示', {
+						          confirmButtonText: '确定',
+						          cancelButtonText: '取消',
+						          type: 'warning'
+						        }).then(() => {
+									//注销登录
+						         logout();
+						          //清空用户信息
+								  this.clearCookie('Authorization');
+						          window.sessionStorage.removeItem('user');
+								  //清除vuex中保存的路由，这样保证路由一直是当前用户拥有的
+						         this.$router.go(0) 
+								  
+						        }).catch(() => {
+						          this.$message({
+						            type: 'info',
+						            message: '已取消'
+						          });          
+						        });				
+					}
+			},
 		}
 	}
 </script>
@@ -45,7 +91,7 @@
 		display: flex;
 		height:50px;
 		width:100%;
-		min-width: 960px;
+		min-width: 800px;
 		z-index:100;
 		background-color: #fff;
 		overflow: hidden;
@@ -86,6 +132,28 @@
 			font-size: 14px;
 			float: left;
 			height: 100%;
+		}
+		.el-dropdown-link{
+			margin-right: 40px;
+				height:50px;
+				width:50px;
+				padding:auto;
+		}
+		.el-dropdown-link img{
+			height:45px;
+			width:45px;
+			border-radius: 50%;
+			border:1px solid #b9e598;
+		}
+		.el-dropdown-menu{
+			text-align: center;
+		}
+		.username{
+			color:#35495b !important;
+		}
+		.lasttime{
+			color: #9aadbd;
+			font-size: 12px;
 		}
 </style>
 

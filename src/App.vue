@@ -29,8 +29,8 @@
 			setTimeout(()=>{
 				box.remove();
 				var box2 = document.getElementById("app");
-				app.setAttribute("style","animation-name: ease;animation-duration: 2s;")
-			},200)
+				app.setAttribute("style","animation-name: ease;animation-duration: 1s;")
+			},500)
 			
 		}
 	}
@@ -68,7 +68,7 @@
 
 @keyframes ease{
 	0%{
-		opacity: 0.4;
+		opacity: 0.6;
 	}
 	100%{
 		opacity: 1;
