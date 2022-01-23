@@ -8,7 +8,7 @@
 					<h1 class="me-view-title">{{article.title}}</h1>
 					<div class="me-view-author">
 						<a>
-							<img class="me-view-picture" src=""></img>
+							<img class="me-view-picture" :src="article.face"></img>
 						</a>
 						<div class="me-view-info">
 							<span>{{article.authorName}}</span>
@@ -102,7 +102,7 @@
 				  category:{},
 				  createDate: '',
 				  editor: {
-				    value: '',
+				    value: "",
 				    toolbarsFlag: false,
 				    subfield: false,
 				    defaultOpen: 'preview'
@@ -135,7 +135,8 @@
 								type: 'error'
 							})
 						}else{						
-							this.article.editor.value = resp.data.data.body.content
+							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g,"\n");
+							console.log(this.article.editor.value)
 							Object.assign(this.article,resp.data.data)
 						}
 					}else{

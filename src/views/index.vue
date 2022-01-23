@@ -84,7 +84,6 @@
 								})
 							}else{
 								this.newArticles = resp.data.data;
-								console.log(this.newArticles)
 								this.newArticles = this.newArticles.filter(item=>item.id<5)
 							}
 						}else{
@@ -106,6 +105,8 @@
 						})
 					}else{
 						this.articlearchives = resp.data.data;
+						this.articlearchives = this.articlearchives.filter(item=> item.id <10);
+						
 					}
 				}else{
 					this.$message.error(resp.data.message)
