@@ -42,7 +42,7 @@
 			}
 		},
 		created(){
-			if(window.sessionStorage.getItem('user')!=null){
+			if(window.sessionStorage.getItem('user')){
 				this.islogin = true;
 				console.log(this.user)
 			}
@@ -108,7 +108,7 @@
 	}
 	#name{
 		color:#242635;
-		font-size: 25px;
+		font-size: 1.8vw;
 		display: inline-block;
 		font-weight: 600;
 		font-family:"bodoni mt";
@@ -118,7 +118,7 @@
 		flex:1
 		}
 		.el-menu-item{
-			font-size:13px;
+			font-size:0.8vw;
 			height:49px !important;
 			line-height:49px !important;
 			margin-right:1vw !important;
@@ -129,7 +129,7 @@
 		}
 		.el-button{
 			margin-right:2vw;
-			font-size: 14px;
+			font-size: 0.8vw;
 			float: left;
 			height: 100%;
 		}

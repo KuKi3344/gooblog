@@ -1,5 +1,6 @@
 <template>
 	<div class="main">
+							<div class="title">GOO BLOG</div>
 		<el-form :rules="rules" v-loading="loading" element-loading-text="努力登录中..."
 			element-loading-spinne="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.6)"
 			ref="userLoginParam" :model="userLoginParam" class="loginbox">
@@ -12,8 +13,8 @@
 				</el-input>
 			</el-form-item>
 			<div style="display: flex;justify-content: space-around;">
-				<el-button type="primary" style="width:40%;margin-top:15px" @click="toRegist" round>注册</el-button>
-				<el-button type="primary" style="width:40%;margin-top:15px" @click="doSubmit" round>登录</el-button>
+				<el-button type="primary" size="small" style="width:40%;margin-top:15px" @click="toRegist" round>注册</el-button>
+				<el-button type="primary" size="small" style="width:40%;margin-top:15px" @click="doSubmit" round>登录</el-button>
 			</div>
 		
 		</el-form>
@@ -172,10 +173,10 @@
 	.loginbox{
 		border-radius:15px;
 		background-clip: padding-box;
-		margin:20px auto;
-		margin-top: 150px;
-		width:320px;
-		height:300px;
+		margin:10px auto;
+		margin-top: 30px;
+		width:260px;
+		height:150px;
 		padding: 50px;
 		background-color:#ffffff;
 		box-shadow: 0 15px 25px rgba(212, 212, 212, 0.8);
@@ -184,7 +185,7 @@
 		position:absolute;
 		left:50%;
 		top:50%;
-		transform: translate(10%,-50%);
+		transform: translate(-50%,-50%);
 		padding:30px 10px 10px 20px;
 		background-color: #ffffff;
 		border-radius:5px;
@@ -194,5 +195,15 @@
 	.el-form-item__content{
 		display:flex;
 		align-items: center;
+	}
+	.title{
+		font-size: 40px;
+		margin-top: 180px;
+		width:100%;
+		text-align: center;
+		color:#424954;
+		letter-spacing: 2px;
+		font-weight: 600;
+		font-family:"bodoni mt";
 	}
 </style>

@@ -69,11 +69,7 @@
 							<span>{{article.commentCounts}} 条评论</span>
 						</div>
 
-					<!-- 	<commment-item v-for="(c,index) in comments" :comment="c" :articleId="article.id" :index="index"
-							:rootCommentCounts="comments.length" @commentCountsIncrement="commentCountsIncrement"
-							:key="c.id">
-						</commment-item> -->
-
+						<commentview></commentview>
 					</div>
 
 				</div>
@@ -86,6 +82,7 @@
 <script>
 	import { findarticle } from '../api/article.js'
 	import markdown from '../components/markdown/markdown'
+	import commentview from '../components/comment/commentview'
 	export default {
 		name: 'articleview',
 		data(){
@@ -114,7 +111,8 @@
 			}
 		},
 		components:{
-			markdown
+			markdown,
+			commentview
 		},
 		created(){
 			this.findArticleById();	
@@ -209,6 +207,7 @@
   }
 .me-view-content{
 	margin-top:30px !important;
+	opacity: 0.9;
 }
   .me-view-meta {
     font-size: 12px;

@@ -50,6 +50,7 @@
 		border-radius: 5px;
 		margin:15px;
 		margin-top: 50px;
+		background-color: #fff;
 	}
 	.tagtitle{
 		display: inline-block;

@@ -11,34 +11,34 @@ export function gethottag(){
 export function getarticles(params) {
 	return axios({
 		method:'post',
-		url:`${base}/api/article/all`,
+		url:`${base}/article/all`,
 		data:params
 	})
 }
 export function hotArticles(params){
 	return axios({
 		method:'get',
-		url:`${base}/api/article/hot/${params}`,
+		url:`${base}/article/hot/${params}`,
 	})
 }
 
 export function newArticles(){
 	return axios({
 		method:'get',
-		url:`${base}/api/article/new`,
+		url:`${base}/article/new`,
 	})
 }
 
 export function getallarchives(){
 	return axios({
 		method:'post',
-		url:`${base}/api/article/archives`,
+		url:`${base}/article/archives`,
 	})
 }
 export function findarticle(id){
 	return axios({
 		method:'post',
-		url:`${base}/api/article/content/${id}`,
+		url:`${base}/article/content/${id}`,
 	})
 }
 export function getuser(){
@@ -58,5 +58,17 @@ export function tologin(params) {
 		method:'post',
 		url:`${base}/login`,
 		data:params
+	})
+}
+export function getcomment(id){
+	return axios({
+		method:'get',
+		url:`${base}/comment/article/level1/all/${id}`,
+	})
+}
+export function getrecall(id){
+	return axios({
+		method:'get',
+		url:`${base}/comment/article/level2/all/${id}`,
 	})
 }

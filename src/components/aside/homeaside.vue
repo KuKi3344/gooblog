@@ -30,6 +30,7 @@
 		margin:15px;
 		animation-name: ease;
 		animation-duration: 2s;
+		background-color: #fff;
 	}
 	#name {
 		display: inline-block;

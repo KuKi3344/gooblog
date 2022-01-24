@@ -36,7 +36,7 @@
 	export default {
 		name: 'articleitem',
 		props: {
-			id: Number,
+			id: String,
 			isTop: Boolean,
 			title: String,
 			commentCounts: Number,

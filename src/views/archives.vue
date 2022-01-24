@@ -6,7 +6,7 @@
         <ul class="me-month-list">
           <li v-for="a in archives" :key="a.year + a.month" class="me-month-item">
             <el-badge :value="a.count">
-              <el-button @click="changeArchive(a.year, a.month)" size="small">{{a.year +'年' + a.month + '月'}}
+              <el-button @click="changeArchive(a.year, a.month)"  size="small">{{a.year +'年' + a.month + '月'}}
               </el-button>
             </el-badge>
           </li>
@@ -16,7 +16,7 @@
 
 
       <el-main class="me-articles">
-        <div class="me-month-title">{{currentArchive}}</div>
+       
 
       <!-- <articlescrollpage v-bind="article"></articlescrollpage> -->
 
@@ -102,14 +102,25 @@
 <style scoped>
 
   .el-container {
-    width: 640px;
+	margin-top: 80px;
+	margin-left:50px;
+	margin-right: 50px;;
   }
 
   .el-aside {
-    position: fixed;
-    left: 200px;
     margin-right: 50px;
-    width: 150px !important;
+    min-width: 150px;
+	border-radius: 5px;
+	border:1px dashed #dedede;
+  }
+  .el-aside ul{
+	  	display: flex;
+		justify-content: space-between;
+		flex-direction: column;
+		flex-wrap: wrap;
+  }
+  .el-aside li{
+	  margin-right: 40px;
   }
 
   .el-main {
