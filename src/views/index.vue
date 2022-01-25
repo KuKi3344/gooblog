@@ -118,6 +118,7 @@
 		justify-content:center;
 		min-width: 800px;
 		flex-wrap: nowrap;
+		background-color: #fff;
 	}
 
 	.el-aside {

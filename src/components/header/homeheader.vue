@@ -14,7 +14,7 @@
 		<div class="right">
 			  <el-button type="text" v-if="!islogin" @click="tologin">登录</el-button>
 			  <el-button type="text" v-if="!islogin" @click="toregist">注册</el-button>
-			  <el-dropdown class="userInfo" @command="commandHandler" v-if="islogin">
+			  <el-dropdown class="userInfo" @command="commandHandler" v-else>
 			  	<span class="el-dropdown-link">
 			  		<i> <img :src="user.face"> </i>
 			  	</span>
@@ -37,15 +37,19 @@
 		},
 		data(){
 			return{
-				islogin:false,
 				user:JSON.parse(window.sessionStorage.getItem('user')),
+				islogin:false
 			}
 		},
 		created(){
-			if(window.sessionStorage.getItem('user')){
-				this.islogin = true;
-				console.log(this.user)
+			if(this.user){
+				this.islogin = true
 			}
+		},
+		watch:{
+			 '$route' (to, from) {
+			        this.$router.go(0);
+			    }
 		},
 		methods:{
 			tologin(){

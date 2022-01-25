@@ -136,7 +136,7 @@
 										message: '登录成功',
 										type: 'success'
 									});
-									this.$router.go (-1);
+									this.$router.go(-1)
 								}
 
 							})
@@ -166,9 +166,7 @@
 		top: 0;
 		right: 0;
 		bottom: 0;
-		max-width: 1528px;
-		min-width:650px;
-		margin: 0 auto;
+		margin: 100px auto;
 	}
 	.loginbox{
 		border-radius:15px;
@@ -198,7 +196,7 @@
 	}
 	.title{
 		font-size: 40px;
-		margin-top: 180px;
+		margin-top:50px;
 		width:100%;
 		text-align: center;
 		color:#424954;

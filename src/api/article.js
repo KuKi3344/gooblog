@@ -5,70 +5,84 @@ var base = '';
 export function gethottag(){
 	return axios({
 		method:'get',
-		url:`${base}/api/tag/hot`,
+		url:`${base}/tag/public/hot`,
 	})
 }
 export function getarticles(params) {
 	return axios({
 		method:'post',
-		url:`${base}/article/all`,
+		url:`${base}/article/public/all`,
 		data:params
 	})
 }
 export function hotArticles(params){
 	return axios({
 		method:'get',
-		url:`${base}/article/hot/${params}`,
+		url:`${base}/article/public/hot/${params}`,
 	})
 }
 
 export function newArticles(){
 	return axios({
 		method:'get',
-		url:`${base}/article/new`,
+		url:`${base}/article/public/new`,
 	})
 }
 
 export function getallarchives(){
 	return axios({
 		method:'post',
-		url:`${base}/article/archives`,
+		url:`${base}/article/public/archives`,
 	})
 }
 export function findarticle(id){
 	return axios({
 		method:'post',
-		url:`${base}/article/content/${id}`,
+		url:`${base}/article/public/content/${id}`,
 	})
 }
 export function getuser(){
 	return axios({
 		method:'get',
-		url:`${base}/api/sys-user/current`,
+		url:`${base}/user/private/current`,
 	})
 }
 export function logout(){
 	return axios({
 		method:'post',
-		url:`${base}/logout`,
+		url:`${base}/public/logout`,
 	})
 }
 export function tologin(params) {
 	return axios({
 		method:'post',
-		url:`${base}/login`,
+		url:`${base}/public/login`,
 		data:params
 	})
 }
 export function getcomment(id){
 	return axios({
 		method:'get',
-		url:`${base}/comment/article/level1/all/${id}`,
+		url:`${base}/comment/public/article/level1/all/${id}`,
 	})
 }
 export function getrecall(id){
 	return axios({
 		method:'get',
-		url:`${base}/comment/article/level2/all/${id}`,
+		url:`${base}/comment/public/article/level2/all/${id}`,
+	})
+}
+export function comment(params) {
+	return axios({
+		method:'post',
+		url:`${base}/comment/private/create`,
+		params:params
+	})
+}
+export function recall(params) {
+	return axios({
+		method:'post',
+		url:`${base}/comment/private/create`,
+		params:params
 	})
 }
