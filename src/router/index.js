@@ -17,6 +17,12 @@ const routes = [
 		component: r=>require.ensure([],()=>r(require('../views/regist')),
 		'regist')
 	},
+	{
+		path:'/write/:id?',
+		name:'写文章',
+		component:r=>require.ensure([],()=>r(require('../views/Blog/Blogwrite')),
+		'Blogwrite')
+	},
   {
     path: '/',
     name: '首页',
@@ -48,15 +54,9 @@ const routes = [
 			'archives')
 		},
 		{
-			path:'/write',
-			name:'写文章',
-			component:r=>require.ensure([],()=>r(require('../views/write')),
-			'write')
-		},
-		{
 			path:'article/:id',
 			name:'查看文章',
-			component:r=>require.ensure([],()=>r(require('../views/articleview')),'article')
+			component:r=>require.ensure([],()=>r(require('../views/Blog/articleview')),'articleview')
 		},
 	]
   }

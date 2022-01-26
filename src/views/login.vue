@@ -161,12 +161,10 @@
 
 <style scoped="scoped">
 	.main{
-		position: absolute;
-		left: 0;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		margin: 100px auto;
+	position: absolute;
+	left:50%;
+	top:50%;
+	transform: translate(-50%,-55%);
 	}
 	.loginbox{
 		border-radius:15px;
@@ -196,7 +194,7 @@
 	}
 	.title{
 		font-size: 40px;
-		margin-top:50px;
+		margin-top:10px;
 		width:100%;
 		text-align: center;
 		color:#424954;

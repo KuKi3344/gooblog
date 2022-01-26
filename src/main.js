@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui';
+import { Message } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
 import VueAxios from 'vue-axios'
@@ -37,27 +38,28 @@ axios.interceptors.request.use(config=>{
 })
 
 router.beforeEach((to,from,next)=>{
-	document.title=`${to.name}	-	GOOBLOG`;
 	if(getCookieValue('Authorization')){
 			getuser().then(resp=>{
 					if(resp.data.data!=null){
 						window.sessionStorage.setItem('user',JSON.stringify(resp.data.data));
 						store.state.id = resp.data.data.id;
+						store.state.login = true;
+						document.title=`${to.name}	-	GOOBLOG`;
 						next();
 					}else{
 						clearCookie('Authorization');
-						this.$message.error("登陆超时，请重新登录");
-						next();
+						Message.error("登陆超时，请重新登录");
 					}
 			})
 
 	}
 	if(!getCookieValue('Authorization')){
 		//如果没有token就拦截，如果去登录页面不拦截，如果去别的就给调到404页面
-		if(to.path=='/dawdwa'||to.path=='/ddddd'){
-			this.$message.warning("请先登录")
+		if(to.path==`/write/:id?`||to.path==`/write`){
+			Message.warning("请先登录")
 		}
 		else{
+			document.title=`${to.name}	-	GOOBLOG`;
 			next();
 		}
 	}

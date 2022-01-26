@@ -62,7 +62,7 @@
 							this.innerPage.page += 1;
 						}
 					} else {
-						this.$message.error(resp.data.msg)
+						this.$message.error(resp.data.message)
 					}
 				}).catch(err => {
 					this.$message.error('加载失败qvq')

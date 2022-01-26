@@ -12,8 +12,8 @@
 			</el-menu>
 		</div>
 		<div class="right">
-			  <el-button type="text" v-if="!islogin" @click="tologin">登录</el-button>
-			  <el-button type="text" v-if="!islogin" @click="toregist">注册</el-button>
+			  <el-button type="text" v-if="!this.$store.state.login" @click="tologin">登录</el-button>
+			  <el-button type="text" v-if="!this.$store.state.login" @click="toregist">注册</el-button>
 			  <el-dropdown class="userInfo" @command="commandHandler" v-else>
 			  	<span class="el-dropdown-link">
 			  		<i> <img :src="user.face"> </i>
@@ -40,16 +40,6 @@
 				user:JSON.parse(window.sessionStorage.getItem('user')),
 				islogin:false
 			}
-		},
-		created(){
-			if(this.user){
-				this.islogin = true
-			}
-		},
-		watch:{
-			 '$route' (to, from) {
-			        this.$router.go(0);
-			    }
 		},
 		methods:{
 			tologin(){
@@ -122,7 +112,7 @@
 		flex:1
 		}
 		.el-menu-item{
-			font-size:0.8vw;
+			font-size:0.9vw;
 			height:49px !important;
 			line-height:49px !important;
 			margin-right:1vw !important;
@@ -133,7 +123,7 @@
 		}
 		.el-button{
 			margin-right:2vw;
-			font-size: 0.8vw;
+			font-size: 0.9vw;
 			float: left;
 			height: 100%;
 		}

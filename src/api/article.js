@@ -86,3 +86,22 @@ export function recall(params) {
 		params:params
 	})
 }
+export function getallcategory(id){
+	return axios({
+		method:'get',
+		url:`${base}/category/public/all`,
+	})
+}
+export function getalltag(id){
+	return axios({
+		method:'get',
+		url:`${base}/tag/public/all`,
+	})
+}
+export function  publisharticle(params) {
+	return axios({
+		method:'post',
+		url:`${base}/article/private/publish`,
+		data:params
+	})
+}

@@ -60,7 +60,7 @@
 							this.hotArticles = resp.data.data;
 						}
 					}else{
-						this.$message.error(resp.data.msg)
+							this.$message.error(resp.data.message)
 					}
 				}).catch(err => {
 						this.$message.error('加载失败')
@@ -80,7 +80,7 @@
 								this.newArticles = this.newArticles.filter(item=>item.id<5)
 							}
 						}else{
-							this.$message.error(resp.data.msg)
+								this.$message.error(resp.data.message)
 						}
 					}).catch(err => {
 							this.$message.error('加载失败')

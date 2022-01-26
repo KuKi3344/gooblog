@@ -4,7 +4,11 @@
 		   class="me-editor"
 		   ref="md"
 		   v-model="editor.value"
-		   @imgAdd="imgAdd"
+		  @imgAdd="imgAdd"
+		  @imageFilter="imgfilter"
+		  previewBackground="#ffffff"
+		  boxShadowStyle="none"
+		  placeholder="在这输入正文"
 		   v-bind="editor">
 		   </mavon-editor>
 	</div>
@@ -39,12 +43,15 @@
 			
 			      that.$refs.md.$img2Url(pos, data.data);
 			    } else {
-			      that.$message({message: data.msg, type: 'error', showClose: true})
+			      that.$message({message: data.message, type: 'error', showClose: true})
 			    }
 			
 			  }).catch(err => {
 			    that.$message({message: err, type: 'error', showClose: true});
 			  })
+			},
+			imgfilter(){
+				
 			}
 		},
 		components:{
