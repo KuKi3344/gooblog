@@ -1,14 +1,12 @@
 <template>
 	<div class="card">
 			<div class="head">
-				<img src="../../assets/img/head2.jpg" style="transform: translateX(20px);">
-				<img src="../../assets/img/head1.jpg">
+				<img src="https://guangzan.gitee.io/imagehost/Illustrations/spring.svg">
 			</div>
-			<div>
+			<div style="margin-bottom:10px;">
 				<span id="name">站长</span>
 				<span id="intro">KuKi and Noblegasesgoo</span>
 			</div>
-			<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=280 height=86 src="//music.163.com/outchain/player?type=2&id=1826307499&auto=1&height=66"></iframe>
 	</div>
 </template>
 
@@ -25,12 +23,12 @@
 
 <style scoped="scoped">
 	.card >>>{
-		box-shadow: 0 10px 15px rgba(212, 212, 212, 0.8);
 		border-radius: 5px;
 		margin:15px;
 		animation-name: ease;
 		animation-duration: 2s;
-		background-color: #fff;
+		background-color: #fcfcfc;
+		border-radius: 10px;
 	}
 	#name {
 		display: inline-block;
@@ -46,9 +44,7 @@
 		transform: translateX(50px);
 	}
 	.head img {
-		width: 80px;
-		border-radius: 50%;
-		border: 2px solid #bababa;
+		width: 180px;
 		margin-bottom:20px;
 		margin-top: 20px;
 	}
@@ -60,6 +56,7 @@
 	letter-spacing: 2px;
 	margin-top: 10px;
 	color:#767676;
+	margin-bottom: 20px;
 }
 iframe{
 	margin-top:30px;

@@ -46,11 +46,14 @@
 
 <style scoped="scoped">
 	.card2 >>>{
-		box-shadow: 0 10px 15px rgba(212, 212, 212, 0.8);
 		border-radius: 5px;
 		margin:15px;
 		margin-top: 50px;
 		background-color: #fff;
+	}
+	.el-tag{
+		max-width:80px;
+		margin:15px !important;	
 	}
 	.tagtitle{
 		display: inline-block;
@@ -71,11 +74,12 @@
 		margin:5px auto;
 	}
 	.list{
+		margin:0;
 		margin-top: 30px;
 		display: flex;
 		flex-wrap: wrap;
-		flex-direction: row;
-		justify-content: space-around;
+		flex-direction:row;
+		justify-content: flex-start;
 	}
 	.list .el-tag{
 		margin-right: 30px;

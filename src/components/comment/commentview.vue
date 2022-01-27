@@ -61,15 +61,7 @@
 				let id = this.$route.params.id;
 				getrecall(id).then(resp => {
 					if (resp.data.code == 200) {
-						if (resp.data.data.length <= 0) {
-							this.$message({
-								showClose: true,
-								message: '找不到评论',
-								type: 'error'
-							})
-						} else {
 							this.leveltwo = resp.data.data;
-						}
 					} else {
 						this.$message.error(resp.data.message)
 					}
@@ -94,6 +86,7 @@
 
 			},
 			recallcomment() {
+				this.reply.commentContent = this.reply.commentContent;
 					recall(this.reply).then(resp=>{
 						if (resp.data.code == 200) {
 							this.$message.success("回复成功")

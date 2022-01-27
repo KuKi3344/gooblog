@@ -1,18 +1,18 @@
 <template>
-	<div style="max-width: 1540px;">
-		<div class="homeimg">
-		<video src="../assets/img/bkmv.mp4" autoplay="autoplay" preload="auto" loop="loop" muted="muted"></video>
-		</div>
+	<div>
 		<el-container>
 			<el-main class="me-articles">
+				<img src="">
 				<articlescrollpage></articlescrollpage>
 			</el-main>
 			<el-aside>
-				<homeaside></homeaside>
-				<tagaside></tagaside>
-				<articleside cardHeader="热门文章" :articles="hotArticles"></articleside>
-				<articleside cardHeader="最新文章" :articles="newArticles"></articleside>
-				<Archiveaside  cardHeader="文章归档" :archives="articlearchives"></Archiveaside>
+				<div class="aside">
+					<homeaside></homeaside>
+					<tagaside></tagaside>
+					<articleside cardHeader="热门文章" :articles="hotArticles"></articleside>
+					<articleside cardHeader="最新文章" :articles="newArticles"></articleside>
+					<Archiveaside  cardHeader="文章归档" :archives="articlearchives"></Archiveaside>
+				</div>
 			</el-aside>
 		</el-container>
 	</div>
@@ -116,20 +116,24 @@
 		height: auto;
 		display: flex;
 		justify-content:center;
-		min-width: 800px;
+		min-width: 300px;
 		flex-wrap: nowrap;
 		background-color: #fff;
 	}
 
 	.el-aside {
 		width: 310px !important;
-		margin-left: 20px;
-		margin-top: 40px;
+		min-width:80px;
 		border-radius: 10px;
 		margin-bottom: 20px;
 		overflow: hidden;
 	}
-
+	.aside{
+		position: fixed;
+		height:100%;
+			padding-top:10px;
+			overflow: scroll;
+	}
 	.el-card {
 		border-radius: 0;
 	}
@@ -141,24 +145,15 @@
 	.me-articles {
 		display: flex;
 		flex-direction: column;
-		min-width: 400px;
-		max-width: 700px;
+		min-width: 280px;
 		padding: 0px;
 		line-height: 16px;
 		margin-top:50px !important;
 		margin-right: 20px;
 	}
-
-	.homeimg {
-		width: 100%;
-		min-width:800px;
-		max-height:600px;
-		overflow: hidden;
-	}
-	.homeimg video{
-		width:100%;
-		min-width:800px;
-		min-height:500px;
-		transform: translateY(-2%);
+	@media screen and (max-width: 850px) {
+	    .el-aside {
+	       display: none;
+	    }
 	}
 </style>

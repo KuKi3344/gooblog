@@ -6,6 +6,7 @@
 		   v-model="editor.value"
 		  @imgAdd="imgAdd"
 		  @imageFilter="imgfilter"
+		  :ishljs="true"
 		  previewBackground="#ffffff"
 		  boxShadowStyle="none"
 		  placeholder="在这输入正文"
@@ -37,13 +38,13 @@
 			  let formdata = new FormData();
 			  formdata.append('image', $file);
 			
-			  upload(formdata).then(data => {
+			  upload(formdata).then(resp => {
 			    // 第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
 			    if (data.success) {
 			
-			      that.$refs.md.$img2Url(pos, data.data);
+			      that.$refs.md.$img2Url(pos, resp.data.data);
 			    } else {
-			      that.$message({message: data.message, type: 'error', showClose: true})
+			      that.$message({message: resp.data.message, type: 'error', showClose: true})
 			    }
 			
 			  }).catch(err => {

@@ -200,6 +200,7 @@
             let tags = this.articleForm.tags.map(function (item) {
               return {id: item};
             });
+			this.articleForm.editor.value = this.articleForm.editor.value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 			if(this.type == 'add'){
 				let article = {
 				  id: this.articleForm.id,
@@ -213,7 +214,6 @@
 				  }
 				
 				}
-				
 				this.publishVisible = false;
 				
 				let loading = this.$loading({
@@ -302,6 +302,9 @@
 </script>
 
 <style scoped="scoped">
+	body{
+		font-size: 15px;
+	}
   .el-header {
     position: fixed;
     z-index: 1024;
@@ -329,7 +332,6 @@
   .me-write-box {
 	background-color: #fff;
 	min-width: 100%;
-    max-width: 1545px;
     margin: 80px auto 0;
 	margin-top: 60px;
 	opacity: 0.95;
@@ -394,11 +396,21 @@ input::-webkit-input-placeholder{
 		margin: 5px;
 		border: 1px solid #cacaca;
 		background-color: #fff;
+		text-align: center;
 		
 	}
 	button:hover{
 		border:1px solid #70b86e;
 		color: #70b86e;
+	}
+	.el-button{
+		width:80px;
+		height:35px;
+		color:#70b86e;
+	}
+	.el-button:hover{
+		background-color: #77c37e;
+		color:#fff;
 	}
 	.leaf{
 		width:30px;

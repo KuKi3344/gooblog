@@ -1,33 +1,32 @@
 <template>
-	<div>
-		<el-card class="me-area" :body-style="{ padding: '16px'}">
+	<div style="display: flex;justify-content: center;">
+		<el-card>
 			<div class="me-article-header">
 
-				<a @click="view(id)" class="me-article-title">{{title}}</a>
-				<el-button v-if="isTop" class="me-article-icon" type="text">置顶</el-button>
-				<span class="me-pull-right me-article-count">
-					<i class="el-icon-chat-line-square"></i>&nbsp;{{commentCounts}}
-				</span>
-				<span class="me-pull-right me-article-count">
-					<i class="el-icon-view"></i>&nbsp;{{viewCounts}}
-				</span>
+				<a @click="view(id)" class="me-article-title"><i class="el-icon-document"></i>{{title}}</a>
+				<el-button v-if="isTop" class="me-article-icon" type="text" size="mini">置顶</el-button>
 			</div>
 
 			<div class="me-artile-description">
 				{{summary}}
 			</div>
-			<div class="me-article-footer">
-				<span class="me-article-author">
+			<div class="intro">
+				<div class="me-article-author">
 					<i class="me-icon-author"></i>&nbsp;{{authorName}}
-				</span>
-
-				<el-tag v-for="t in tags" :key="t.tagName" size="mini" type="success">{{t.tagName}}</el-tag>
-
-				<span class="me-pull-right me-article-count">
+				</div>
+				<div class="me-pull-right me-article-count">
 					<i class="el-icon-time"></i>&nbsp;{{gmtCreate | format}}
-				</span>
-
+				</div>
 			</div>
+		
+				<div class="foot">
+					<span class="footview">
+						<i class="el-icon-view"></i>&nbsp;{{viewCounts}}
+					</span>
+					<span class="footview">
+						<i class="el-icon-chat-line-square"></i>&nbsp;{{commentCounts}}
+					</span>
+				</div>
 		</el-card>
 	</div>
 </template>
@@ -60,47 +59,48 @@
 </script>
 
 <style scoped="scoped">
-	.me-article-header {
-		/*padding: 10px 18px;*/
-		padding-bottom: 10px;
+	body{
+		font-size: 20px;
 	}
-
-	.me-article-title {
+	.el-card{
+		flex:1;
+		width:240px;
+		max-width: 420px;
+		max-height:350px;
+		min-height:150px;
+		margin:15px 10px;
+		display: flex;
+		justify-content: space-around;
+		flex-direction: column;
+		flex-wrap: wrap;
+	}
+	.el-icon-document{
+		color:#63bad4;
+		margin-right: 5px;
+	}
+	.me-article-title{
 		font-weight: 600;
-		margin-right: 20px;
-	
+		font-size: 1rem;
+		margin-right: 10px;
 	}
 	.me-article-header a:hover{
-		color:#63a560;
+		color:#71c271 !important;
 	}
-
-	.me-article-icon {
-		padding: 3px 8px;
+	.me-artile-description{
+		min-height:80px;
+		font-size: 0.8rem;
+		margin-top: 10px;
 	}
-
-	.me-article-count {
-		color: #a6a6a6;
-		padding-left: 14px;
-		font-size: 13px;
+	.me-article-count{
+		color:#909090;
+		font-size: 0.18rem;
 	}
-
-	.me-pull-right {
-		float: right;
+	.foot{
+		border-top: 1px solid #e7e7e7;
+		width:100%;
 	}
-
-	.me-artile-description {
-		font-size: 13px;
-		line-height: 24px;
-		margin-bottom: 10px;
-	}
-
-	.me-article-author {
-		color: #a6a6a6;
-		padding-right: 18px;
-		font-size: 13px;
-	}
-
-	.el-tag {
-		margin-left: 6px;
+	.footview{
+		color:#a2a2a2;
+		font-size: 0.6rem;
 	}
 </style>

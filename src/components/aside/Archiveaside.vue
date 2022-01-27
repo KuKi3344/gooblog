@@ -1,15 +1,17 @@
 <template>
 
-  <el-card :body-style="{ padding: '8px 18px' }">
-    <div slot="header" class="me-category-header">
+<div style="margin:20px;">
+	  <div slot="header" class="me-category-header">
       <span>{{cardHeader}}</span>
     </div>
-
+<div class="line"></div>
     <ul class="me-category-list">
       <li v-for="a in archives" @click="view(a.year, a.month)" :key="a.year + a.month" class="me-category-item"><a>{{`${a.year}年${a.month}月(${a.count})`}}</a>
       </li>
     </ul>
-  </el-card>
+</div>
+  
+
 
 </template>
 
@@ -35,10 +37,12 @@
 </script>
 
 <style scoped>
-.el-card{
-	margin-top:40px !important;
-	margin:10px;
-}
+	.line{
+		height:0.5px;
+		width:200px;
+		background-color: #cfdde6;
+		margin:10px auto;
+	}
 .me-category-header {
 	  text-align: center;
 	  letter-spacing: 2px;

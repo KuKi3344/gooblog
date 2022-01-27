@@ -11,7 +11,7 @@ export function gethottag(){
 export function getarticles(params) {
 	return axios({
 		method:'post',
-		url:`${base}/article/public/all`,
+		url:`${base}/article/public/all/new`,
 		data:params
 	})
 }

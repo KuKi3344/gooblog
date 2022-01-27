@@ -7,12 +7,12 @@
 				<div class="me-view-card">
 					<h1 class="me-view-title">{{article.title}}</h1>
 					<div class="me-view-author">
-						<a :href="'/userinfo/'+article.authorId">
+						<a :href="'/userinfo/'+article.author.id">
 							<img class="me-view-picture" :src="article.authorFace"></img>
 						</a>
 						<div class="me-view-info">
 							<a :href="'/userinfo/'+article.authorId">
-							<span>{{article.authorName}}</span>
+							<span>{{article.author.nickname}}</span>
 							</a>
 							<div class="me-view-meta">
 								<span>{{article.gmtCreate | format}}</span>
@@ -21,7 +21,7 @@
 							</div>
 
 						</div>
-						<el-button v-if="article.authorId == this.$store.state.id" @click="editArticle()" size="medium"
+						<el-button v-if="article.author.id == this.$store.state.id" @click="editArticle()" size="medium"
 							icon="el-icon-edit" class="edit">编辑</el-button>
 					</div>
 					<div class="me-view-content">
@@ -184,6 +184,7 @@
 			},
 			publishComment() {
 				this.subcomment.articleId = this.$route.params.id;
+				this.subcomment.commentContent = this.subcomment.commentContent;
 				comment(this.subcomment).then(resp => {
 					if (resp.data.code == 200) {
 						this.$message.success("评论成功")
@@ -202,29 +203,28 @@
 </script>
 
 <style scoped="scoped">
+	body{
+		font-size: 15px;
+	}
 	a{
 		text-decoration: none;
-	}
-	.me-view-body {
-		margin: 100px auto 140px;
 	}
 
 	.me-view-container {
 		width: 100%;
-		min-width: 800px;
+		min-width:300px;
 		display: flex;
 		justify-content: center;
 	}
 
 	.el-main {
-		min-width: 400px;
+		min-width: 300px;
 		max-width: 900px;
-		margin: 60px;
 		margin-top: 20px;
 	}
 
 	.me-view-title {
-		font-size: 34px;
+		font-size: 30px;
 		font-weight: 800;
 		line-height: 1.3;
 		margin-bottom: 20px;
@@ -274,7 +274,7 @@
 }
 	.me-view-content {
 		margin-top: 30px !important;
-		opacity: 0.8;
+		opacity: 0.9;
 	}
 
 	.me-view-meta {
@@ -347,5 +347,13 @@
 		background-color:#65b571;
 		color:#fff;
 		border: none;
+	}
+	@media screen and (max-width: 500px) {
+	    .el-main{
+			margin-left:20px;
+			margin-right: 20px;
+			font-size: 12px;
+			
+		}
 	}
 </style>

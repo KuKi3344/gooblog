@@ -1,57 +1,27 @@
 <template>
 	<div class="head">
-<div v-show="!isCollapse">
-	<div class="left">
-		<span id="name" >GOO BLOG</span>
-		<div  v-if="this.$store.state.login" style="width: 100%;">
-			<span class="el-dropdown-link">
-				<i> <img :src="user.face"> </i>
-			</span>		
-			<span class="username">{{user.nickname}}</span>
-			<span class="lasttimebefore">上次登录:</span>
-			<span class="lasttime">{{user.lastLoginDate}}</span>
-		</div>
-		<el-menu :router=true menu-trigger="click" active-text-color="#28352c" :default-active="avtiveIndex">
-		  <el-menu-item index="/home"><i class="el-icon-s-home"></i>首页</el-menu-item>
-		  <el-menu-item index="/category/all"><i class="el-icon-menu"></i>文章分类</el-menu-item>
-		  <el-menu-item index="/tag/all"><i class="el-icon-s-flag"></i>标签</el-menu-item>
-		  <el-menu-item index="/archives"><i class="el-icon-collection"></i>文章归档</el-menu-item>
-		 <el-menu-item index="/write" class="write"><i class="el-icon-edit"></i>写文章</el-menu-item>
-		</el-menu>
-	</div>
-	<div class="right" v-if="!this.$store.state.login">
-		<el-button round @click="tologin" size="small">登录</el-button>
-		<el-button round @click="toregist" size="small">注册</el-button>
-	</div>
-	<div class="right" v-else>
-		<el-button round  @click="logout" size="small">退出登录</el-button>
-	</div>
-</div>
-		
-		<div v-show="isCollapse">
 			<div class="fleft" >
-				<el-menu :router=true menu-trigger="click" active-text-color="#28352c" :default-active="avtiveIndex">
+				<el-menu :router=true menu-trigger="click" active-text-color="#87f190" :default-active="avtiveIndex"  mode="horizontal">
 				  <el-menu-item index="/home"><i class="el-icon-s-home"></i></el-menu-item>
 				  <el-menu-item index="/category/all"><i class="el-icon-menu"></i></el-menu-item>
 				  <el-menu-item index="/tag/all"><i class="el-icon-s-flag"></i></el-menu-item>
 				  <el-menu-item index="/archives"><i class="el-icon-collection"></i></el-menu-item>
 				 <el-menu-item index="/write" class="write"><i class="el-icon-edit"></i></el-menu-item>
 				</el-menu>
+				<div v-if="!this.$store.state.login" class="fright">
+					<el-button type="text" round @click="tologin" size="mini">登录</el-button>
+					<el-button type="text" round @click="toregist" size="mini">注册</el-button>
+				</div>
+				<div class="fright" v-else>
+					<el-button round  @click="logout" size="mini"><i class="el-icon-s-promotion"></i></el-button>
+				</div>
 			</div>
-			<div class="fright" v-if="!this.$store.state.login">
-				<el-button round @click="tologin" size="small">登录</el-button>
-				<el-button round @click="toregist" size="small">注册</el-button>
-			</div>
-			<div class="fright" v-else>
-				<el-button round  @click="logout" size="small"><i class="el-icon-s-promotion"></i></el-button>
-			</div>
-		</div>
 	</div>
 </template>
 <script>
 	import {logout} from '../../api/article.js'
 	export default{
-		name:'homeheader',
+		name:'homeheaderrow',
 		props:{
 			avtiveIndex:String,
 		},
@@ -59,36 +29,8 @@
 			return{
 				user:JSON.parse(window.sessionStorage.getItem('user')),
 				islogin:false,
-				isCollapse:false,
-				screenWidth: document.body.clientWidth,
 			}
 		},
-		created(){
-			this.screenWidth = document.body.clientWidth;
-			if (this.screenWidth<1140){
-				this.isCollapse = true;
-			}
-		},
-		 mounted() {
-		            const that = this
-		            window.onresize= () => {
-		                return (() => {
-		                    window.screenWidth = document.body.clientWidth;
-		                    that.screenWidth = window.screenWidth;
-		                })();
-		            }
-		        },
-				   watch: {
-				            /* 监听*/
-				            screenWidth(val) {
-				                    this.screenWidth = val;
-									if(val<1140){
-										this.isCollapse = true;
-									}else{
-										this.isCollapse = false;
-									}
-				            }
-				        },
 		methods:{
 			tofold(){
 				if(this.screenwid<1140){
@@ -155,77 +97,59 @@
 	.head{
 		position:fixed;
 		display: flex;
-		height:100%;
-		width:200px;
-		min-width:10vw;
+		flex-direction: row;
+		flex-wrap: nowrap;
+		height:50px;
+		width:100%;
 		z-index:100;
 		background-color: #fff;
-		flex-direction: column;
-		justify-content: space-between;
+		justify-content: space-around;
 		box-shadow: 0 2px 2px hsla(0, 0%, 7%, .1), 0 0 0 1px hsla(0, 0%, 7%, .1);
 	}
-	.left,
 	.fleft{
 		display: flex;
 		justify-content: center;
-		flex-direction: column;
-		align-items: flex-start;
-	}
-	.left,
-	.right{
-		width:200px !important;
-	}
-	.right,
-	.fright{
-		min-height:100px;
-		flex: 1;
-		display: flex;
-		justify-content: center;
-		align-items: flex-end;
-	}
-	.right button{
-		font-size: 15px;
-	}
-	.fright{
-		flex-direction:column ;
-	}
-	#name{
-		color:#242635;
+		align-items:center;
+		flex-direction: row;
 		width:100%;
-		text-align: center;
-		font-size: 18px;
-		display: inline-block;
-		font-weight: 600;
-		font-family: "DM Sans",sans-serif;
-		margin-bottom:20px;
-		line-height: 50px;
-		flex:1
-		}
+		margin: 0 !important;
+		height:40px;
+	}
+	.fright{
+		height:40px;
+		width:70px;
+		display: flex;
+		justify-content: flex-end;
+		flex-wrap: nowrap;
+		margin-right: 10px;
+	}
+	.fright button{
+		width:30px;
+	}
+
 		.el-menu{
-			width:100%;
+			width:70%;
 			height:100%;
 			display: flex;
-			flex-direction: column;
+			flex-direction:row;
 			justify-content: center;
-			margin-top: 20px;
+			text-align: center;
+			
 		}
 		.el-menu-item{
 			font-size:13px;
 			color:#939393;
-			width:100%;
-			height:49px !important;
-			line-height:49px !important;
-			text-align: center;
+			width:30px !important;
+			height:39px !important;
+			line-height:30px !important;
+			padding:5px;
+			margin-right:10px !important; 
+			margin-left: 0;
 		}
 		.fold{
 			width:80px;
 		}
-		.write{
-			margin-top: 20px;
-		}
 		.el-button{
-			margin-right:2vw;
-			font-size: 0.9vw;
 			float: left;
 			height: 100%;
 		}
@@ -272,7 +196,7 @@
 		.el-button{
 			height:30px;
 			font-size: 12px !important;
-			margin:10px;
+			margin:5px;
 		}
 		button:hover{
 			border:1px solid #88df95 !important;
