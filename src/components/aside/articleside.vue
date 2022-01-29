@@ -1,6 +1,6 @@
 <template>
 
-<div style="margin-top:20px;margin-bottom: 30px;">
+<div style="margin:15px;background:rgba(251, 255, 255, 0.8);4;border-radius: 8px;">
 	<div slot="header" class="me-category-header">
 	  <span>{{cardHeader}}</span>
 	</div>
@@ -32,7 +32,7 @@
 		},
 		methods:{
 			view(id){
-				this.$router.push({path:`/view/${id}`});
+				this.$router.push({path:`/article/${id}`});
 			}
 		},
 	}
@@ -44,18 +44,21 @@
 		width:200px;
 		background-color: #cfdde6;
 		margin:10px auto;
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 	.me-category-header {
 	  text-align: center;
 	  letter-spacing: 2px;
 	  font-size: 14px;
 	  font-weight: 600;
-	  margin-bottom:15px;
+		padding:20px;
 	  
 	}
 	.me-category-list {
 	  list-style-type: none;
 	  padding-left:5px;
+	  padding-bottom: 20px;
 	  margin-top: 30px !important;
 	}
 	

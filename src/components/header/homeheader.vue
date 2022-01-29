@@ -1,6 +1,6 @@
 <template>
 	<div class="head">
-<div v-show="!isCollapse">
+<div v-show="!isCollapse" style="display: flex;flex-direction: column;justify-content: space-between;width:100%;height:100%;">
 	<div class="left">
 		<span id="name" >GOO BLOG</span>
 		<div  v-if="this.$store.state.login" style="width: 100%;">
@@ -20,15 +20,15 @@
 		</el-menu>
 	</div>
 	<div class="right" v-if="!this.$store.state.login">
-		<el-button round @click="tologin" size="small">登录</el-button>
-		<el-button round @click="toregist" size="small">注册</el-button>
+		<el-button round @click="tologin" size="small" type="text">登录</el-button>
+		<el-button round @click="toregist" size="small" type="text">注册</el-button>
 	</div>
 	<div class="right" v-else>
-		<el-button round  @click="logout" size="small">退出登录</el-button>
+		<el-button round  @click="logout" type="text" size="small">退出登录</el-button>
 	</div>
 </div>
 		
-		<div v-show="isCollapse">
+		<div v-show="isCollapse"  style="display: flex;flex-direction: column;justify-content: space-between;width:100%;height:100%;">
 			<div class="fleft" >
 				<el-menu :router=true menu-trigger="click" active-text-color="#28352c" :default-active="avtiveIndex">
 				  <el-menu-item index="/home"><i class="el-icon-s-home"></i></el-menu-item>
@@ -39,11 +39,11 @@
 				</el-menu>
 			</div>
 			<div class="fright" v-if="!this.$store.state.login">
-				<el-button round @click="tologin" size="small">登录</el-button>
-				<el-button round @click="toregist" size="small">注册</el-button>
+				<el-button round @click="tologin" size="small" type="text">登录</el-button>
+				<el-button round @click="toregist" size="small" type="text">注册</el-button>
 			</div>
 			<div class="fright" v-else>
-				<el-button round  @click="logout" size="small"><i class="el-icon-s-promotion"></i></el-button>
+				<el-button round  @click="logout" size="small" type="text" style="font-size: 18px !important; "><i class="el-icon-s-promotion"></i></el-button>
 			</div>
 		</div>
 	</div>
@@ -147,23 +147,23 @@
 		color:#48c774 !important;
 	}
 	.el-icon-edit{
-		color:#ffd257 !important;
+		color:#e5ba4e !important;
 	}
 	.el-icon-s-promotion{
-		color:#62eaff;
+		color:#669886;
 	}
 	.head{
 		position:fixed;
 		display: flex;
 		height:100%;
-		width:200px;
+		width:180px;
 		min-width:10vw;
 		z-index:100;
-		background-color: #fff;
 		flex-direction: column;
 		justify-content: space-between;
 		box-shadow: 0 2px 2px hsla(0, 0%, 7%, .1), 0 0 0 1px hsla(0, 0%, 7%, .1);
 	}
+
 	.left,
 	.fleft{
 		display: flex;
@@ -173,7 +173,7 @@
 	}
 	.left,
 	.right{
-		width:200px !important;
+		width:180px !important;
 	}
 	.right,
 	.fright{
@@ -181,7 +181,10 @@
 		flex: 1;
 		display: flex;
 		justify-content: center;
-		align-items: flex-end;
+		align-items: center;
+	}
+	.fleft{
+		margin-top:20px ;
 	}
 	.right button{
 		font-size: 15px;
@@ -190,14 +193,14 @@
 		flex-direction:column ;
 	}
 	#name{
-		color:#242635;
+		color:#434343;
 		width:100%;
 		text-align: center;
 		font-size: 18px;
 		display: inline-block;
 		font-weight: 600;
 		font-family: "DM Sans",sans-serif;
-		margin-bottom:20px;
+		margin-bottom:30px;
 		line-height: 50px;
 		flex:1
 		}
@@ -208,20 +211,19 @@
 			flex-direction: column;
 			justify-content: center;
 			margin-top: 20px;
+			background: none !important;
 		}
 		.el-menu-item{
 			font-size:13px;
-			color:#939393;
+			color:#595959;
 			width:100%;
 			height:49px !important;
 			line-height:49px !important;
-			text-align: center;
+			margin-bottom: 10px;
+			padding-left: 30px !important;
 		}
 		.fold{
 			width:80px;
-		}
-		.write{
-			margin-top: 20px;
 		}
 		.el-button{
 			margin-right:2vw;
@@ -247,7 +249,7 @@
 			text-align: center;
 		}
 		.username{
-			color:#5b5b5b !important;
+			color:#49545b !important;
 			font-size: 12px;
 			display: block;
 			width:100%;
@@ -257,27 +259,23 @@
 		}
 		.lasttimebefore{
 			display: block;
-			color: #9aadbd;
+			color: #7a8a96;
 			width:100%;
 			text-align: center;
 			font-size: 12px;
 		}
 		.lasttime{
 			display: block;
-			color: #9aadbd;
+			color: #8798a5;
 			width:100%;
 			text-align: center;
 			font-size: 12px;
 		}
 		.el-button{
 			height:30px;
-			font-size: 12px !important;
+			font-size: 13px !important;
 			margin:10px;
 		}
-		button:hover{
-			border:1px solid #88df95 !important;
-			color:#6bb066;
-			background-color: #fff;
-		}
+
 </style>
 

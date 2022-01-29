@@ -2,7 +2,6 @@
   <div id="app">
 	
 	<router-view></router-view>
-	<gotop></gotop>
 	<!-- 加载动画 -->
 	<div id="loader-wrapper">
 	    <div id="loader"></div>
@@ -13,16 +12,12 @@
   </div>
 </template>
 <script>
-	import gotop from'./components/gotop/gotop'
 	export default {
 		name:'app',
 		data(){
 			return{
 
 			}
-		},
-		components:{
-			gotop
 		},
 		mounted(){
 			var box = document.querySelector("#loader-wrapper");

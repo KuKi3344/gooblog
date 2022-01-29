@@ -1,22 +1,21 @@
 <template>
-	<div>
+	<div style="display: flex;justify-content: center;background:rgba(255, 255, 255, 0.8);">
 		<el-container>
 
-			<el-aside class="me-area">
+			<div class="me-area">
 				<ul class="me-month-list">
+					<li class="choose">选择日期:</li>
 					<li v-for="a in archives" @click="changeArchive(a.year, a.month)" :key="a.year + a.month"
 						class="me-month-item">
 						<a>{{`${a.year}年${a.month}月(${a.count})`}}</a>
 					</li>
 				</ul>
 
-			</el-aside>
-
-
+			</div>
 			<el-main class="me-articles">
 
 				<div class="me-month-title">{{currentArchive}}</div>
-				<articlescrollpage v-bind="article"></articlescrollpage>
+				<articlescrollpage :time="$route.params.id"></articlescrollpage>
 
 			</el-main>
 		</el-container>
@@ -37,42 +36,36 @@
 		},
 		created() {
 			this.listArchives()
-			setTimeout(() => {
-				document.title = this.currentArchive + ' - 文章归档'
+			if(this.$route.params.id){
+				setTimeout(() => {
+				document.title = `${this.$route.params.id} 文章归档 -GOOBLOG`
 			}, 300)
-		},
-		watch: {
-			'$route'() {
-				if (this.$route.params.year && this.$route.params.month) {
-					this.article.query.year = this.$route.params.year
-					this.article.query.month = this.$route.params.month
-				}
 			}
+			
 		},
 		data() {
 			return {
-				article: {
-					query: {
-						month: this.$route.params.month,
-						year: this.$route.params.year
-					}
-				},
 				archives: []
 			}
 		},
 		computed: {
 			currentArchive() {
-				if (this.article.query.year && this.article.query.month) {
-					return `${this.article.query.year}年${this.article.query.month}月`
+				if (this.$route.params.id) {
+					document.title = `${this.$route.params.id} 文章归档 -GOOBLOG`
+						return `${this.$route.params.id} 档案`
 				}
-				return '全部'
-			}
+				return '全部档案'
+			},
 		},
 		methods: {
 
 			changeArchive(year, month) {
-				this.article.query.year = year
-				this.article.query.month = month
+				if(month<10) {
+					month = '0'+month;
+					}
+				var time = year+'-'+month
+				this.$router.replace(`/archives/${time}`)
+				
 			},
 			listArchives() {
 				getallarchives().then(resp => {
@@ -98,48 +91,49 @@
 </script>
 
 <style scoped>
+	.me-area {
+		border-bottom: 1px solid #efefef;
+		z-index: 999;
+	}
+	.choose{
+		font-size: 14px;
+		color:#52816f;
+		width:80px;
+		margin:5px;
+		padding: 5px;
+		font-weight:640;
+	}
+
 	.el-container {
-		margin-top: 60px;
+		margin-top: 30px;
 		margin-left: 20px;
 		margin-right: 20px;
 		justify-content: center;
-	}
-
-	.el-aside {
-		min-width: 150px;
-		max-width: 240px;
-		flex: 1;
-		margin:50px;
-	}
-
-	.el-aside ul {
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
-		padding: 0;
-	}
-
-	.el-main {
-		padding: 0px;
-		line-height: 16px;
+		flex-direction: column;
 	}
 
 	.me-month-list {
-		border-radius: 25px;
-		background-color: #fff;
-		box-shadow: 0 10px 15px rgba(212, 212, 212, 0.8);
+		width: 100%;
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		padding: 0;
 		margin: 10px;
 		text-align: center;
 		list-style-type: none;
+		background: rgba(251, 255, 255, 0.8);
+		border-radius: 15px;
 	}
+
 
 	.me-month-item {
 		display: inline-block;
-		width: 40%;
+
+		width: 100px;
 		padding: 5px;
 		font-size: 13px;
-		color: #5FB878;
-		margin:10px;
+		color: #649172;
+		margin: 5px;
 	}
 
 	.me-order-list {
@@ -149,21 +143,23 @@
 	.me-month-title {
 		margin-left: 4px;
 		margin-bottom: 12px;
-		margin-top: 40px;
-		background-color: #fff;
-		color: #4da161;
+		margin-top: 10px;
+		background:rgba(251, 255, 255, 0.8);
+		color: #5f8d82;
+		font-weight: 600;
 		letter-spacing: 2px;
-		font-size: 13px;
-		border-radius: 30px;
-		width: 100px;
-		height: 30px;
-		border: 1px solid #6db565;
+		font-size: 16px;
+		width: 100%;
+		height: 50px;
 		text-align: center;
-		line-height: 30px;
+		line-height: 50px;
 		opacity: 0.9;
+		box-shadow: 0 3px 6px rgba(212, 212, 212, 0.8);
+		border-radius: 8px;
 	}
-	.me-month-item a:hover{
-		 text-decoration: underline;
+
+	.me-month-item a:hover {
+		text-decoration: underline;
 	}
 
 	.el-button {
@@ -171,8 +167,9 @@
 	}
 
 	.me-articles {
-		max-width: 900px;
-		min-width: 500px;
-		margin:20px;
+		min-width: 400px;
+		margin-right: 20px;
+		width: 100%;
+		background-color: rgba(255, 255, 255, 0.9);
 	}
 </style>

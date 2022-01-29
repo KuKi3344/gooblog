@@ -1,5 +1,10 @@
 <template>
-	<div class="main">
+	<div>
+		<div>
+			<img src="../assets/img/bk.png"
+				class="img">
+		</div>	
+		<div class="main">
 							<div class="title">GOO BLOG</div>
 		<el-form :rules="rules" v-loading="loading" element-loading-text="努力登录中..."
 			element-loading-spinne="el-icon-loading" element-loading-background="rgba(0, 0, 0, 0.6)"
@@ -23,6 +28,7 @@
 			<slide-verify ref="slideblock" @again="onAgain" @success="onSuccess" @fail="onFail" :accuracy="accuracy"
 				:slider-text="text"></slide-verify>
 		</div>
+	</div>
 	</div>
 </template>
 
@@ -166,15 +172,24 @@
 	top:50%;
 	transform: translate(-50%,-55%);
 	}
+	
+	.img {
+		z-index: 0;
+		opacity: 0.3;
+		position: fixed;
+		width: 100%;
+		height:100%;
+		filter: blur(20px);
+	}
 	.loginbox{
 		border-radius:15px;
 		background-clip: padding-box;
-		margin:10px auto;
+		margin:20px auto;
 		margin-top: 30px;
 		width:260px;
 		height:150px;
 		padding: 50px;
-		background-color:#ffffff;
+		background:rgba(255,255,255,0.4);
 		box-shadow: 0 15px 25px rgba(212, 212, 212, 0.8);
 	}
 	.verify{
@@ -192,6 +207,14 @@
 		display:flex;
 		align-items: center;
 	}
+	.el-input{
+		border-radius: 20px;
+		opacity: 0.8;
+	}
+	::v-deep .el-input__inner {
+	        border-radius: 20px;
+			background:rgba(255,255,255,0.6);
+	      }
 	.title{
 		font-size: 40px;
 		margin-top:10px;
@@ -201,5 +224,11 @@
 		letter-spacing: 2px;
 		font-weight: 600;
 		font-family:"bodoni mt";
+	}
+	.el-button{
+		background: rgba(255,255,255,0.5);
+		border: none;
+		box-shadow: 0 2px 4px rgba(232, 232, 232, 0.9); 
+		color:#263a5f;
 	}
 </style>

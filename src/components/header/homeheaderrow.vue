@@ -13,7 +13,7 @@
 					<el-button type="text" round @click="toregist" size="mini">注册</el-button>
 				</div>
 				<div class="fright" v-else>
-					<el-button round  @click="logout" size="mini"><i class="el-icon-s-promotion"></i></el-button>
+					<el-button round  @click="logout" size="mini" type="text" style="font-size: 18px !important; "><i class="el-icon-s-promotion"></i></el-button>
 				</div>
 			</div>
 	</div>
@@ -77,7 +77,7 @@
 		font-size: 15px;
 	}
 	.el-icon-s-home{
-		color:#04d1ca !important;
+		color:#1eb6a4 !important;
 	}
 	.el-icon-menu{
 		color:#31afdc !important;
@@ -86,13 +86,13 @@
 		color:#e76478 !important;
 	}
 	.el-icon-collection{
-		color:#48c774 !important;
+		color:#73c761 !important;
 	}
 	.el-icon-edit{
-		color:#ffd257 !important;
+		color:#ebb331 !important;
 	}
 	.el-icon-s-promotion{
-		color:#62eaff;
+		color:#669886;
 	}
 	.head{
 		position:fixed;
@@ -101,9 +101,9 @@
 		flex-wrap: nowrap;
 		height:50px;
 		width:100%;
-		z-index:100;
-		background-color: #fff;
+		z-index:999 !important;
 		justify-content: space-around;
+		background:rgba(217, 224, 226, 0.8);
 		box-shadow: 0 2px 2px hsla(0, 0%, 7%, .1), 0 0 0 1px hsla(0, 0%, 7%, .1);
 	}
 	.fleft{
@@ -134,6 +134,7 @@
 			flex-direction:row;
 			justify-content: center;
 			text-align: center;
+			background: none;
 			
 		}
 		.el-menu-item{
@@ -198,10 +199,9 @@
 			font-size: 12px !important;
 			margin:5px;
 		}
-		button:hover{
-			border:1px solid #88df95 !important;
-			color:#6bb066;
-			background-color: #fff;
-		}
+.el-menu--horizontal>.el-menu-item:not(.is-disabled):focus, .el-menu--horizontal>.el-menu-item:not(.is-disabled):hover, .el-menu--horizontal>.el-submenu .el-submenu__title:hover {
+    background:rgba(222, 236, 231, 0.8);
+}
+
 </style>
 

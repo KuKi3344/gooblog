@@ -70,4 +70,15 @@
 	.v-note-wrapper.fullscreen {
 	  top: 60px !important
 	}
+	@media screen and (max-width: 500px) {
+		.markdown-body{
+			font-size:12px ;
+		}
+		.markdown-body .highlight pre, .markdown-body pre>>> {
+			font-size: 12px !important;
+			background-color: none !important;
+			background-color: #fff !important;
+		}
+	}
+
 </style>

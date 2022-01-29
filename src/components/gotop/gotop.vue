@@ -40,8 +40,8 @@
 	.me-to-top{
 		background-color: #fff;
 		position: fixed;
-		right:100px;
-		bottom:100px;
+		right:30%;
+		bottom:10%;
 		width:40px;
 		height:40px;
 		border-radius: 20px;
@@ -57,4 +57,20 @@
 		text-align: center;
 		font-size: 18px;
 	}
+	@media screen and (max-width: 520px) {
+	.me-to-top{
+		height:35px;
+		width:35px;
+		right:15%;
+	}
+	.me-to-top i{
+		line-height: 35px;
+		font-size: 14px;
+	}
+	}
+	@media screen and (max-width: 850px) {
+			.me-to-top{
+				right:14%;
+			}
+		}
 </style>

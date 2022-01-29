@@ -8,10 +8,10 @@
 					<h1 class="me-view-title">{{article.title}}</h1>
 					<div class="me-view-author">
 						<a :href="'/userinfo/'+article.author.id">
-							<img class="me-view-picture" :src="article.authorFace"></img>
+							<img class="me-view-picture" :src="article.author.face"></img>
 						</a>
 						<div class="me-view-info">
-							<a :href="'/userinfo/'+article.authorId">
+							<a :href="'/userinfo/'+article.author.id">
 							<span>{{article.author.nickname}}</span>
 							</a>
 							<div class="me-view-meta">
@@ -22,7 +22,7 @@
 
 						</div>
 						<el-button v-if="article.author.id == this.$store.state.id" @click="editArticle()" size="medium"
-							icon="el-icon-edit" class="edit">编辑</el-button>
+							icon="el-icon-edit" class="edit" type="text">编辑</el-button>
 					</div>
 					<div class="me-view-content">
 						<markdown :editor="article.editor"></markdown>
@@ -48,30 +48,25 @@
 					<div class="me-view-comment">
 						<div class="me-view-comment-write">
 							<el-row :gutter="20">
-								<el-col :span="2">
-									<a>
+								
+								<div width="40" height="40" style="display: flex;margin-bottom: 10px;">
+									<a style="margin-right: 10px;">
 										<img class="me-view-picture" :src="user.face" v-if="user"></img>
 										<a href="/#/login"><span class="noavator" v-if="!user">未登录</span></a>
 									</a>
-								</el-col>
-								<el-col :span="22">
 									<el-input type="textarea" :autosize="{ minRows: 2}" placeholder="你的评论..."
 										class="me-view-comment-text" v-model="subcomment.commentContent" resize="none">
 									</el-input>
-								</el-col>
+								</div>	
+								<el-button type="button" size="small" round @click="publishComment()" style="float: right;">评论</el-button>
 							</el-row>
 
-							<el-row :gutter="20">
-								<el-col :span="2" :offset="21">
-									<el-button type="button" size="small" round @click="publishComment()">评论</el-button>
-								</el-col>
-							</el-row>
 						</div>
 
 						<div class="me-view-comment-title">
 							<span>{{article.commentCounts}} 条评论</span>
 						</div>
-						<div style="background-color: #fff;opacity: 0.9;padding-left: 20px;padding-right: 20px;">
+						<div style="opacity: 1;padding-left: 20px;padding-right: 20px;">
 							<commentview v-for="comment in levelone" :key="comment.id" :comment="comment" class="comment">
 							</commentview>
 						</div>
@@ -102,9 +97,11 @@
 					commentCounts: 0,
 					viewCounts: 0,
 					summary: '',
-					authorId: '',
-					authorName: '',
-					authorFace: '',
+					author:{
+						id:'',
+						nickname:'',
+						face:''
+					},
 					tags: [],
 					category: {},
 					createDate: '',
@@ -136,7 +133,7 @@
 		mounted() {
 			setTimeout(() => {
 				document.title = `${this.article.title}-文章详情`;
-			}, 200)
+			}, 300)
 		},
 		methods: {
 			findArticleById() {
@@ -215,14 +212,21 @@
 		min-width:300px;
 		display: flex;
 		justify-content: center;
+		opacity: 0.9;
+		border-radius: 10px;
 	}
 
 	.el-main {
 		min-width: 300px;
 		max-width: 900px;
-		margin-top: 20px;
-	}
+		
 
+	}
+	::v-deep .v-note-wrapper{
+		background-color: rgba(255, 255, 255, 0.3);
+		
+			
+	}
 	.me-view-title {
 		font-size: 30px;
 		font-weight: 800;
@@ -255,13 +259,13 @@
 	.noavator {
 		display: block;
 		font-size: 12px;
-		background-color: #95aa8f;
 		border-radius: 50%;
 		width: 40px;
 		height: 40px;
 		text-align: center;
 		line-height: 40px;
 		color: #ffffff;
+		background-color: #7ccba0;
 	}
 
 	.me-view-info {
@@ -274,9 +278,8 @@
 }
 	.me-view-content {
 		margin-top: 30px !important;
-		opacity: 0.9;
+		
 	}
-
 	.me-view-meta {
 		font-size: 12px;
 		color: #969696;
@@ -284,7 +287,7 @@
 	}
 
 	.me-view-meta span {
-		margin-right: 10px;
+		margin-right: 5px;
 	}
 
 	.me-view-end {
@@ -323,37 +326,36 @@
 		font-size: 13px;
 	}
 
-	.v-show-content {
-		padding: 8px 25px 15px 30px !important;
-	}
 
 	.v-note-wrapper .v-note-panel {
 		box-shadow: none !important;
 	}
 
-	.v-note-wrapper .v-note-panel .v-note-show .v-show-content,
+	::v-deep .v-note-wrapper .v-note-panel .v-note-show .v-show-content,
 	.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
-		background: #fff !important;
+		background: none !important;
+		padding: 10px !important;
+		border-radius: 25px !important;
 	}
 
 	.edit {
 		margin-left: 50px;
-		float: right;
-		border:1px solid #67b465;
-		color:#67b465;
-		background-color: #fff;
-	}
-	.el-button:hover{
-		background-color:#65b571;
-		color:#fff;
-		border: none;
+		float: right;	
+		color: #538c5d;
+		font-size:0.9vw;
+		box-shadow: 0 15px 25px rgba(212, 212, 212, 0.8);
+		width: 50px;
+		height:30px;
 	}
 	@media screen and (max-width: 500px) {
 	    .el-main{
-			margin-left:20px;
-			margin-right: 20px;
+			margin-left:0px;
+			margin-right:0px;
 			font-size: 12px;
 			
+		}
+		.me-view-title{
+			font-size: 25px !important;
 		}
 	}
 </style>

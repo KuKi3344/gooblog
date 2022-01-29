@@ -3,7 +3,7 @@
 		<span class="tagtitle">最热标签</span>
 		<div class="line"></div>
 	<div class="list">
-		<el-tag type="success" v-for="t in datalist" :key="t.id">{{t.tagName}}</el-tag>
+		<el-tag  v-for="t in datalist" :key="t.id"  type="success" @click="changetag(t.id,t.tagName)">{{t.tagName}}</el-tag>
 	</div>
 	</div>
 </template>
@@ -39,6 +39,9 @@
 				}).catch(err => {
 						this.$message.error('加载失败')
 					})
+			},
+			changetag(id,name){
+				this.$router.push({path:`/tag/all/${id}`,query:{name:`${name}`}})
 			}
 		}
 	}
@@ -46,10 +49,9 @@
 
 <style scoped="scoped">
 	.card2 >>>{
-		border-radius: 5px;
+		border-radius: 8px;
 		margin:15px;
-		margin-top: 50px;
-		background-color: #fff;
+		background:rgba(255, 255, 255, 0.8);
 	}
 	.el-tag{
 		max-width:80px;
@@ -79,14 +81,17 @@
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction:row;
-		justify-content: flex-start;
+		justify-content: space-between;
+		padding: 10px;
 	}
 	.list .el-tag{
-		margin-right: 30px;
+		margin-right: 20px;
 		margin-bottom: 30px;
 		margin-left: 20px;
 		min-width:80px ;
 		text-align: center;
 	}
-
+	.el-aside{
+		background-color:#67da7b ;
+	}
 </style>

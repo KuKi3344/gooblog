@@ -20,7 +20,7 @@
 
 <style scoped="scoped">
 	.me-area{
-		height:40px !important;
+		height:30px !important;
 	}
 	.el-footer {
 	  min-width: 100%;
@@ -29,11 +29,10 @@
 	
 	.me-footer {
 	  text-align: center;
-	  line-height: 40px;
-	  font-size: 14px;
+	  line-height: 30px;
+	  font-size: 12px;
 	  letter-spacing: 2px;
 	  color: #273d58 !important;
 	
 	}
-	
 </style>

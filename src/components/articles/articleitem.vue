@@ -12,7 +12,7 @@
 			</div>
 			<div class="intro">
 				<div class="me-article-author">
-					<i class="me-icon-author"></i>&nbsp;{{authorName}}
+					<i class="me-icon-author"></i>&nbsp;{{author.nickname}}
 				</div>
 				<div class="me-pull-right me-article-count">
 					<i class="el-icon-time"></i>&nbsp;{{gmtCreate | format}}
@@ -35,13 +35,13 @@
 	export default {
 		name: 'articleitem',
 		props: {
-			id: String,
+			id: Number,
 			isTop: Boolean,
 			title: String,
 			commentCounts: Number,
 			viewCounts: Number,
 			summary: String,
-			authorName: String,
+			author:Object,
 			tags: Array,
 			gmtCreate: String
 		},
@@ -68,14 +68,18 @@
 		max-width: 420px;
 		max-height:350px;
 		min-height:150px;
-		margin:15px 10px;
+		margin:10px 10px;
+		margin-bottom: 5px;
 		display: flex;
 		justify-content: space-around;
 		flex-direction: column;
 		flex-wrap: wrap;
+		border-radius: 10px;
+		background-color: rgba(255,255,255,0.4);
+		box-shadow: 0 5px 10px rgba(212, 212, 212, 0.5) !important;
 	}
 	.el-icon-document{
-		color:#63bad4;
+		color:#77c3c7;
 		margin-right: 5px;
 	}
 	.me-article-title{
@@ -84,10 +88,10 @@
 		margin-right: 10px;
 	}
 	.me-article-header a:hover{
-		color:#71c271 !important;
+		color:#5c9f74 !important;
 	}
 	.me-artile-description{
-		min-height:80px;
+		min-height:50px;
 		font-size: 0.8rem;
 		margin-top: 10px;
 	}
@@ -95,12 +99,29 @@
 		color:#909090;
 		font-size: 0.18rem;
 	}
+	.intro{
+		display: flex;
+		justify-content: space-between;
+		padding-bottom:5px ;
+		border-bottom: 1px solid #e7e7e7;
+	}
 	.foot{
-		border-top: 1px solid #e7e7e7;
 		width:100%;
+	}
+	.me-article-author{
+		color:#909090;
+		font-size: 12px;
 	}
 	.footview{
 		color:#a2a2a2;
 		font-size: 0.6rem;
+	}
+	@media screen and (max-width:520px) {
+	.me-artile-description{
+		min-height:20px;
+		font-size: 12px;
+}	.me-article-title{
+	font-size: 13px;
+}
 	}
 </style>

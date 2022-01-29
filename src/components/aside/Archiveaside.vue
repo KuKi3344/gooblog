@@ -1,6 +1,6 @@
 <template>
 
-<div style="margin:20px;">
+<div style="margin:20px;background:rgba(251, 255, 255, 0.8);border-radius: 10px;">
 	  <div slot="header" class="me-category-header">
       <span>{{cardHeader}}</span>
     </div>
@@ -30,7 +30,10 @@
     },
     methods: {
       view(year, month) {
-        this.$router.push({path: `/archives/${year}/${month}`})
+		  if(month<10){
+			  month ='0'+ month
+		  }
+        this.$router.push({path: `/archives/${year}-${month}`})
       }
     }
   }
@@ -42,17 +45,21 @@
 		width:200px;
 		background-color: #cfdde6;
 		margin:10px auto;
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 .me-category-header {
 	  text-align: center;
 	  letter-spacing: 2px;
 	  font-size: 14px;
 	  font-weight: 600;
+	  padding:20px;
 	}
 
   .me-category-list {
     list-style-type: none;
-	padding:5px;
+	padding:15px;
+	margin-left: 17px;
   }
 
   .me-category-item {

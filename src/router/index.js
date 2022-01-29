@@ -36,20 +36,20 @@ const routes = [
 			'index')
 		},
 		{
-			path:'/category/all',
+			path:'/category/all/:id?',
 			name:'文章分类',
 			component:r=>require.ensure([],()=>r(require('../views/category')),
 			'category')
 		},
 		{
-			path:'/tag/all',
+			path:'/tag/all/:id?',
 			name:'所有标签',
 			component:r=>require.ensure([],()=>r(require('../views/tag')),
 			'tag')
 		},
 		{
-			path:'/archives',
-			name:'文章归档',
+			path:'/archives/:id?',
+			name:'所有归档信息',
 			component:r=>require.ensure([],()=>r(require('../views/archives')),
 			'archives')
 		},
