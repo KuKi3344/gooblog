@@ -103,7 +103,8 @@
 		display: flex;
 		justify-content: space-between;
 		padding-bottom:5px ;
-		border-bottom: 1px solid #e7e7e7;
+		border-bottom: 1px solid #dedede;
+		margin-top: 10px;
 	}
 	.foot{
 		width:100%;
@@ -115,6 +116,7 @@
 	.footview{
 		color:#a2a2a2;
 		font-size: 0.6rem;
+		margin-right: 10px;
 	}
 	@media screen and (max-width:520px) {
 	.me-artile-description{

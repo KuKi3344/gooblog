@@ -55,7 +55,7 @@ router.beforeEach((to,from,next)=>{
 	}
 	if(!getCookieValue('Authorization')){
 		//如果没有token就拦截，如果去登录页面不拦截，如果去别的就给调到404页面
-		if(to.path==`/write/:id?`||to.path==`/write`){
+		if(to.name=='写文章'){
 			Message.warning("请先登录")
 		}
 		else{

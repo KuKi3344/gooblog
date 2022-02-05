@@ -88,7 +88,9 @@
 <style scoped>
 	.me-area {
 		border-bottom: 1px solid #efefef;
-		z-index: 999;
+		z-index: 0 !important;
+		padding: 20px;
+		padding-left: 10px;
 	}
 	.choose{
 		font-size: 14px;
@@ -100,9 +102,9 @@
 	}
 
 	.el-container {
-		margin-top: 30px;
-		margin-left: 20px;
-		margin-right: 20px;
+		margin-top: 20px;
+		margin-left: 10px;
+		margin-right: 10px;
 		justify-content: center;
 		flex-direction: column;
 	}
@@ -161,8 +163,8 @@
 	}
 
 	.me-articles {
-		min-width: 400px;
-		margin-right: 20px;
+		min-width: 280px;
+		margin-right: 10px;
 		width: 100%;
 		background-color: rgba(255, 255, 255, 0.9);
 	}

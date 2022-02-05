@@ -13,8 +13,8 @@
 				  </div>
 			  </div>
 		  	  <div class="me-write-btn">
-		  	    <button  @click="publishShow" size="small">发布</button>
-		  	    <button@click="cancel" size="small">取消</button>
+		  	    <button class="headbt"  @click="publishShow" size="small">发布</button>
+		  	    <button class="headbt" @click="cancel" size="small">取消</button>
 		  	  </div>
 		  </div>
 	  </el-header>
@@ -29,7 +29,7 @@
 
           </div>
           <div id="placeholder" style="visibility: hidden;height: 89px;display: none;"></div>
-          <markdown-editor :editor="articleForm.editor" class="me-write-editor"></markdown-editor>
+          <markdown-editor :editor="editor" class="me-write-editor"></markdown-editor>
         </el-main>
       </el-container>
 
@@ -68,20 +68,20 @@
 </template>
 <script>
   import MarkdownEditor from '../../components/markdown/markdown'
-  import {publisharticle, findarticle} from '../../api/article'
+  import {publisharticle, findarticle,editarticle} from '../../api/article'
   import {getallcategory} from '../../api/article.js'
   import {getalltag} from '../../api/article.js'
 
   export default {
     name: 'BlogWrite',
     mounted() {
-
+		this.getCategorysAndTags();
       if(this.$route.params.id){
-        this.getArticleById(this.$route.params.id)
+        this.getArticleById(this.$route.params.id);
 		this.type = 'update'
       }
 
-      this.getCategorysAndTags()
+
 
       window.addEventListener('scroll', this.editorToolBarToFixedWrapper, false);
     },
@@ -96,42 +96,23 @@
         categorys: [],
         tags: [],
         articleForm: {
-			body:'',
-          id: '',
-          title: '',
-          summary: '',
-          category: '',
-          tags: [],
-          editor: {
-            value: '',
-            ref: '',//保存mavonEditor实例  实际不该这样
-            default_open: 'edit',
-            toolbars: {
-              bold: true, // 粗体
-              italic: true, // 斜体
-              header: true, // 标题
-              underline: true, // 下划线
-              strikethrough: true, // 中划线
-              mark: true, // 标记
-              superscript: true, // 上角标
-              subscript: true, // 下角标
-              quote: true, // 引用
-              ol: true, // 有序列表
-              ul: true, // 无序列表
-              imagelink: true, // 图片链接
-              code: true, // code
-              fullscreen: true, // 全屏编辑
-              readmodel: true, // 沉浸式阅读
-              help: true, // 帮助
-              undo: true, // 上一步
-              redo: true, // 下一步
-              trash: true, // 清空
-              navigation: true, // 导航目录
-              //subfield: true, // 单双栏模式
-              preview: true, // 预览
-            }
-          }
+        	id: '',
+        	title: '',
+        	commentCounts: 0,
+        	viewCounts: 0,
+        	summary: '',
+        	author:{
+        		id:'',
+        		nickname:'',
+        		face:''
+        	},
+        	tags: [],
+        	category: {},
+        	createDate: ''
         },
+		editor:{
+			value:'',
+		},
         rules: {
           summary: [
             {required: true, message: '请输入摘要', trigger: 'blur'},
@@ -153,23 +134,20 @@
 	},
     methods: {
       getArticleById(id) {
-        let that = this
         findarticle(id).then(resp=> {
 
-          Object.assign(that.articleForm, resp.data.data)
-          that.articleForm.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n");
-
-          let tags = this.articleForm.tags.map(function (item) {
-            return item.id;
-          })
-
-          this.articleForm.tags = tags
-
-
+			  this.articleForm = resp.data.data;
+			  this.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n");
+			  let tags = this.articleForm.tags.map(function (item) {
+			    return item.id;
+			  })		  
+			  this.articleForm.tags = tags
+		if(this.$store.state.id!=this.articleForm.author.id){
+		  	this.$message.error('您没有权限');
+		  	this.$router.replace('/home');
+		  }
         }).catch(error => {
-          if (error !== 'error') {
-            that.$message({type: 'error', message: '文章加载失败', showClose: true})
-          }
+            this.$message({type: 'error', message: '文章加载失败', showClose: true})
         })
       },
       publishShow() {
@@ -183,7 +161,7 @@
           return
         }
 
-        if (!this.articleForm.editor.ref.d_render) {
+        if (this.editor.value.length < 1) {
           this.$message({message: '内容不能为空哦', type: 'warning', showClose: true})
           return
         }
@@ -200,17 +178,15 @@
             let tags = this.articleForm.tags.map(function (item) {
               return {id: item};
             });
-			this.articleForm.editor.value = this.articleForm.editor.value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-			if(this.type == 'add'){
+			this.editor.value = this.editor.value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 				let article = {
-				  id: this.articleForm.id,
+				  articleId: this.articleForm.id,
 				  title: this.articleForm.title,
 				  summary: this.articleForm.summary,
 				  category: this.articleForm.category,
 				  tags: tags,
 				  body: {
-				    content: this.articleForm.editor.value,
-				    contentHtml: this.articleForm.editor.ref.d_render
+				    content: this.editor.value
 				  }
 				
 				}
@@ -220,7 +196,7 @@
 				  lock: true,
 				  text: '发布中，请稍后...'
 				})
-				
+				if(this.type == 'add'){
 				publisharticle(article).then((resp) => {
 				  if(resp.data.code==200){
 				    loading.close();
@@ -238,6 +214,22 @@
 				})
 			}else{
 				//更新接口
+				editarticle(article).then((resp) => {
+				  if(resp.data.code==200){
+				    loading.close();
+				    that.$message({message: '发布成功啦', type: 'success', showClose: true})
+				    that.$router.push({path: `/article/${resp.data.data}`})
+				  }else{
+				    that.$message({message: error, type: '发布文章失败:'+resp.data.message, showClose: true});
+				  }
+				
+				}).catch((error) => {
+				  loading.close();
+				  if (error !== 'error') {
+				    that.$message({message: error, type: 'error', showClose: true});
+				  }
+				})
+				
 			}
 
           } else {
@@ -327,6 +319,7 @@
 	}
   .me-write-btn {
     margin-top: 10px;
+	display: flex;
   }
 
   .me-write-box {
@@ -420,5 +413,16 @@ input::-webkit-input-placeholder{
 		border-bottom-right-radius: 30px;
 		margin-right: 10px;
 	}
-
+@media screen and (max-width:520px) {
+		.headbt{
+			font-size: 12px;
+			color:#69b169;
+			border: none;
+			background: none;
+			width:40px;
+			
+		}
+	
+	
+	}
 </style>

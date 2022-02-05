@@ -1,7 +1,8 @@
 <template>
 	<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load" class="main">
-		<articleitem v-for="article in articles" v-bind="article" :key="article.id" style="flex:1;margin-bottom: 10px;z-index: 99;">
-		</articleitem>	
+		<articleitem v-for="article in articles" v-bind="article" :key="article.id"
+			style="flex:1;margin-bottom: 10px;z-index: 99;">
+		</articleitem>
 	</scroll-page>
 </template>
 
@@ -26,9 +27,10 @@
 				canRun: true,
 			}
 		},
-		props:{
-			time:String,
-			tag:String
+		props: {
+			time: String,
+			tag: String,
+			category: String,
 		},
 		components: {
 			"scroll-page": scrollpage,
@@ -44,6 +46,11 @@
 				this.getArticles();
 			},
 			tag() {
+				this.articles = [];
+				this.innerPage.page = 1;
+				this.getArticles();
+			},
+			category(){
 				this.articles = [];
 				this.innerPage.page = 1;
 				this.getArticles();
@@ -64,11 +71,14 @@
 			getArticles() {
 				this.loading = true;
 				var run = false;
-				if(this.time!=''){
+				if (this.time != '') {
 					this.innerPage.date = this.time;
 				}
-				if(this.tag!=''){
+				if (this.tag != '') {
 					this.innerPage.tagId = this.tag;
+				}
+				if (this.category != '') {
+					this.innerPage.categoryId = this.category;
 				}
 				getarticles(this.innerPage).then(resp => {
 					if (resp.data.code == 200) {
@@ -96,7 +106,7 @@
 </script>
 
 <style scoped="scoped">
-	.main{
+	.main {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: flex-start;

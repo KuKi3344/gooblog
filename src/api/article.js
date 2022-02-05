@@ -105,3 +105,16 @@ export function  publisharticle(params) {
 		data:params
 	})
 }
+export function  editarticle(params) {
+	return axios({
+		method:'post',
+		url:`${base}//article/private/update`,
+		data:params
+	})
+}
+export function  deletecomment() {
+	return axios({
+		method:'post',
+		url:`${base}/comment/private/delete`,
+	})
+}

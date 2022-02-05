@@ -36,12 +36,12 @@
 		},
 		created() {
 			this.listArchives()
-			if(this.$route.params.id){
+			if (this.$route.params.id) {
 				setTimeout(() => {
-				document.title = `${this.$route.params.id} 文章归档 -GOOBLOG`
-			}, 300)
+					document.title = `${this.$route.params.id} 文章归档 -GOOBLOG`
+				}, 300)
 			}
-			
+
 		},
 		data() {
 			return {
@@ -52,7 +52,7 @@
 			currentArchive() {
 				if (this.$route.params.id) {
 					document.title = `${this.$route.params.id} 文章归档 -GOOBLOG`
-						return `${this.$route.params.id} 档案`
+					return `${this.$route.params.id} 档案`
 				}
 				return '全部档案'
 			},
@@ -60,12 +60,12 @@
 		methods: {
 
 			changeArchive(year, month) {
-				if(month<10) {
-					month = '0'+month;
-					}
-				var time = year+'-'+month
+				if (month < 10) {
+					month = '0' + month;
+				}
+				var time = year + '-' + month
 				this.$router.replace(`/archives/${time}`)
-				
+
 			},
 			listArchives() {
 				getallarchives().then(resp => {
@@ -93,21 +93,24 @@
 <style scoped>
 	.me-area {
 		border-bottom: 1px solid #efefef;
-		z-index: 999;
+		z-index: 0 !important;
+		padding: 20px;
+		padding-left: 10px;
 	}
-	.choose{
+
+	.choose {
 		font-size: 14px;
-		color:#52816f;
-		width:80px;
-		margin:5px;
+		color: #52816f;
+		width: 80px;
+		margin: 10px;
 		padding: 5px;
-		font-weight:640;
+		font-weight: 640;
 	}
 
 	.el-container {
-		margin-top: 30px;
-		margin-left: 20px;
-		margin-right: 20px;
+		margin-top: 20px;
+		margin-left: 10px;
+		margin-right: 10px;
 		justify-content: center;
 		flex-direction: column;
 	}
@@ -130,7 +133,7 @@
 		display: inline-block;
 
 		width: 100px;
-		padding: 5px;
+		padding: 10px;
 		font-size: 13px;
 		color: #649172;
 		margin: 5px;
@@ -144,7 +147,7 @@
 		margin-left: 4px;
 		margin-bottom: 12px;
 		margin-top: 10px;
-		background:rgba(251, 255, 255, 0.8);
+		background: rgba(251, 255, 255, 0.8);
 		color: #5f8d82;
 		font-weight: 600;
 		letter-spacing: 2px;
@@ -167,8 +170,8 @@
 	}
 
 	.me-articles {
-		min-width: 400px;
-		margin-right: 20px;
+		min-width: 280px;
+		margin-right: 10px;
 		width: 100%;
 		background-color: rgba(255, 255, 255, 0.9);
 	}

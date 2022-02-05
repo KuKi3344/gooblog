@@ -77,7 +77,7 @@
 	}
 	.list{
 		margin:0;
-		margin-top: 30px;
+		margin-top: 10px;
 		display: flex;
 		flex-wrap: wrap;
 		flex-direction:row;

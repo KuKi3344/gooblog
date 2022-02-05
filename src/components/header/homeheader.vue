@@ -158,7 +158,7 @@
 		height:100%;
 		width:180px;
 		min-width:10vw;
-		z-index:100;
+		z-index:999;
 		flex-direction: column;
 		justify-content: space-between;
 		box-shadow: 0 2px 2px hsla(0, 0%, 7%, .1), 0 0 0 1px hsla(0, 0%, 7%, .1);

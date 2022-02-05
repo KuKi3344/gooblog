@@ -11,7 +11,7 @@
 			<el-button @click="removecomment(comment.id)" type="text" size="small"
 				class="removecomment" v-if="comment.author.id == userid">删除</el-button>
 			<li v-for="(r,index) in filterrecall()" :key="r.id" class="recall">
-				<div style="font-size:14px;">
+				<div style="font-size:13px;">
 					<a :href="'/userinfo/'+ r.author.id"><img :src="r.author.face" class="rauthorface"></a>
 					<a :href="'/userinfo/'+ r.author.id" class="author">{{r.author.nickname}}</a>回复<a
 						:href="'/userinfo/'+ r.toUser.id" class="touser">@{{r.toUser.nickname}}</a>:{{r.commentContent}}
@@ -35,7 +35,7 @@
 
 <script>
 	import {
-		getrecall,recall
+		getrecall,recall,deletecomment
 	} from '../../api/article.js'
 	export default {
 		name: 'commentview',
@@ -111,7 +111,21 @@
 				}
 			},
 			removecomment(){
-				
+				this.$confirm('此评论将被删除, 是否继续?', '提示', {
+				  confirmButtonText: '确定',
+				  cancelButtonText: '取消',
+				  type: 'warning'
+				}).then(() => {
+				  deletecomment().then(resp=>{
+					  if(resp.data.code == 200){
+						  this.$message.success('删除成功！')
+					  }else{
+						  this.$message.error('删除失败,请稍后重试')
+					  }
+				  }).catch(err => {
+						this.$message.error('系统异常请稍后')
+					})
+				})
 			}
 		}
 	}
@@ -136,7 +150,7 @@
 	}
 	.authorname {
 		color: #475256;
-		font-size: 14px;
+		font-size: 13px;
 	}
 	.authorface {
 		width: 40px;

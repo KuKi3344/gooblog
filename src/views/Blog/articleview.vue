@@ -35,13 +35,13 @@
 
 					<div class="me-view-tag">
 						标签：
-						<el-button @click="tagOrCategory('tag', t.id)" size="mini" type="primary"
+						<el-button @click="tagOrCategory('tag', t.id,t.tagName)" size="mini" type="primary"
 							v-for="t in article.tags" :key="t.id" round plain>{{t.tagName}}</el-button>
 					</div>
 
 					<div class="me-view-tag">
 						文章分类：
-						<el-button @click="tagOrCategory('category', article.category.id)" size="mini" type="primary"
+						<el-button @click="tagOrCategory('category', article.category.id,article.category.categoryName)" size="mini" type="primary"
 							round plain>{{article.category.categoryName}}</el-button>
 					</div>
 
@@ -66,7 +66,7 @@
 						<div class="me-view-comment-title">
 							<span>{{article.commentCounts}} 条评论</span>
 						</div>
-						<div style="opacity: 1;padding-left: 20px;padding-right: 20px;">
+						<div style="opacity: 1;padding:20px;background:rgba(255,255,255,0.3);">
 							<commentview v-for="comment in levelone" :key="comment.id" :comment="comment" class="comment">
 							</commentview>
 						</div>
@@ -162,9 +162,12 @@
 					path: `/write/${this.article.id}`
 				})
 			},
-			tagOrCategory(type, id) {
+			tagOrCategory(type, id,name) {
 				this.$router.push({
-					path: `/${type}/${id}`
+					path: `/${type}/all/${id}`,
+					query:{
+						name:name
+					}
 				})
 			},
 			getcomment() {
@@ -235,7 +238,7 @@
 	}
 
 	.comment {
-		border-bottom: 1px solid #e7e7e7;
+		border-bottom: 1px solid #dcdcdc;
 		padding-bottom:0px;
 		margin-top: 20px;
 	}

@@ -48,7 +48,7 @@
 		cursor: pointer;
 		transition:all 1s linear;
 		box-shadow: 0 0 6px rgba(0,0,0,.12);
-		z-index:5;
+		z-index:999;
 	}
 	.me-to-top i{
 		color:#6abf91;

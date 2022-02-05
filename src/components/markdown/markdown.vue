@@ -40,11 +40,11 @@
 			
 			  upload(formdata).then(resp => {
 			    // 第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
-			    if (data.success) {
+			    if (resp.data.code == 200) {
 			
 			      that.$refs.md.$img2Url(pos, resp.data.data);
 			    } else {
-			      that.$message({message: resp.data.message, type: 'error', showClose: true})
+			      that.$message({message:'上传超时,请保证图片大小不超过2M', type: 'error', showClose: true})
 			    }
 			
 			  }).catch(err => {
@@ -69,6 +69,20 @@
 	
 	.v-note-wrapper.fullscreen {
 	  top: 60px !important
+	}
+	::v-deep .hljs {
+	    color: rgb(36, 41, 46);
+	    background: rgba(211, 240, 224, 0.3);
+		border-radius: 5px;
+		padding: 5px;
+	}
+	::v-deep .markdown-body pre{
+		border-radius: 8px !important;
+		margin:0;
+		padding:2px;
+	}
+	::v-deep .markdown-body img{
+		margin: 5px;
 	}
 	@media screen and (max-width: 500px) {
 		.markdown-body{
