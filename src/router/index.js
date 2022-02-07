@@ -2,6 +2,12 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 
+const originalPush = VueRouter.prototype.push;
+// 修改原型对象中的push方法
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
+
 Vue.use(VueRouter)
 
 const routes = [
@@ -58,6 +64,11 @@ const routes = [
 			name:'查看文章',
 			component:r=>require.ensure([],()=>r(require('../views/Blog/articleview')),'articleview')
 		},
+		{
+			path:'/userinfo/:id',
+			name:'个人中心',
+			component:r=>require.ensure([],()=>r(require('../views/userinfo')),'userinfo')
+		}
 	]
   }
 ]

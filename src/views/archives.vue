@@ -64,7 +64,7 @@
 					month = '0' + month;
 				}
 				var time = year + '-' + month
-				this.$router.replace(`/archives/${time}`)
+				this.$router.push(`/archives/${time}`)
 
 			},
 			listArchives() {

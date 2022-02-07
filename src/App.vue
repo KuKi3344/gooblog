@@ -70,7 +70,15 @@
     -webkit-box-shadow:inset 0 0 6px rgba(59, 59, 59, 0.2);
     background-color:#dddddd;
 }
-
+	@media screen and (max-width:520px) {
+	::-webkit-scrollbar
+	{
+	   
+	   display: none;
+	}
+		
+	
+	}
 @keyframes ease{
 	0%{
 		opacity: 0.6;

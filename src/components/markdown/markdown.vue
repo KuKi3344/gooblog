@@ -42,7 +42,7 @@
 			    // 第二步.将返回的url替换到文本原位置![...](./0) -> ![...](url)
 			    if (resp.data.code == 200) {
 			
-			      that.$refs.md.$img2Url(pos, resp.data.data);
+			      that.$refs.md.$img2Url(pos, `http://${resp.data.data}`);
 			    } else {
 			      that.$message({message:'上传超时,请保证图片大小不超过2M', type: 'error', showClose: true})
 			    }

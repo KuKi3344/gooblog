@@ -7,6 +7,7 @@
 				  <el-menu-item index="/tag/all"><i class="el-icon-s-flag"></i></el-menu-item>
 				  <el-menu-item index="/archives"><i class="el-icon-collection"></i></el-menu-item>
 				 <el-menu-item index="/write" class="write"><i class="el-icon-edit"></i></el-menu-item>
+				  <el-menu-item :index="'/userinfo/'+user.id" class="person" v-if="user"><el-badge :value="msg" :max="99" class="item" v-show="msg!=0" ><i class="el-icon-user-solid"></i></el-badge><i class="el-icon-user-solid" v-show="msg==0"></i></el-menu-item>
 				</el-menu>
 				<div v-if="!this.$store.state.login" class="fright">
 					<el-button type="text" round @click="tologin" size="mini">登录</el-button>
@@ -29,6 +30,7 @@
 			return{
 				user:JSON.parse(window.sessionStorage.getItem('user')),
 				islogin:false,
+				msg:1
 			}
 		},
 		methods:{
@@ -94,6 +96,9 @@
 	.el-icon-s-promotion{
 		color:#669886;
 	}
+	.el-icon-user-solid{
+		color:#77afaf !important;
+	}
 	.head{
 		position:fixed;
 		display: flex;
@@ -146,6 +151,8 @@
 			padding:5px;
 			margin-right:10px !important; 
 			margin-left: 0;
+		}
+		.person{
 		}
 		.fold{
 			width:80px;

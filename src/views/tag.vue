@@ -37,7 +37,7 @@
 		created() {
 			if(this.$route.query.name){
 				setTimeout(()=>{
-				document.title = `${this.route.query.name} 标签 -GOOBLOG`
+				document.title = `${this.$route.query.name} 标签 -GOOBLOG`
 			},500)		
 			}
 			
@@ -60,7 +60,7 @@
 		methods: {
 
 			changetag(id, name) {
-				this.$router.replace({path:`/tag/all/${id}`,query:{name:name}})
+				this.$router.push({path:`/tag/all/${id}`,query:{name:name}})
 			},
 			listtags() {
 				getalltag().then(resp => {

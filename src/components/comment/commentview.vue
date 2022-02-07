@@ -1,25 +1,31 @@
 <template>
 	<div>
 		<ul>
-			<a :href="'/userinfo/'+ comment.author.id"><img :src="comment.author.face" class="authorface"></a>
+			<a :href="'/#/userinfo/'+ comment.author.id">
+				<img :src="comment.author.face" class="authorface" v-if="comment.author.face">
+				<img :src="imgsrc" class="authorface" v-else>
+			</a>
 			<!-- 通过绑定id来进行不同人信息的跳转 -->
-			<a :href="'/userinfo/'+ comment.author.id" class="authorname">{{comment.author.nickname}}</a>
+			<a :href="'/#/userinfo/'+ comment.author.id" class="authorname">{{comment.author.nickname}}</a>
 			<p class="commentcontent">{{comment.commentContent}}</p>
 			<span class="createtime">{{comment.gmtCreate | format}}</span>
 			<el-button @click="showcomment(-1,comment.author)" type="text" size="small"
 				class="recallcomment">回复</el-button>				
-			<el-button @click="removecomment(comment.id)" type="text" size="small"
+			<el-button @click="removecomment(comment.id,comment.author.id)" type="text" size="small"
 				class="removecomment" v-if="comment.author.id == userid">删除</el-button>
 			<li v-for="(r,index) in filterrecall()" :key="r.id" class="recall">
 				<div style="font-size:13px;">
-					<a :href="'/userinfo/'+ r.author.id"><img :src="r.author.face" class="rauthorface"></a>
-					<a :href="'/userinfo/'+ r.author.id" class="author">{{r.author.nickname}}</a>回复<a
-						:href="'/userinfo/'+ r.toUser.id" class="touser">@{{r.toUser.nickname}}</a>:{{r.commentContent}}
+					<a :href="'/#/userinfo/'+ r.author.id">
+						<img :src="r.author.face" class="rauthorface" v-if="r.author.face">
+						<img :src="imgsrc" class="rauthorface" v-else>
+						</a>
+					<a :href="'/#/userinfo/'+ r.author.id" class="author">{{r.author.nickname}}</a>回复<a
+						:href="'/#/userinfo/'+ r.toUser.id" class="touser">@{{r.toUser.nickname}}</a>:{{r.commentContent}}
 				</div>
 				<span class="recalletime">{{r.gmtCreate | format}}</span>
 				<el-button @click="showcomment(-1,r.author)" type="text" size="small"
 					class="recallcomment">回复</el-button>
-					<el-button @click="removecomment(r.id)" type="text" size="small"
+					<el-button @click="removecomment(r.id,r.author.id)" type="text" size="small"
 					v-if="r.author.id == userid"	class="removecomment">删除</el-button>
 			</li>
 			<div v-show="commentshow" class="showreply">
@@ -103,22 +109,24 @@
 			},
 			getEmptyReply() {
 				return {
-					articleId: this.$route.params.id,
+					fromUserId: this.$store.state.id,
 					toUserId: '',
+					articleId:this.$route.params.id,
 					parentId: this.comment.id,
 					commentContent: ''
 
 				}
 			},
-			removecomment(){
+			removecomment(id,fromUserId){
 				this.$confirm('此评论将被删除, 是否继续?', '提示', {
 				  confirmButtonText: '确定',
 				  cancelButtonText: '取消',
 				  type: 'warning'
 				}).then(() => {
-				  deletecomment().then(resp=>{
+				  deletecomment(id,fromUserId).then(resp=>{
 					  if(resp.data.code == 200){
 						  this.$message.success('删除成功！')
+						  this.$router.go(0);
 					  }else{
 						  this.$message.error('删除失败,请稍后重试')
 					  }

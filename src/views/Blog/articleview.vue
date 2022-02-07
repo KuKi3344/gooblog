@@ -7,11 +7,13 @@
 				<div class="me-view-card">
 					<h1 class="me-view-title">{{article.title}}</h1>
 					<div class="me-view-author">
-						<a :href="'/userinfo/'+article.author.id">
-							<img class="me-view-picture" :src="article.author.face"></img>
+						<a :href="'/#/userinfo/'+article.author.id">
+							<img class="me-view-picture" :src="article.author.face" v-if="article.author.face"></img>
+							<img class="me-view-picture" :src="imgsrc" v-else></img>
+
 						</a>
 						<div class="me-view-info">
-							<a :href="'/userinfo/'+article.author.id">
+							<a :href="'/#/userinfo/'+article.author.id">
 							<span>{{article.author.nickname}}</span>
 							</a>
 							<div class="me-view-meta">
@@ -51,7 +53,8 @@
 								
 								<div width="40" height="40" style="display: flex;margin-bottom: 10px;">
 									<a style="margin-right: 10px;">
-										<img class="me-view-picture" :src="user.face" v-if="user"></img>
+										<img class="me-view-picture" :src="user.face" v-if="user.face"></img>
+										<img class="me-view-picture" :src="imgsrc" v-if="!user.face"></img>
 										<a href="/#/login"><span class="noavator" v-if="!user">未登录</span></a>
 									</a>
 									<el-input type="textarea" :autosize="{ minRows: 2}" placeholder="你的评论..."

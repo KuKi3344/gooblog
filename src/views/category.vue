@@ -37,7 +37,7 @@
 		created() {
 			if (this.$route.query.name) {
 				setTimeout(() => {
-					document.title = `${this.route.query.name} 类别 -GOOBLOG`
+					document.title = `${this.$route.query.name} 类别 -GOOBLOG`
 				}, 500)
 			}
 

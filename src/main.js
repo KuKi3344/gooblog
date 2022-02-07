@@ -19,6 +19,7 @@ Vue.prototype.$axios = axios;
 Vue.prototype.getCookieValue = getCookieValue;
 Vue.prototype.setCookieValue = setCookieValue;
 Vue.prototype.clearCookie = clearCookie;
+Vue.prototype.imgsrc="https://img0.baidu.com/it/u=2869476812,1505860764&fm=253&fmt=auto&app=138&f=JPEG?w=400&h=400"
 Vue.use(VueAxios,axios)
 Vue.use(ElementUI);
 Vue.use(SlideVerify)
@@ -38,6 +39,7 @@ axios.interceptors.request.use(config=>{
 })
 
 router.beforeEach((to,from,next)=>{
+
 	if(getCookieValue('Authorization')){
 			getuser().then(resp=>{
 					if(resp.data.data!=null){

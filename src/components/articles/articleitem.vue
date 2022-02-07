@@ -7,12 +7,12 @@
 				<el-button v-if="isTop" class="me-article-icon" type="text" size="mini">置顶</el-button>
 			</div>
 
-			<div class="me-artile-description">
+			<div class="me-artile-description"  @click="view(id)" >
 				{{summary}}
 			</div>
 			<div class="intro">
 				<div class="me-article-author">
-					<i class="me-icon-author"></i>&nbsp;{{author.nickname}}
+					<a :href="'/#/userinfo/'+author.id" class="me-icon-author">&nbsp;{{author.nickname}}</a>
 				</div>
 				<div class="me-pull-right me-article-count">
 					<i class="el-icon-time"></i>&nbsp;{{gmtCreate | format}}
@@ -110,8 +110,11 @@
 		width:100%;
 	}
 	.me-article-author{
-		color:#909090;
 		font-size: 12px;
+	}
+	.me-icon-author{
+		color:#909090;
+		text-decoration: none;
 	}
 	.footview{
 		color:#a2a2a2;

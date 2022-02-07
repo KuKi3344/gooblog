@@ -108,13 +108,17 @@ export function  publisharticle(params) {
 export function  editarticle(params) {
 	return axios({
 		method:'post',
-		url:`${base}//article/private/update`,
+		url:`${base}/article/private/update`,
 		data:params
 	})
 }
-export function  deletecomment() {
+export function  deletecomment(id,fromUserId) {
 	return axios({
 		method:'post',
 		url:`${base}/comment/private/delete`,
+		params:{
+			id:id,
+			fromUserId:fromUserId,
+		}
 	})
 }
