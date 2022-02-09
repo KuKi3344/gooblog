@@ -109,7 +109,7 @@
 			},
 			getEmptyReply() {
 				return {
-					fromUserId: this.$store.state.id,
+					level:2,
 					toUserId: '',
 					articleId:this.$route.params.id,
 					parentId: this.comment.id,
@@ -126,13 +126,12 @@
 				  deletecomment(id,fromUserId).then(resp=>{
 					  if(resp.data.code == 200){
 						  this.$message.success('删除成功！')
-						  this.$router.go(0);
+						  this.getrecall();
+						  this.$emit('getcomment');
 					  }else{
 						  this.$message.error('删除失败,请稍后重试')
 					  }
-				  }).catch(err => {
-						this.$message.error('系统异常请稍后')
-					})
+				  })
 				})
 			}
 		}
@@ -143,7 +142,7 @@
 	ul {
 		list-style: none;
 		margin: 0;
-		padding: 0;
+		padding: 10px;
 	}
 
 	ul a {

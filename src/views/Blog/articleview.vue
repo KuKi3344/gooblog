@@ -53,9 +53,9 @@
 								
 								<div width="40" height="40" style="display: flex;margin-bottom: 10px;">
 									<a style="margin-right: 10px;">
-										<img class="me-view-picture" :src="user.face" v-if="user.face"></img>
-										<img class="me-view-picture" :src="imgsrc" v-if="!user.face"></img>
 										<a href="/#/login"><span class="noavator" v-if="!user">未登录</span></a>
+										<img class="me-view-picture" :src="user.face" v-if="user&&user.face"></img>
+										<img class="me-view-picture" :src="imgsrc" v-if="user&&!user.face"></img>
 									</a>
 									<el-input type="textarea" :autosize="{ minRows: 2}" placeholder="你的评论..."
 										class="me-view-comment-text" v-model="subcomment.commentContent" resize="none">
@@ -69,10 +69,12 @@
 						<div class="me-view-comment-title">
 							<span>{{article.commentCounts}} 条评论</span>
 						</div>
-						<div style="opacity: 1;padding:20px;background:rgba(255,255,255,0.3);">
-							<commentview v-for="comment in levelone" :key="comment.id" :comment="comment" class="comment">
+						<div style="opacity: 1;padding:5px,20px;background:rgba(255,255,255,0.4);border-radius: 8px;"  v-if="levelone.length>0">
+							<commentview v-for="comment in levelone" :key="comment.id" :comment="comment" @getcomment="getcomment" class="comment">
 							</commentview>
+
 						</div>
+						<el-empty description="暂无" v-else></el-empty>
 					</div>
 
 				</div>
@@ -120,7 +122,8 @@
 				levelone: [],
 				subcomment: {
 					articleId: '',
-					commentContent: ''
+					commentContent: '',
+					level:1
 				}
 			}
 		},

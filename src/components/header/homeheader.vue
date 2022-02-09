@@ -7,8 +7,7 @@
 				<div v-if="this.$store.state.login" style="width: 100%;">
 					<span class="el-dropdown-link">
 						<i v-if="user.face"> <img :src="user.face"> </i>
-						<i v-else> <img
-								:src="imgsrc">
+						<i v-else> <img :src="imgsrc">
 						</i>
 					</span>
 					<span class="username">{{user.nickname}}</span>
@@ -64,7 +63,8 @@
 </template>
 <script>
 	import {
-		logout
+		logout,
+		getnoreadmes
 	} from '../../api/article.js'
 	export default {
 		name: 'homeheader',
@@ -77,7 +77,7 @@
 				islogin: false,
 				isCollapse: false,
 				screenWidth: document.body.clientWidth,
-				msg: 1
+				msg:0
 			}
 		},
 		created() {
@@ -85,6 +85,10 @@
 			if (this.screenWidth < 1140) {
 				this.isCollapse = true;
 			}
+			if(this.$store.state.id){
+					this.getnoread();
+			}
+		
 		},
 		mounted() {
 			const that = this
@@ -107,12 +111,17 @@
 			}
 		},
 		methods: {
-			tofold() {
-				if (this.screenwid < 1140) {
-					this.fold = true;
-				} else {
-					this.fold = false;
-				}
+			getnoread(){
+				getnoreadmes().then(resp=>{
+					if(resp.data.code==200){
+							this.msg = resp.data.data.length;
+					}
+					else{
+						this.$message.info('暂无新消息');
+					}
+				}).catch(err => {
+					this.$message.error('获取新消息失败')
+				})
 			},
 			tologin() {
 				this.$router.push('/login');
@@ -238,7 +247,9 @@
 		line-height: 50px;
 		flex: 1
 	}
-
+	.el-badge .el-button{
+		margin: 5px;
+	}
 	.el-menu {
 		width: 100%;
 		height: 100%;

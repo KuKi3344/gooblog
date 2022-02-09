@@ -149,10 +149,8 @@
 			height:39px !important;
 			line-height:30px !important;
 			padding:5px;
-			margin-right:10px !important; 
+			margin-right:5px !important; 
 			margin-left: 0;
-		}
-		.person{
 		}
 		.fold{
 			width:80px;

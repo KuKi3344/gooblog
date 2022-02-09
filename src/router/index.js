@@ -67,7 +67,12 @@ const routes = [
 		{
 			path:'/userinfo/:id',
 			name:'个人中心',
-			component:r=>require.ensure([],()=>r(require('../views/userinfo')),'userinfo')
+			component:r=>require.ensure([],()=>r(require('../views/message/userinfo')),'userinfo')
+		},
+		{
+			path:'/mycomment',
+			name:'我的评论与回复',
+			component:r=>require.ensure([],()=>r(require('../views/message/mycomment')),'mycomment')
 		}
 	]
   }

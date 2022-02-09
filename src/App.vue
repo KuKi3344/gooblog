@@ -7,7 +7,7 @@
 	    <div id="loader"></div>
 	    <div class="loader-section section-left"></div>
 	    <div class="loader-section section-right"></div>
-	    <div class="load_title">LOADING......<br><span>lULU STORY</span></div>
+	    <div class="load_title">LOADING......<br><span>GOO BLOG</span></div>
 	</div>
   </div>
 </template>
@@ -75,6 +75,10 @@
 	{
 	   
 	   display: none;
+	}
+	.el-message-box{
+		width:250px !important;
+		font-size: 12px !important;
 	}
 		
 	

@@ -14,7 +14,7 @@
 	import scrollpage from '../scrollpage/index'
 	import articleitem from '../articles/articleitem'
 	import {
-		getarticles
+		getarticlebytag
 	} from '../../api/article.js'
 	export default {
 		name: 'articlescrollpage',
@@ -32,8 +32,7 @@
 			}
 		},
 		props: {
-			time: String,
-			category: String,
+			tag: String,
 		},
 		components: {
 			"scroll-page": scrollpage,
@@ -43,12 +42,7 @@
 			this.getArticles();
 		},
 		watch: {
-			time() {
-				this.articles = [];
-				this.innerPage.page = 1;
-				this.getArticles();
-			},
-			category(){
+			tag() {
 				this.articles = [];
 				this.innerPage.page = 1;
 				this.getArticles();
@@ -68,14 +62,11 @@
 			},
 			getArticles() {
 				this.loading = true;
-				var run = false;
-				if (this.time != '') {
-					this.innerPage.date = this.time;
+				var run = false;			
+				if (this.tag != '') {
+					this.innerPage.tagId = this.tag;
 				}
-				if (this.category != '') {
-					this.innerPage.categoryId = this.category;
-				}
-				getarticles(this.innerPage).then(resp => {
+				getarticlebytag(this.innerPage).then(resp => {
 					if (resp.data.code == 200) {
 						if (resp.data.data.length <= 0) {
 							this.noData = true;

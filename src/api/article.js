@@ -47,6 +47,12 @@ export function getuser(){
 		url:`${base}/user/private/current`,
 	})
 }
+export function getuserbyid(id){
+	return axios({
+		method:'get',
+		url:`${base}/user/public/user/${id}`,
+	})
+}
 export function logout(){
 	return axios({
 		method:'post',
@@ -120,5 +126,47 @@ export function  deletecomment(id,fromUserId) {
 			id:id,
 			fromUserId:fromUserId,
 		}
+	})
+}
+export function getnoreadmes(){
+	return axios({
+		method:'post',
+		url:`${base}/message/private/all`,
+		data:{
+			status:'未读'
+		}
+	})
+}
+export function getreadmes(){
+	return axios({
+		method:'post',
+		url:`${base}/message/private/all`,
+		data:{
+			status:'已读'
+		}
+	})
+}
+export function confirmmes(id){
+	return axios({
+		method:'post',
+		url:`${base}/message/private/update/status`,
+		data:{
+			id:id,
+			status:'已读'
+		}
+	})
+}
+export function getmyarticles(params) {
+	return axios({
+		method:'post',
+		url:`${base}/article/private/myself`,
+		data:params
+	})
+}
+export function getarticlebytag(params) {
+	return axios({
+		method:'post',
+		url:`${base}/article/public/all/by/tag`,
+		data:params
 	})
 }

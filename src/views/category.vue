@@ -60,7 +60,7 @@
 		methods: {
 
 			changecategory(id, name) {
-				this.$router.replace({
+				this.$router.push({
 					path: `/category/all/${id}`,
 					query: {
 						name: name
@@ -94,8 +94,7 @@
 	.me-area {
 		border-bottom: 1px solid #efefef;
 		z-index: 0 !important;
-		padding: 20px;
-		padding-left: 10px;
+		padding: 20px 0 10px 0;
 	}
 
 	.choose {
@@ -121,7 +120,6 @@
 		justify-content: flex-start;
 		flex-wrap: wrap;
 		padding: 0;
-		margin: 10px;
 		text-align: center;
 		list-style-type: none;
 		background: rgba(251, 255, 255, 0.8);
@@ -131,11 +129,11 @@
 
 	.me-category-item {
 		display: inline-block;
-		min-width: 50px;
-		padding: 10px;
+		min-width: 30px;
+		padding: 5px;
 		font-size: 14px;
 		color: #649172;
-		margin: 5px;
+		margin: 10px 5px;
 	}
 
 	.me-order-list {
@@ -143,14 +141,12 @@
 	}
 
 	.me-category-title {
-		margin-left: 4px;
-		margin-bottom: 12px;
-		margin-top: 10px;
+		margin: 20px 0;
 		background: rgba(251, 255, 255, 0.8);
 		color: #5f8d82;
 		font-weight: 600;
 		letter-spacing: 2px;
-		font-size: 16px;
+		font-size: 14px;
 		width: 100%;
 		height: 50px;
 		text-align: center;
@@ -173,5 +169,6 @@
 		margin-right: 10px;
 		width: 100%;
 		background-color: rgba(255, 255, 255, 0.9);
+		padding: 0;
 	}
 </style>

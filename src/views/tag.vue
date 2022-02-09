@@ -15,7 +15,7 @@
 			<el-main class="me-articles">
 
 				<div class="me-tag-title">{{currenttag}}</div>
-				<articlescrollpage :tag="$route.params.id"></articlescrollpage>
+				<tagarticle :tag="$route.params.id"></tagarticle>
 
 			</el-main>
 		</el-container>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-	import articlescrollpage from '../components/common/articlescrollpage'
+	import tagarticle from '../components/common/tagarticle'
 	import {
 		getalltag
 	} from '../api/article'
@@ -32,7 +32,7 @@
 	export default {
 		name: "archives",
 		components: {
-			articlescrollpage
+			tagarticle
 		},
 		created() {
 			if(this.$route.query.name){
@@ -89,8 +89,7 @@
 	.me-area {
 		border-bottom: 1px solid #efefef;
 		z-index: 0 !important;
-		padding: 20px;
-		padding-left: 10px;
+		padding: 20px 0 10px 0;
 	}
 	.choose{
 		font-size: 14px;
@@ -115,7 +114,6 @@
 		justify-content: flex-start;
 		flex-wrap: wrap;
 		padding: 0;
-		margin: 10px;
 		text-align: center;
 		list-style-type: none;
 		background: rgba(255, 255, 255,0.9);
@@ -137,14 +135,12 @@
 	}
 
 	.me-tag-title {
-		margin-left: 4px;
-		margin-bottom: 12px;
-		margin-top: 10px;
+		margin: 20px 0 !important;
 		background:rgba(251, 255, 255, 0.8);
 		color: #549c78;
 		font-weight: 600;
 		letter-spacing: 2px;
-		font-size: 16px;
+		font-size: 14px;
 		width: 100%;
 		height: 50px;
 		text-align: center;
@@ -167,5 +163,6 @@
 		margin-right: 10px;
 		width: 100%;
 		background-color: rgba(255, 255, 255, 0.9);
+		padding:0;
 	}
 </style>

@@ -6,6 +6,7 @@
 	      <strong>
 	       KuKi and Noblegasesgoo
 	      </strong>
+		  <br/>滇ICP备2022000707号
 	    </p>
 	  </div>
 	</el-footer>
@@ -20,7 +21,7 @@
 
 <style scoped="scoped">
 	.me-area{
-		height:30px !important;
+		height:60px !important;
 	}
 	.el-footer {
 	  min-width: 100%;

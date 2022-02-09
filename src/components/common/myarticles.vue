@@ -1,23 +1,23 @@
 <template>
-	<div style="min-height: 450px;">
-		<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load" class="main"  v-if="articles.length>0">
-		<articleitem v-for="article in articles" v-bind="article" :key="article.id"
-			style="flex:1;margin-bottom: 10px;z-index: 99;">
-		</articleitem>
-	</scroll-page>
-	<el-empty description="暂无" v-else></el-empty>
+	<div>
+		<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load" class="main"
+			v-if="articles.length>0">
+			<articleitem v-for="article in articles" v-bind="article" :key="article.id"
+				style="flex:1;margin-bottom: 10px;z-index: 99;">
+			</articleitem>
+		</scroll-page>
+		<el-empty description="暂无" v-else></el-empty>
 	</div>
-	
 </template>
 
 <script>
 	import scrollpage from '../scrollpage/index'
 	import articleitem from '../articles/articleitem'
 	import {
-		getarticles
+		getmyarticles
 	} from '../../api/article.js'
 	export default {
-		name: 'articlescrollpage',
+		name: 'myarticles',
 		data() {
 			return {
 				loading: false,
@@ -26,13 +26,14 @@
 				articles: [],
 				innerPage: {
 					page: 1,
-					pageSize: 10,
+					pageSize: 9,
 				},
 				canRun: true,
 			}
 		},
 		props: {
 			time: String,
+			tag: String,
 			category: String,
 		},
 		components: {
@@ -40,18 +41,23 @@
 			"articleitem": articleitem
 		},
 		created() {
-			this.getArticles();
+			this.getmyArticles();
 		},
 		watch: {
 			time() {
 				this.articles = [];
 				this.innerPage.page = 1;
-				this.getArticles();
+				this.getmyArticles();
 			},
-			category(){
+			tag() {
 				this.articles = [];
 				this.innerPage.page = 1;
-				this.getArticles();
+				this.getmyArticles();
+			},
+			category() {
+				this.articles = [];
+				this.innerPage.page = 1;
+				this.getmyArticles();
 			},
 		},
 		methods: {
@@ -60,22 +66,19 @@
 				//这里用了节流思想
 				if (this.canRun) {
 					this.canRun = false;
-					this.getArticles();
+					this.getmyArticles();
 					setTimeout(() => {
 						this.canRun = true;
 					}, 500)
 				}
 			},
-			getArticles() {
+			getmyArticles() {
 				this.loading = true;
 				var run = false;
-				if (this.time != '') {
-					this.innerPage.date = this.time;
-				}
-				if (this.category != '') {
-					this.innerPage.categoryId = this.category;
-				}
-				getarticles(this.innerPage).then(resp => {
+				this.innerPage.date = this.time;
+				this.innerPage.tagId = this.tag;
+				this.innerPage.categoryId = this.category;
+				getmyarticles(this.innerPage).then(resp => {
 					if (resp.data.code == 200) {
 						if (resp.data.data.length <= 0) {
 							this.noData = true;

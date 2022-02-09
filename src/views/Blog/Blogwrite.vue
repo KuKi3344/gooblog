@@ -306,8 +306,13 @@
 				cancelButtonText: '取消',
 				type: 'warning'
 			}).then(() => {
-				this.$router.go(-1)
-			})
+				this.$router.go(-1);
+			}).catch(() => {
+			this.$message({
+				type: 'info',
+				message: '已取消'
+				})  
+			});          
 		},
 		getCategorysAndTags() {
 			let that = this
