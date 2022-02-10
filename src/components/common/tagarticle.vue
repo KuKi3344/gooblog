@@ -1,20 +1,22 @@
 <template>
-	<div style="min-height: 450px;">
-		<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load" class="main"  v-if="articles.length>0">
-		<articleitem v-for="article in articles" v-bind="article" :key="article.id"
-			style="flex:1;margin-bottom: 10px;z-index: 99;">
-		</articleitem>
-	</scroll-page>
-	<el-empty description="暂无" v-else></el-empty>
+	<div style="min-height: 430px;">
+		<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load" class="main"
+			v-if="articles.length>0">
+			<articleitem v-for="article in articles" v-bind="article" :key="article.id"
+				style="flex:1;margin-bottom: 10px;z-index: 99;">
+			</articleitem>
+		</scroll-page>
+		<el-empty description="暂无" v-else></el-empty>
 	</div>
-	
+
 </template>
 
 <script>
 	import scrollpage from '../scrollpage/index'
 	import articleitem from '../articles/articleitem'
 	import {
-		getarticlebytag
+		getarticlebytag,
+		getarticles
 	} from '../../api/article.js'
 	export default {
 		name: 'articlescrollpage',
@@ -38,7 +40,7 @@
 			"scroll-page": scrollpage,
 			"articleitem": articleitem
 		},
-		created() {
+		mounted() {
 			this.getArticles();
 		},
 		watch: {
@@ -62,29 +64,50 @@
 			},
 			getArticles() {
 				this.loading = true;
-				var run = false;			
-				if (this.tag != '') {
-					this.innerPage.tagId = this.tag;
-				}
-				getarticlebytag(this.innerPage).then(resp => {
-					if (resp.data.code == 200) {
-						if (resp.data.data.length <= 0) {
-							this.noData = true;
-							this.$message({
-								showClose: true,
-								message: '没有更多文章惹qwq',
-								type: 'warning'
-							})
+				var run = false;
+				if (!this.tag) {
+					getarticles(this.innerPage).then(resp=>{
+							if (resp.data.code == 200) {
+							if (resp.data.data.length <= 0) {
+								this.noData = true;
+								this.$message({
+									showClose: true,
+									message: '没有更多文章惹qwq',
+									type: 'warning'
+								})
+							} else {
+								this.articles = this.articles.concat(resp.data.data);
+								this.innerPage.page += 1;
+							}
 						} else {
-							this.articles = this.articles.concat(resp.data.data);
-							this.innerPage.page += 1;
+							this.$message.error(resp.data.message)
 						}
-					} else {
-						this.$message.error(resp.data.message)
-					}
-				}).catch(err => {
-					this.$message.error('加载失败qvq')
-				})
+					}).catch(err => {
+						this.$message.error('加载失败qvq')
+					})
+				}else{
+					this.innerPage.tagId = this.tag;
+					getarticlebytag(this.innerPage).then(resp => {
+						if (resp.data.code == 200) {
+							if (resp.data.data.length <= 0) {
+								this.noData = true;
+								this.$message({
+									showClose: true,
+									message: '没有更多文章惹qwq',
+									type: 'warning'
+								})
+							} else {
+								this.articles = this.articles.concat(resp.data.data);
+								this.innerPage.page += 1;
+							}
+						} else {
+							this.$message.error(resp.data.message)
+						}
+					}).catch(err => {
+						this.$message.error('加载失败qvq')
+					})
+				}
+
 				this.loading = false;
 			}
 		},

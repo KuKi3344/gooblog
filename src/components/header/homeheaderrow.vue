@@ -7,11 +7,11 @@
 				  <el-menu-item index="/tag/all"><i class="el-icon-s-flag"></i></el-menu-item>
 				  <el-menu-item index="/archives"><i class="el-icon-collection"></i></el-menu-item>
 				 <el-menu-item index="/write" class="write"><i class="el-icon-edit"></i></el-menu-item>
-				  <el-menu-item :index="'/userinfo/'+user.id" class="person" v-if="user"><el-badge :value="msg" :max="99" class="item" v-show="msg!=0" ><i class="el-icon-user-solid"></i></el-badge><i class="el-icon-user-solid" v-show="msg==0"></i></el-menu-item>
+				  <el-menu-item :index="'/userinfo/'+user.id" class="person" v-if="user">
+					  <el-badge :value="msg" :max="99" class="item" v-show="msg!=0" ><i class="el-icon-user-solid"></i></el-badge><i class="el-icon-user-solid" v-show="msg==0"></i></el-menu-item>
 				</el-menu>
 				<div v-if="!this.$store.state.login" class="fright">
 					<el-button type="text" round @click="tologin" size="mini">登录</el-button>
-					<el-button type="text" round @click="toregist" size="mini">注册</el-button>
 				</div>
 				<div class="fright" v-else>
 					<el-button round  @click="logout" size="mini" type="text" style="font-size: 18px !important; "><i class="el-icon-s-promotion"></i></el-button>
@@ -30,7 +30,7 @@
 			return{
 				user:JSON.parse(window.sessionStorage.getItem('user')),
 				islogin:false,
-				msg:1
+				msg:0
 			}
 		},
 		methods:{
@@ -43,9 +43,6 @@
 			},
 			tologin(){
 				this.$router.push('/login');
-			},
-			toregist(){
-				this.$router.push('/regist')
 			},
 				logout(){
 						this.$confirm('此操作将注销登录, 是否继续?', '提示', {

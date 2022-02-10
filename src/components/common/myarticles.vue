@@ -27,6 +27,7 @@
 				innerPage: {
 					page: 1,
 					pageSize: 9,
+					authorId: this.$route.params.id
 				},
 				canRun: true,
 			}
@@ -44,19 +45,20 @@
 			this.getmyArticles();
 		},
 		watch: {
-			time() {
-				this.articles = [];
+			time() {			
 				this.innerPage.page = 1;
+				this.articles = [];
 				this.getmyArticles();
 			},
-			tag() {
-				this.articles = [];
+			tag() {		
 				this.innerPage.page = 1;
+				this.articles = [];
 				this.getmyArticles();
 			},
 			category() {
-				this.articles = [];
+				
 				this.innerPage.page = 1;
+				this.articles = [];
 				this.getmyArticles();
 			},
 		},
@@ -74,30 +76,25 @@
 			},
 			getmyArticles() {
 				this.loading = true;
-				var run = false;
 				this.innerPage.date = this.time;
 				this.innerPage.tagId = this.tag;
 				this.innerPage.categoryId = this.category;
-				getmyarticles(this.innerPage).then(resp => {
-					if (resp.data.code == 200) {
-						if (resp.data.data.length <= 0) {
-							this.noData = true;
-							this.$message({
-								showClose: true,
-								message: '没有更多文章惹qwq',
-								type: 'warning'
-							})
-						} else {
-							this.articles = this.articles.concat(resp.data.data);
-							this.innerPage.page += 1;
-						}
-					} else {
-						this.$message.error(resp.data.message)
-					}
-				}).catch(err => {
-					this.$message.error('加载失败qvq')
-				})
-				this.loading = false;
+		
+						getmyarticles(this.innerPage).then(resp => {
+							if (resp.data.code == 200) {
+								if (resp.data.data.length <= 0) {
+									this.noData = true;
+								} else {
+									this.articles = this.articles.concat(resp.data.data);
+									this.innerPage.page += 1;
+								}
+							} else {
+								this.$message.error(resp.data.message)
+							}
+						}).catch(err => {
+							this.$message.error('加载失败qvq')
+						})		
+				this.loading = false;			
 			}
 		},
 	}

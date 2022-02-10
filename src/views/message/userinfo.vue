@@ -19,7 +19,10 @@
 				<div class="body">
 					<div class="main-head">
 						<div class="head-left" v-if="this.$store.state.id == user.id">
-							<el-button type="primary" round size="small">修改信息</el-button>
+							<el-button type="primary" round size="small" @click="updateinfo" v-show="!isupdate">修改信息
+							</el-button>
+							<el-button type="success" round size="small" v-show="isupdate">提交信息</el-button>
+							<el-button type="primary" round size="small" v-show="isupdate">修改密码</el-button>
 						</div>
 						<div class="head-right" v-if="this.$store.state.id == user.id">
 							<el-badge :value="comment" :max="99" class="item" v-show="comment>0">
@@ -41,33 +44,53 @@
 						<div class="bodyitem"><b>上次修改时间:</b>&ensp;&ensp;{{user.gmtModified}}</div>
 					</div>
 					<div class="main-body" v-show="isupdate">
-
-
+						<div class="bodyinput" style="display: flex;">
+							<div><b>头像：</b></div>
+							<input type="file" name="photo" id="photo" @change="onfilechange" style="width:150px;">
+							<img :src="imgUrl" style="width: 30px;height:30px;border-radius: 50%;">
+						</div>
+						<div class="bodyinput">
+							<div><b>用户名:</b></div>
+							<el-input v-model="updateuser.account" size="small"></el-input>
+						</div>
+						<div class="bodyinput">
+							<div><b>昵称:</b></div>
+							<el-input v-model="updateuser.nickname" size="small"></el-input>
+						</div>
+						<div class="bodyinput">
+							<div><b>手机号:</b></div>
+							<el-input v-model="updateuser.phoneNumber" size="small"></el-input>
+						</div>
+						<div class="bodyinput">
+							<div><b>邮箱:</b></div>
+							<el-input v-model="updateuser.email" size="small"></el-input>
+						</div>
+						<div class="bodyitem"><b>用户创建时间:</b>&ensp;&ensp;{{updateuser.gmtCreate}}</div>
+						<div class="bodyitem"><b>上次修改时间:</b>&ensp;&ensp;{{updateuser.gmtModified}}</div>
 					</div>
 					<div class="myarticles">
 						<div class="title">
 							<div style="width: 100%;">{{user.nickname}}的文章:</div>
 							<!-- 种类选择 -->
-							<el-select v-model="category" placeholder="请选择种类" size="mini">
+							<el-select v-model="category" placeholder="请选择种类" size="mini" clearable>
 								<el-option v-for="item in allcategory" :key="item.id" :label="item.categoryName"
 									:value="item.id+''">
 								</el-option>
 							</el-select>
 							<!-- 标签选择 -->
-							<el-select v-model="tag" placeholder="请选择标签" size="mini">
+							<el-select v-model="tag" placeholder="请选择标签" size="mini" clearable>
 								<el-option v-for="item in alltag" :key="item.id" :label="item.tagName"
 									:value="item.id+''">
 								</el-option>
 							</el-select>
 							<!-- 日期选择 -->
-							<el-select v-model="time" placeholder="请选择日期" size="mini">
-							 <el-option v-for="item in alltime" :key="item.year+'-'+item.month" :label="item.year+'-'+item.month"
-									:value="item.year+'-'+item.month">
+							<el-select v-model="time" placeholder="请选择日期" size="mini" clearable>
+								<el-option v-for="item in alltime" :key="item.year+'-'+item.month"
+									:label="item.year+'-'+item.month" :value="item.year+'-'+item.month">
 								</el-option>
 							</el-select>
-							<el-button size="mini" type="primary" @click="clean">清空选项</el-button>
 						</div>
-						<myarticles ref="myarticle" :tag="tag" :time="time" :category="category" :id="userid"></myarticles>
+						<myarticles ref="myarticle" :tag="tag" :time="time" :category="category"></myarticles>
 					</div>
 				</div>
 			</el-main>
@@ -84,6 +107,9 @@
 		getalltag,
 		getallcategory
 	} from '../../api/article.js'
+	import {
+		upload
+	} from '../../api/upload.js'
 	export default {
 		name: 'userinfo',
 		data() {
@@ -96,9 +122,11 @@
 				time: '',
 				tag: '',
 				category: '',
-				alltag:'',
-				alltime:'',
-				allcategory:'',
+				alltag: '',
+				alltime: '',
+				allcategory: '',
+				updateuser: '',
+				imgUrl: '',
 			}
 		},
 		components: {
@@ -128,8 +156,50 @@
 			}, 500)
 		},
 		methods: {
+			onfilechange(e) {
+
+				var file = e.target.files[0];
+				let formdata = new FormData();
+				formdata.append('image', file);
+				const imgType = ['image/jpeg', 'image/png'];
+				const isLt2M = file.size / 1024 / 1024 < 2;
+				if (!imgType.includes(file.type)) {
+					this.$message.error('上传头像图片仅支持JPG、PNG格式，请重新上传!');
+				} else if (!isLt2M) {
+					this.$message.error('上传头像图片大小不能超过 2MB，请重新上传!');
+				} else {
+					upload(formdata).then(resp => {
+						if (resp.data.code == 200) {
+							this.imgUrl = 'http://' + resp.data.data;
+						} else {
+							that.$message({
+								message: `resp.data.message`,
+								type: 'error',
+								showClose: true
+							})
+						}
+
+					}).catch(err => {
+						that.$message({
+							message: err,
+							type: 'error',
+							showClose: true
+						});
+					})
+				}
+
+			},
 			view() {
 				this.$router.push('/mycomment');
+			},
+			updateinfo() {
+				this.updateuser = this.user;
+				if (this.user.face) {
+					this.imgUrl = this.user.face;
+				} else {
+					this.imgUrl = this.imgsrc;
+				}
+				this.isupdate = true;
 			},
 			getnoread() {
 				getnoreadmes().then(resp => {
@@ -142,7 +212,7 @@
 					this.$message.error('获取新消息失败')
 				})
 			},
-			getalltag(){
+			getalltag() {
 				getalltag().then(resp => {
 					if (resp.data.code == 200) {
 						if (resp.data.data.length <= 0) {
@@ -161,7 +231,7 @@
 					this.$message.error('加载失败')
 				})
 			},
-			getalltime(){
+			getalltime() {
 				getallarchives().then(resp => {
 					if (resp.data.code == 200) {
 						if (resp.data.data.length <= 0) {
@@ -172,9 +242,9 @@
 							})
 						} else {
 							this.alltime = resp.data.data;
-							this.alltime.forEach(function(item,index){
-								if(item.month<10){
-									item.month = '0'+item.month;
+							this.alltime.forEach(function(item, index) {
+								if (item.month < 10) {
+									item.month = '0' + item.month;
 								}
 							})
 						}
@@ -185,7 +255,7 @@
 					this.$message.error('加载失败')
 				})
 			},
-			getallcategory(){
+			getallcategory() {
 				getallcategory().then(resp => {
 					if (resp.data.code == 200) {
 						if (resp.data.data.length <= 0) {
@@ -204,11 +274,6 @@
 					this.$message.error('加载失败')
 				})
 			},
-			clean(){
-				this.time = '';
-				this.tag = '';
-				this.category = '';
-			}
 		}
 	}
 </script>
@@ -226,6 +291,7 @@
 		margin-left: 5px;
 		border-radius: 18px;
 		padding: 10px 20px;
+		margin-bottom: 5px;
 	}
 
 	.me-intro {
@@ -289,6 +355,16 @@
 		margin-top: 20px;
 	}
 
+	.main-body .el-input {
+		max-width: 400px;
+		margin: 10px;
+		flex: 1;
+	}
+
+	.el-input__inner {
+		border-radius: 20px !important;
+	}
+
 	.item {
 		font-size: 15px;
 	}
@@ -297,6 +373,16 @@
 		font-size: 15px;
 		margin: 12px 15px;
 		color: #464646;
+	}
+
+	.bodyinput {
+		font-size: 15px;
+		color: #464646;
+		display: flex;
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		align-items: center;
+		margin-left: 15px;
 	}
 
 	.img {
@@ -342,11 +428,13 @@
 		align-items: center;
 		flex-wrap: wrap;
 	}
-.el-select{
-	margin:10px 10px 5px 0;
-	min-width: 80px;
-	flex: 1;
-}
+
+	.el-select {
+		margin: 10px 10px 5px 0;
+		min-width: 80px;
+		flex: 1;
+	}
+
 	@media screen and (max-width:520px) {
 
 		.el-container {

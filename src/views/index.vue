@@ -4,28 +4,19 @@
 			<!-- 	<div class='frosted-glass'>		 -->
 			<div class="time">
 				<span class="timeshow">{{hour}}:{{minute}}</span>
-				  <el-input
-				  class="biginput"
-				  maxlength="20"
-				  minlength="1"
-				    placeholder="请输入内容"
-				    suffix-icon="el-icon-search"
-				    v-model="select"
-					>
-				  </el-input>
-				  <el-input
-				  class="smallinput"
-				  maxlength="20"
-				  minlength="1"
-				    placeholder="请输入内容"
-				    suffix-icon="el-icon-search"
-				    v-model="select"
-				  	size="mini">
-				  </el-input>
+				<div class="input">
+					<el-input class="biginput" maxlength="20" minlength="1" placeholder="请输入内容" v-model="select">
+					</el-input>
+				 <el-input class="smallinput" maxlength="20" minlength="1" placeholder="请输入内容" v-model="select"
+						size="mini">
+					</el-input>
+					<el-button icon="el-icon-search" size="small"></el-button>
+				</div>
+
 			</div>
 			<!-- 	</div> -->
 		</div>
-	<articlescrollpage></articlescrollpage>
+		<articlescrollpage></articlescrollpage>
 	</div>
 </template>
 
@@ -38,18 +29,18 @@
 				minute: '',
 				hour: '',
 				articles: [],
-				select:'',
+				select: '',
 			}
 		},
-		created(){
+		created() {
 			var time = new Date();
 			this.minute = time.getMinutes();
 			this.hour = time.getHours();
-			if(this.minute<10){
-				this.minute ='0' + this.minute;
+			if (this.minute < 10) {
+				this.minute = '0' + this.minute;
 			}
-			if(this.hour<10){
-				this.hour ='0' + this.hour;
+			if (this.hour < 10) {
+				this.hour = '0' + this.hour;
 			}
 		},
 		components: {
@@ -59,7 +50,7 @@
 </script>
 
 <style scoped="scoped">
-.bk {
+	.bk {
 		border-top: #e8e8e8;
 		display: flex;
 		height: 260px;
@@ -84,60 +75,78 @@
 		height: 100%;
 		font-weight: 600;
 	}
-	.timeshow{
+
+	.timeshow {
 		font-size: 50px;
 		display: block;
-		height:80px;
+		height: 80px;
 		line-height: 80px;
 	}
-	.el-input {
+
+	.el-button {
+		border-bottom-right-radius: 18px;
+		border-top-right-radius: 18px;
+		border: none;
+	}
+
+	.input {
 		width: 65%;
 		margin-top: 20px;
 		margin-bottom: 20px;
 		background-color: #fff;
-		border-radius: 23px;
+		border-radius: 18px;
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: nowrap;
 	}
+
 	::v-deep .el-input__inner {
-	        border-radius: 23px;
-	      }
+		border-top-left-radius: 18px;
+		border-bottom-left-radius: 18px;
+		border: none;
+	}
+
 	@media screen and (max-width:1100px) {
-	
+
 		.bk {
 			height: 70px;
 			margin-top: 20px;
 			border-radius: 30px;
 		}
-	
+
 		.timeshow {
 			display: none;
 		}
 	}
+
 	@media screen and (max-width:520px) {
-	
+
 		.bk {
 			height: 40px !important;
 			margin-top: 50px !important;
 			border-radius: 10px;
 		}
 
-		.biginput{
+		.biginput {
 			display: none;
 		}
-		.smallinput{
+
+		.smallinput {
 			display: block;
 		}
-		
+
 
 	}
+
 	@media screen and (min-width:520px) {
 
-		.biginput{
+		.biginput {
 			display: block;
 		}
-		.smallinput{
+
+		.smallinput {
 			display: none;
 		}
-	
+
 	}
-	
 </style>

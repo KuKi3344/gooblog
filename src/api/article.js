@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-var base = '';
+var base = 'https://api.googookuki.cn';
 
 export function gethottag(){
 	return axios({
@@ -159,7 +159,7 @@ export function confirmmes(id){
 export function getmyarticles(params) {
 	return axios({
 		method:'post',
-		url:`${base}/article/private/myself`,
+		url:`${base}/article/public/someone`,
 		data:params
 	})
 }

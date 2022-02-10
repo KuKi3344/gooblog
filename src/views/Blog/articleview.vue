@@ -74,7 +74,7 @@
 							</commentview>
 
 						</div>
-						<el-empty description="暂无" v-else></el-empty>
+						<el-empty description="暂无评论" v-else></el-empty>
 					</div>
 
 				</div>

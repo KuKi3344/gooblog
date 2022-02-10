@@ -18,8 +18,7 @@
 				</el-input>
 			</el-form-item>
 			<div style="display: flex;justify-content: space-around;">
-				<el-button type="primary" size="small" style="width:40%;margin-top:15px" @click="toRegist" round>注册</el-button>
-				<el-button type="primary" size="small" style="width:40%;margin-top:15px" @click="doSubmit" round>登录</el-button>
+				<el-button type="primary" size="small" style="width:80%;margin-top:15px" @click="doSubmit" round>登录</el-button>
 			</div>
 		
 		</el-form>

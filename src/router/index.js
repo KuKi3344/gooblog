@@ -18,12 +18,6 @@ const routes = [
 		'login')
 	},
 	{
-		path:'/regist',
-		name:'注册',
-		component: r=>require.ensure([],()=>r(require('../views/regist')),
-		'regist')
-	},
-	{
 		path:'/write/:id?',
 		name:'写文章',
 		component:r=>require.ensure([],()=>r(require('../views/Blog/Blogwrite')),

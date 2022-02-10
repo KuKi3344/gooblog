@@ -28,7 +28,6 @@
 			</div>
 			<div class="right" v-if="!this.$store.state.login">
 				<el-button round @click="tologin" size="small" type="text">登录</el-button>
-				<el-button round @click="toregist" size="small" type="text">注册</el-button>
 			</div>
 			<div class="right" v-else>
 				<el-button round @click="logout" type="text" size="small">退出登录</el-button>
@@ -52,7 +51,6 @@
 			</div>
 			<div class="fright" v-if="!this.$store.state.login">
 				<el-button round @click="tologin" size="small" type="text">登录</el-button>
-				<el-button round @click="toregist" size="small" type="text">注册</el-button>
 			</div>
 			<div class="fright" v-else>
 				<el-button round @click="logout" size="small" type="text" style="font-size: 18px !important; "><i
@@ -125,9 +123,6 @@
 			},
 			tologin() {
 				this.$router.push('/login');
-			},
-			toregist() {
-				this.$router.push('/regist')
 			},
 			logout() {
 				this.$confirm('此操作将注销登录, 是否继续?', '提示', {
