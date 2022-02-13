@@ -21,7 +21,7 @@
 						<div class="head-left" v-if="this.$store.state.id == user.id">
 							<el-button type="primary" round size="small" @click="updateinfo" v-show="!isupdate">修改信息
 							</el-button>
-							<el-button type="success" round size="small" v-show="isupdate">提交信息</el-button>
+							<el-button type="success" round size="small" v-show="isupdate" @click="update">提交信息</el-button>
 							<el-button type="primary" round size="small" v-show="isupdate">修改密码</el-button>
 						</div>
 						<div class="head-right" v-if="this.$store.state.id == user.id">
@@ -200,6 +200,9 @@
 					this.imgUrl = this.imgsrc;
 				}
 				this.isupdate = true;
+			},
+			update(){
+				this.updateuser.face = this.imgUrl;
 			},
 			getnoread() {
 				getnoreadmes().then(resp => {

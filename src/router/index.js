@@ -67,6 +67,11 @@ const routes = [
 			path:'/mycomment',
 			name:'我的评论与回复',
 			component:r=>require.ensure([],()=>r(require('../views/message/mycomment')),'mycomment')
+		},
+		{
+			path:'/search/:id',
+			name:'查找文章',
+			component:r=>require.ensure([],()=>r(require('../views/search')),'search')
 		}
 	]
   }

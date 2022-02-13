@@ -5,12 +5,9 @@
 			<div class="time">
 				<span class="timeshow">{{hour}}:{{minute}}</span>
 				<div class="input">
-					<el-input class="biginput" maxlength="20" minlength="1" placeholder="请输入内容" v-model="select">
-					</el-input>
-				 <el-input class="smallinput" maxlength="20" minlength="1" placeholder="请输入内容" v-model="select"
-						size="mini">
-					</el-input>
-					<el-button icon="el-icon-search" size="small"></el-button>
+					<el-autocomplete class="inline-input" v-model="condition" :fetch-suggestions="search" clearable
+						placeholder="请输入内容" :trigger-on-focus="false" @select="handleSelect"></el-autocomplete>
+					<el-button icon="el-icon-search" size="small" @click="filterall"></el-button>
 				</div>
 
 			</div>
@@ -22,6 +19,9 @@
 
 <script>
 	import articlescrollpage from '../components/common/articlescrollpage'
+	import {
+		searchall
+	} from '../api/article.js'
 	export default {
 		name: 'home',
 		data() {
@@ -29,7 +29,8 @@
 				minute: '',
 				hour: '',
 				articles: [],
-				select: '',
+				condition: '',
+				searchlist:[]
 			}
 		},
 		created() {
@@ -46,6 +47,48 @@
 		components: {
 			articlescrollpage,
 		},
+		watch:{
+			condition(){
+				this.searchlist=[]
+			}
+		},
+		methods: {
+			search(queryString, cb) {
+				var that = this;
+				let params = {
+					condition: this.condition,
+					page: 1,
+					pageSize: 5
+				}
+				searchall(params).then(resp => {
+					if (resp.data.data.length > 0) {
+						this.searchlist = resp.data.data;
+						this.searchlist.forEach(function(value, index, array) {
+							that.searchlist[index].value = value.title
+						})
+						var list = this.searchlist
+						cb(list)
+					}else{
+						let list2 = [
+							{
+							value:'暂无'
+								}
+						]
+						cb(list2)
+					}
+
+				})
+			},
+			handleSelect(item) {
+				this.$router.push(`/article/${item.id}`)
+			},
+			filterall(){
+				if(this.condition!=''){
+					this.$router.push(`/search/${this.condition}`);
+				}
+				
+			}
+		}
 	}
 </script>
 
@@ -100,6 +143,11 @@
 		flex-wrap: nowrap;
 	}
 
+	.el-autocomplete {
+		flex: 1;
+		color: #000000;
+	}
+
 	::v-deep .el-input__inner {
 		border-top-left-radius: 18px;
 		border-bottom-left-radius: 18px;
@@ -126,26 +174,8 @@
 			margin-top: 50px !important;
 			border-radius: 10px;
 		}
-
-		.biginput {
-			display: none;
-		}
-
-		.smallinput {
-			display: block;
-		}
-
-
-	}
-
-	@media screen and (min-width:520px) {
-
-		.biginput {
-			display: block;
-		}
-
-		.smallinput {
-			display: none;
+		::v-deep .el-input__inner{
+			height:30px !important;
 		}
 
 	}

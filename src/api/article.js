@@ -170,3 +170,10 @@ export function getarticlebytag(params) {
 		data:params
 	})
 }
+export function searchall(params) {
+	return axios({
+		method:'post',
+		url:`${base}/article/public/all/es`,
+		data:params
+	})
+}
