@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<ul>
-			<a :href="'/#/userinfo/'+ comment.author.id">
+			<router-link :to="'/userinfo/'+ comment.author.id">
 				<img :src="comment.author.face" class="authorface" v-if="comment.author.face">
 				<img :src="imgsrc" class="authorface" v-else>
-			</a>
+			</router-link>
 			<!-- 通过绑定id来进行不同人信息的跳转 -->
-			<a :href="'/#/userinfo/'+ comment.author.id" class="authorname">{{comment.author.nickname}}</a>
+			<router-link :to="'/userinfo/'+ comment.author.id" class="authorname">{{comment.author.nickname}}</router-link>
 			<p class="commentcontent">{{comment.commentContent}}</p>
 			<span class="createtime">{{comment.gmtCreate | format}}</span>
 			<el-button @click="showcomment(-1,comment.author)" type="text" size="small"
@@ -15,12 +15,12 @@
 				class="removecomment" v-if="comment.author.id == userid">删除</el-button>
 			<li v-for="(r,index) in filterrecall()" :key="r.id" class="recall">
 				<div style="font-size:13px;">
-					<a :href="'/#/userinfo/'+ r.author.id">
+					<router-link :to="'/userinfo/'+ r.author.id">
 						<img :src="r.author.face" class="rauthorface" v-if="r.author.face">
 						<img :src="imgsrc" class="rauthorface" v-else>
-						</a>
-					<a :href="'/#/userinfo/'+ r.author.id" class="author">{{r.author.nickname}}</a>回复<a
-						:href="'/#/userinfo/'+ r.toUser.id" class="touser">@{{r.toUser.nickname}}</a>:{{r.commentContent}}
+						</router-link>
+					<router-link :to="'/userinfo/'+ r.author.id" class="author">{{r.author.nickname}}</router-link>回复
+					<router-link :to="'/userinfo/'+ r.toUser.id" class="touser">@{{r.toUser.nickname}}</router-link>:{{r.commentContent}}
 				</div>
 				<span class="recalletime">{{r.gmtCreate | format}}</span>
 				<el-button @click="showcomment(-1,r.author)" type="text" size="small"

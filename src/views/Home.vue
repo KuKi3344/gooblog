@@ -226,7 +226,7 @@
 
 	.img {
 		z-index: 0;
-		opacity: 0.2;
+		opacity: 0.25;
 		position: fixed;
 		width: 100%;
 		height:100%;

@@ -12,7 +12,7 @@
 			</div>
 			<div class="intro">
 				<div class="me-article-author">
-					<a :href="'/#/userinfo/'+author.id" class="me-icon-author">&nbsp;{{author.nickname}}</a>
+					<router-link :to="'/userinfo/'+author.id" class="me-icon-author">&nbsp;{{author.nickname}}</router-link>
 				</div>
 				<div class="me-pull-right me-article-count">
 					<i class="el-icon-time"></i>&nbsp;{{gmtCreate | format}}

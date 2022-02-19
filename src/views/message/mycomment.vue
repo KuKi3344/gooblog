@@ -62,6 +62,7 @@
 	@media screen and (max-width: 520px) {
 	    .mycomment{
 			margin-top: 40px;
+			box-sizing: ;
 		}
 		::v-deep .el-tabs__item{
 			font-size: 12px !important;

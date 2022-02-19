@@ -7,15 +7,15 @@
 				<div class="me-view-card">
 					<h1 class="me-view-title">{{article.title}}</h1>
 					<div class="me-view-author">
-						<a :href="'/#/userinfo/'+article.author.id">
+						<router-link :to="'/userinfo/'+article.author.id">
 							<img class="me-view-picture" :src="article.author.face" v-if="article.author.face"></img>
 							<img class="me-view-picture" :src="imgsrc" v-else></img>
 
-						</a>
+						</router-link>
 						<div class="me-view-info">
-							<a :href="'/#/userinfo/'+article.author.id">
+							<router-link :to="'/userinfo/'+article.author.id">
 							<span>{{article.author.nickname}}</span>
-							</a>
+							</router-link>
 							<div class="me-view-meta">
 								<span>{{article.gmtCreate | format}}</span>
 								<span>阅读 {{article.viewCounts}}</span>
@@ -53,7 +53,7 @@
 								
 								<div width="40" height="40" style="display: flex;margin-bottom: 10px;">
 									<a style="margin-right: 10px;">
-										<a href="/#/login"><span class="noavator" v-if="!user">未登录</span></a>
+										<router-link to="/login"><span class="noavator" v-if="!user">未登录</span></router-link>
 										<img class="me-view-picture" :src="user.face" v-if="user&&user.face"></img>
 										<img class="me-view-picture" :src="imgsrc" v-if="user&&!user.face"></img>
 									</a>

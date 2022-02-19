@@ -1,22 +1,22 @@
-module.exports = {
-	runtimeCompiler:true,
-}
-let proxyObj = {}
+// module.exports = {
+// 	runtimeCompiler:true,
+// }
+// let proxyObj = {}
 
-proxyObj['/'] = {
-  ws: false,
-  target: 'http://121.5.66.107:2235',
-  changeOrigin: true,
-  pathRewrite: {
-    '^/': '/'
-  }
-}
+// proxyObj['/'] = {
+//   ws: false,
+//   target: 'https://api.googookuki.cn',
+//   changeOrigin: true,
+//   pathRewrite: {
+//     '^/': '/'
+//   }
+// }
 
-module.exports = {
-  publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
-  devServer: {
-    host: 'localhost',
-    port: 8080,
-    proxy: proxyObj
-  }
-}
+// module.exports = {
+//   publicPath: process.env.NODE_ENV === 'production' ? './' : '/',
+//   devServer: {
+//     host: 'localhost',
+//     port: 8080,
+//     proxy: proxyObj
+//   }
+// }

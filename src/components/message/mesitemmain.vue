@@ -3,9 +3,9 @@
 		<div class="comment">
 			<div class="title" v-if="m.type==1" >
 				<div>
-				<a :href="'/#/userinfo/'+m.fromUser.id">
+				<router-link :to="'/userinfo/'+m.fromUser.id">
 				<img :src="m.fromUser.face" v-if="m.fromUser.face">
-				<img :src="imgsrc" v-else></a>
+				<img :src="imgsrc" v-else></router-link>
 				</div>
 				<div class="title-right">
 					<div class="name"><a :href="'/#/userinfo/'+m.fromUser.id">{{m.fromUser.nickname}}</a>评论了你的文章</div>
@@ -17,9 +17,9 @@
 				</div>
 			<div class="title" v-else>
 				<div>
-				<a :href="'/#/article/'+m.fromUser.id">
+				<router-link :to="'/article/'+m.fromUser.id">
 				<img :src="m.fromUser.face" v-if="m.fromUser.face">
-				<img :src="imgsrc" v-else></a>
+				<img :src="imgsrc" v-else></router-link>
 				</div>
 				<div class="title-right">
 					<div class="name"><a :href="'/#/userinfo/'+m.fromUser.id">{{m.fromUser.nickname}}</a>回复了你的评论</div>
