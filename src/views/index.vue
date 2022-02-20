@@ -3,7 +3,7 @@
 		<div class="bk">
 			<!-- 	<div class='frosted-glass'>		 -->
 			<div class="time">
-				<span class="timeshow">{{hour}}:{{minute}}</span>
+				<span class="timeshow">{{hour}}<span id="time">:</span>{{minute}}</span>
 				<div class="input">
 					<el-autocomplete class="inline-input" v-model="condition" :fetch-suggestions="search" clearable
 						placeholder="请输入内容" :trigger-on-focus="false" @select="handleSelect"></el-autocomplete>
@@ -142,12 +142,24 @@
 		justify-content: flex-start;
 		flex-wrap: nowrap;
 	}
-
+#time{
+	animation:appear 0.8s alternate infinite ease-in;
+}
 	.el-autocomplete {
 		flex: 1;
 		color: #000000;
 	}
-
+@keyframes appear{
+	0%{
+		opacity: 1;
+	}
+	50%{
+		opacity: 0.7;
+	}
+	100%{
+		opacity: 0;
+	}
+}
 	::v-deep .el-input__inner {
 		border-top-left-radius: 18px;
 		border-bottom-left-radius: 18px;

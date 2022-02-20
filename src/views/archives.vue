@@ -7,7 +7,7 @@
 					<li class="choose">选择日期:</li>
 					<li v-for="a in archives" @click="changeArchive(a.year, a.month)" :key="a.year + a.month"
 						class="me-month-item">
-						<a>{{`${a.year}年${a.month}月(${a.count})`}}</a>
+						<a :style="randomRgb()">{{`${a.year}年${a.month}月(${a.count})`}}</a>
 					</li>
 				</ul>
 
@@ -58,7 +58,14 @@
 			},
 		},
 		methods: {
-
+		randomRgb(){
+				var str = ['#7eb497','#30beae','#63b0cc','#40cfa7','#5b98c6'];
+				let t = str[Math.floor(Math.random()*str.length)];
+				console.log(t)
+				 return {
+					   color:`${t} !important`,
+						       };
+			},
 			changeArchive(year, month) {
 				if (month < 10) {
 					month = '0' + month;
@@ -134,6 +141,7 @@
 		font-size: 13px;
 		color: #649172;
 		margin: 5px;
+		font-weight: 600;
 	}
 
 	.me-order-list {
@@ -170,5 +178,14 @@
 		width: 100%;
 		background-color: rgba(255, 255, 255, 0.9);
 		padding: 0;
+	}
+@media screen and (max-width:520px) {
+		.choose{
+			font-size: 12px;
+			padding: 5px;
+		}
+		.me-month-item{
+			font-size: 12px;
+		}
 	}
 </style>

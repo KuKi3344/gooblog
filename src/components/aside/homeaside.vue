@@ -5,7 +5,7 @@
 			<span id="day">{{day}}</span>
 			</div>
 			<div class="head">
-				<img src="https://guangzan.gitee.io/imagehost/Illustrations/spring.svg">
+				<img src="../../assets/img/pk3.png">
 			</div>
 			<div style="margin-bottom:10px;">
 				<span id="name">站长</span>
@@ -41,7 +41,7 @@
 		margin:15px;
 		animation-name: ease;
 		animation-duration: 2s;
-		background:rgba(251, 255, 255, 0.8);
+		background:rgba(251, 255, 255, 0.95);
 		border-radius: 10px;
 	}
 	#name {

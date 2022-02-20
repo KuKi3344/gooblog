@@ -7,7 +7,7 @@
 					<li class="choose">选择类别:</li>
 					<li v-for="t in category" @click="changecategory(t.id,t.categoryName)" :key="t.id"
 						class="me-category-item">
-						<a>{{t.categoryName}}</a>
+						<a :style="randomRgb()">{{t.categoryName}}</a>
 					</li>
 				</ul>
 
@@ -58,7 +58,14 @@
 			},
 		},
 		methods: {
-
+		randomRgb(){
+				var str = ['#7eb497','#2fbe96','#60a1cc','#e18384','#e39770','#39bc95','#7fa0d5','#f0a146'];
+				let t = str[Math.floor(Math.random()*str.length)];
+				console.log(t)
+				 return {
+					   color:`${t} !important`,
+						       };
+			},
 			changecategory(id, name) {
 				this.$router.push({
 					path: `/category/all/${id}`,
@@ -132,6 +139,7 @@
 		min-width: 30px;
 		padding: 5px;
 		font-size: 14px;
+		font-weight: 600;
 		color: #649172;
 		margin: 10px 5px;
 	}
@@ -139,7 +147,7 @@
 	.me-order-list {
 		float: right;
 	}
-
+	
 	.me-category-title {
 		margin: 20px 0;
 		background: rgba(251, 255, 255, 0.8);
@@ -170,5 +178,14 @@
 		width: 100%;
 		background-color: rgba(255, 255, 255, 0.9);
 		padding: 0;
+	}
+	@media screen and (max-width:520px) {
+		.choose{
+			font-size: 12px;
+			padding: 5px;
+		}
+		.me-category-item{
+			font-size: 12px;
+		}
 	}
 </style>

@@ -7,7 +7,7 @@
 						<li class="choose">选择标签:</li>
 					<li v-for="t in tags" @click="changetag(t.id,t.tagName)" :key="t.id"
 						class="me-tag-item">
-						<el-tag type="success">{{t.tagName}}</el-tag>
+						<el-tag :style="randomRgb()">{{t.tagName}}</el-tag>
 					</li>
 				</ul>
 
@@ -38,9 +38,8 @@
 			if(this.$route.query.name){
 				setTimeout(()=>{
 				document.title = `${this.$route.query.name} 标签 -GOOBLOG`
-			},500)		
+			},500)	
 			}
-			
 			this.listtags();
 		},
 		data() {
@@ -58,7 +57,15 @@
 			},
 			},
 		methods: {
-
+		randomRgb(){
+			var str = ['rgba(99, 190, 119, 0.5)','rgba(89, 177, 155, 0.5)','rgba(211, 146, 147, 0.5)','rgba(67, 154, 171, 0.5)','rgba(207, 173, 129, 0.5)'];
+			let t = str[Math.floor(Math.random()*str.length)];
+			console.log(t)
+			 return {
+				   background:`${t} !important`,
+				   border:`1px solid ${t}`
+					       };
+		},
 			changetag(id, name) {
 				this.$router.push({path:`/tag/all/${id}`,query:{name:name}})
 			},
@@ -117,17 +124,21 @@
 		text-align: center;
 		list-style-type: none;
 		background: rgba(255, 255, 255,0.9);
-		border-radius: 15px;
+		border-radius: 8px;
+		max-height: 200px;
+		overflow-y: scroll;
 	}
-
-
+	.el-tag{
+		color:#ffffff;
+		border:none;
+	}
 	.me-tag-item {
 		display: inline-block;
 		width: auto;
 		padding: 5px;
 		font-size: 13px;
 		color: #649172;
-		margin: 5px;
+		margin: 4px;
 	}
 
 	.me-order-list {
@@ -164,5 +175,11 @@
 		width: 100%;
 		background-color: rgba(255, 255, 255, 0.9);
 		padding:0;
+	}
+	@media screen and (max-width:520px) {
+		.choose{
+			font-size: 12px;
+			padding: 10px;
+		}
 	}
 </style>

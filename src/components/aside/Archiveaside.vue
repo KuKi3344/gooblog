@@ -64,7 +64,7 @@
 
   .me-category-item {
     display: inline-block;
-    width: 40%;
+    width: 60%;
     padding: 5px;
     font-size: 13px;
     color: #5FB878;

@@ -7,7 +7,8 @@
 				<div class="me-view-card">
 					<h1 class="me-view-title">{{article.title}}</h1>
 					<div class="me-view-author">
-						<router-link :to="'/userinfo/'+article.author.id">
+						<div>
+							<router-link :to="'/userinfo/'+article.author.id">
 							<img class="me-view-picture" :src="article.author.face" v-if="article.author.face"></img>
 							<img class="me-view-picture" :src="imgsrc" v-else></img>
 
@@ -22,7 +23,9 @@
 								<span>评论 {{article.commentCounts}}</span>
 							</div>
 
+						</div>	
 						</div>
+					
 						<el-button v-if="article.author.id == this.$store.state.id" @click="editArticle()" size="medium"
 							icon="el-icon-edit" class="edit" type="text">编辑</el-button>
 					</div>
@@ -69,7 +72,7 @@
 						<div class="me-view-comment-title">
 							<span>{{article.commentCounts}} 条评论</span>
 						</div>
-						<div style="opacity: 1;padding:5px,20px;background:rgba(255,255,255,0.4);border-radius: 8px;"  v-if="levelone.length>0">
+						<div style="opacity: 1;padding:5px,20px;background:rgba(255,255,255,0.8);border-radius: 8px;"  v-if="levelone.length>0">
 							<commentview v-for="comment in levelone" :key="comment.id" :comment="comment" @getcomment="getcomment" class="comment">
 							</commentview>
 
@@ -85,6 +88,15 @@
 </template>
 
 <script>
+	 document.addEventListener('copy', function (event) {
+	    let clipboardData = event.clipboardData || window.clipboardData;
+	    if (!clipboardData) { return; }
+	    let text = window.getSelection().toString();
+	    if (text) {
+	      event.preventDefault();
+	      clipboardData.setData('text/plain', text + `\n 文章归GOO-BLOG所有,详情请看${window.location.href}`);
+	    }
+	  });
 	import {
 		findarticle,
 		getcomment,
@@ -139,7 +151,7 @@
 		mounted() {
 			setTimeout(() => {
 				document.title = `${this.article.title}-文章详情`;
-			}, 300)
+			}, 1000)
 		},
 		methods: {
 			findArticleById() {
@@ -153,7 +165,7 @@
 								type: 'error'
 							})
 						} else {
-							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n");
+							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n").replace(/&lt;/g, "<").replace(/&gt/g, ">");;
 							Object.assign(this.article, resp.data.data)
 						}
 					} else {
@@ -226,13 +238,13 @@
 	}
 
 	.el-main {
-		min-width: 300px;
+		min-width: 280px;
 		max-width: 900px;
 		
 
 	}
 	::v-deep .v-note-wrapper{
-		background-color: rgba(255, 255, 255, 0.3);
+		background: rgba(255, 255, 255, 0.7);
 		
 			
 	}
@@ -253,6 +265,9 @@
 		/*margin: 30px 0;*/
 		margin-top: 30px;
 		vertical-align: middle;
+		display: flex;
+		justify-content: space-between;
+		
 	}
 
 	.me-view-picture {
@@ -287,11 +302,15 @@
 }
 	.me-view-content {
 		margin-top: 30px !important;
+		background-color: rgba(255,255,255,0.2);
+		border-radius: 20px !important;
+		box-shadow: 2px 2px 2px 2px #d1ded7;
 		
 	}
 	.me-view-meta {
 		font-size: 12px;
-		color: #969696;
+		margin-top: 5px;
+		color: #667970;
 
 	}
 
@@ -343,28 +362,32 @@
 	::v-deep .v-note-wrapper .v-note-panel .v-note-show .v-show-content,
 	.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
 		background: none !important;
-		padding: 10px !important;
-		border-radius: 25px !important;
+		padding: 15px !important;
+		border-radius: 10px !important;
 	}
 
 	.edit {
-		margin-left: 50px;
+		margin-left: 20px;
 		float: right;	
-		color: #538c5d;
+		color: #ffffff;
+		border: 1px solid #428c71;
+		padding: 7px;
 		font-size:0.9vw;
-		box-shadow: 0 15px 25px rgba(212, 212, 212, 0.8);
-		width: 50px;
+		width: 65px;
 		height:30px;
+		background-color:#5bad88;
 	}
 	@media screen and (max-width: 500px) {
 	    .el-main{
 			margin-left:0px;
 			margin-right:0px;
+			padding: 5px;
 			font-size: 12px;
 			
 		}
 		.me-view-title{
-			font-size: 25px !important;
+			font-size: 22px !important;
+			margin-top: 50px;
 		}
 	}
 </style>

@@ -3,7 +3,7 @@
 		<el-card>
 			<div class="me-article-header">
 
-				<a @click="view(id)" class="me-article-title"><i class="el-icon-document"></i>{{title}}</a>
+				<a @click="view(id)" class="me-article-title"><i class="el-icon-document" :style="randomRgb()"></i>{{title}}</a>
 				<el-button v-if="isTop" class="me-article-icon" type="text" size="mini">置顶</el-button>
 			</div>
 
@@ -54,6 +54,14 @@
 			view(id) {
 				this.$router.push(`/article/${id}`)
 			},
+			randomRgb(){
+					var str = ['#70af7e','#50b3b3','#30c59b','#66acd8','#e18283','#f5a379','#3dd2e2','#82c77b','#d6c06e'];
+					let t = str[Math.floor(Math.random()*str.length)];
+					console.log(t)
+					 return {
+						   color:`${t} !important`,
+						       };
+				},
 		}
 	}
 </script>
@@ -64,7 +72,7 @@
 	}
 	.el-card{
 		flex:1;
-		width:240px;
+		min-width:250px;
 		max-width: 420px;
 		max-height:350px;
 		min-height:150px;
@@ -75,16 +83,15 @@
 		flex-direction: column;
 		flex-wrap: wrap;
 		border-radius: 10px;
-		background-color: rgba(255,255,255,0.4);
+		background-color: rgba(255,255,255,0.5);
 		box-shadow: 0 5px 10px rgba(212, 212, 212, 0.5) !important;
 	}
 	.el-icon-document{
-		color:#77c3c7;
 		margin-right: 5px;
 	}
 	.me-article-title{
 		font-weight: 600;
-		font-size: 1rem;
+		font-size: 15px;
 		margin-right: 10px;
 	}
 	.me-article-header a:hover{
@@ -92,8 +99,10 @@
 	}
 	.me-artile-description{
 		min-height:50px;
-		font-size: 0.8rem;
+		font-size:13px;
 		margin-top: 10px;
+		max-height:80px;
+		overflow: hidden;
 	}
 	.me-article-count{
 		color:#909090;

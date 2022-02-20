@@ -3,7 +3,7 @@
 		<span class="tagtitle">最热标签</span>
 		<div class="line"></div>
 	<div class="list">
-		<el-tag  v-for="t in datalist" :key="t.id"  type="success" @click="changetag(t.id,t.tagName)">{{t.tagName}}</el-tag>
+		<el-tag  v-for="t in datalist" :key="t.id"  type="success" :style="randomRgb()" @click="changetag(t.id,t.tagName)">{{t.tagName}}</el-tag>
 	</div>
 	</div>
 </template>
@@ -21,6 +21,15 @@
 			this.gettag();
 		},
 		methods:{
+			randomRgb(){
+				var str = ['rgba(90, 172, 109, 0.5)','rgba(81, 161, 141, 0.5)','rgba(67, 154, 171, 0.5)','rgba(123, 185, 176, 0.5)'];
+				let t = str[Math.floor(Math.random()*str.length)];
+				console.log(t)
+				 return {
+					   background:`${t} !important`,
+					   border:`1px solid ${t}`
+						       };
+			},
 			gettag(){
 				gethottag().then(resp=>{
 					if(resp.data.code == 200){
@@ -51,7 +60,7 @@
 	.card2 >>>{
 		border-radius: 8px;
 		margin:15px;
-		background:rgba(255, 255, 255, 0.8);
+		background:rgba(255, 255, 255, 0.95);
 	}
 	.el-tag{
 		max-width:80px;
@@ -88,10 +97,14 @@
 		margin-right: 20px;
 		margin-bottom: 30px;
 		margin-left: 20px;
-		min-width:80px ;
+		min-width:90px ;
 		text-align: center;
 	}
 	.el-aside{
 		background-color:#67da7b ;
+	}
+	.el-tag{
+		color:#fff !important;
+		border:none;
 	}
 </style>

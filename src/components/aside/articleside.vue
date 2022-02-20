@@ -1,12 +1,12 @@
 <template>
 
-<div style="margin:15px;background:rgba(251, 255, 255, 0.8);4;border-radius: 8px;">
+<div style="margin:15px;background:rgba(255, 255, 255, 0.9);4;border-radius: 8px;">
 	<div slot="header" class="me-category-header">
 	  <span>{{cardHeader}}</span>
 	</div>
 	<div class="line"></div>	
 	<ul class="me-category-list">
-	  <li v-for="a in articles" @click="view(a.id)" :key="a.id" class="me-category-item"><a>{{a.title}}</a>
+	  <li :style="randomRgb()" v-for="a in articles" @click="view(a.id)" :key="a.id" class="me-category-item"><a>{{a.title}}</a>
 	  </li>
 	</ul>
 </div>
@@ -33,7 +33,15 @@
 		methods:{
 			view(id){
 				this.$router.push({path:`/article/${id}`});
-			}
+			},
+			randomRgb(){
+					var str = ['#278f83','#2fa371','#6aa37a'];
+					let t = str[Math.floor(Math.random()*str.length)];
+					console.log(t)
+					 return {
+						   color:`${t} !important`,
+						   };
+				},
 		},
 	}
 </script>
@@ -58,15 +66,16 @@
 	.me-category-list {
 	  list-style-type: none;
 	  padding-left:5px;
+	   padding-right:5px;
 	  padding-bottom: 20px;
 	  margin-top: 30px !important;
 	}
 	
 	.me-category-item {
 	  font-size: 14px;
-	  color: #5FB878;
 	  margin-bottom: 8px;
-	  margin-left: 30px;
+	  margin-left: 20px;
+	  margin-right: 10px;
 	  
 	}
 	

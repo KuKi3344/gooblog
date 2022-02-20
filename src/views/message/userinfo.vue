@@ -10,7 +10,6 @@
 							<div class="name">
 								{{user.nickname}}
 							</div>
-							<el-button size="mini" v-if="this.$store.state.id != user.id" round>私信</el-button>
 						</div>
 
 					</div>
@@ -18,21 +17,11 @@
 				</div>
 				<div class="body">
 					<div class="main-head">
-						<div class="head-left" v-if="this.$store.state.id == user.id">
-							<el-button type="primary" round size="small" @click="updateinfo" v-show="!isupdate">修改信息
-							</el-button>
-							<el-button type="success" round size="small" v-show="isupdate" @click="update">提交信息</el-button>
-							<el-button type="primary" round size="small" v-show="isupdate">修改密码</el-button>
-						</div>
 						<div class="head-right" v-if="this.$store.state.id == user.id">
 							<el-badge :value="comment" :max="99" class="item" v-show="comment>0">
 								<el-button size="small" @click="view()">评论/回复</el-button>
 							</el-badge>
-							<el-badge :value="talk" :max="99" class="item" v-show="talk>0">
-								<el-button size="small">聊天</el-button>
-							</el-badge>
 							<el-button size="small" @click="view" v-show="comment<1">评论/回复</el-button>
-							<el-button size="small" v-show="talk<1">聊天</el-button>
 						</div>
 					</div>
 					<div class="main-body" v-show="!isupdate">
@@ -42,31 +31,6 @@
 						<div class="bodyitem"><b>邮箱:</b>&ensp;&ensp;{{user.email}}</div>
 						<div class="bodyitem"><b>用户创建时间:</b>&ensp;&ensp;{{user.gmtCreate}}</div>
 						<div class="bodyitem"><b>上次修改时间:</b>&ensp;&ensp;{{user.gmtModified}}</div>
-					</div>
-					<div class="main-body" v-show="isupdate">
-						<div class="bodyinput" style="display: flex;">
-							<div><b>头像：</b></div>
-							<input type="file" name="photo" id="photo" @change="onfilechange" style="width:150px;">
-							<img :src="imgUrl" style="width: 30px;height:30px;border-radius: 50%;">
-						</div>
-						<div class="bodyinput">
-							<div><b>用户名:</b></div>
-							<el-input v-model="updateuser.account" size="small"></el-input>
-						</div>
-						<div class="bodyinput">
-							<div><b>昵称:</b></div>
-							<el-input v-model="updateuser.nickname" size="small"></el-input>
-						</div>
-						<div class="bodyinput">
-							<div><b>手机号:</b></div>
-							<el-input v-model="updateuser.phoneNumber" size="small"></el-input>
-						</div>
-						<div class="bodyinput">
-							<div><b>邮箱:</b></div>
-							<el-input v-model="updateuser.email" size="small"></el-input>
-						</div>
-						<div class="bodyitem"><b>用户创建时间:</b>&ensp;&ensp;{{updateuser.gmtCreate}}</div>
-						<div class="bodyitem"><b>上次修改时间:</b>&ensp;&ensp;{{updateuser.gmtModified}}</div>
 					</div>
 					<div class="myarticles">
 						<div class="title">
@@ -156,39 +120,39 @@
 			}, 500)
 		},
 		methods: {
-			onfilechange(e) {
+			// onfilechange(e) {
 
-				var file = e.target.files[0];
-				let formdata = new FormData();
-				formdata.append('image', file);
-				const imgType = ['image/jpeg', 'image/png'];
-				const isLt2M = file.size / 1024 / 1024 < 2;
-				if (!imgType.includes(file.type)) {
-					this.$message.error('上传头像图片仅支持JPG、PNG格式，请重新上传!');
-				} else if (!isLt2M) {
-					this.$message.error('上传头像图片大小不能超过 2MB，请重新上传!');
-				} else {
-					upload(formdata).then(resp => {
-						if (resp.data.code == 200) {
-							this.imgUrl = 'http://' + resp.data.data;
-						} else {
-							that.$message({
-								message: `resp.data.message`,
-								type: 'error',
-								showClose: true
-							})
-						}
+			// 	var file = e.target.files[0];
+			// 	let formdata = new FormData();
+			// 	formdata.append('image', file);
+			// 	const imgType = ['image/jpeg', 'image/png'];
+			// 	const isLt2M = file.size / 1024 / 1024 < 2;
+			// 	if (!imgType.includes(file.type)) {
+			// 		this.$message.error('上传头像图片仅支持JPG、PNG格式，请重新上传!');
+			// 	} else if (!isLt2M) {
+			// 		this.$message.error('上传头像图片大小不能超过 2MB，请重新上传!');
+			// 	} else {
+			// 		upload(formdata).then(resp => {
+			// 			if (resp.data.code == 200) {
+			// 				this.imgUrl = 'http://' + resp.data.data;
+			// 			} else {
+			// 				that.$message({
+			// 					message: `resp.data.message`,
+			// 					type: 'error',
+			// 					showClose: true
+			// 				})
+			// 			}
 
-					}).catch(err => {
-						that.$message({
-							message: err,
-							type: 'error',
-							showClose: true
-						});
-					})
-				}
+			// 		}).catch(err => {
+			// 			that.$message({
+			// 				message: err,
+			// 				type: 'error',
+			// 				showClose: true
+			// 			});
+			// 		})
+			// 	}
 
-			},
+			// },
 			view() {
 				this.$router.push('/mycomment');
 			},
@@ -345,17 +309,18 @@
 	.main-head {
 		width: 100%;
 		display: flex;
-		justify-content: space-between;
+		justify-content:flex-end;
 
 	}
-
+	.head-right{
+		margin-right: 20px;
+	}
 	.main-body {
 		width: 100%;
 		display: flex;
 		justify-content: flex-start;
 		flex-direction: column;
 		flex-wrap: wrap;
-		margin-top: 20px;
 	}
 
 	.main-body .el-input {

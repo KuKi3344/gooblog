@@ -126,7 +126,7 @@
 						},
 						{
 							max: 80,
-							message: '不能大于80个字符',
+							message: '不能大于180个字符',
 							trigger: 'blur'
 						}
 					],
@@ -182,9 +182,9 @@
 					return
 				}
 
-				if (this.articleForm.title.length > 30) {
+				if (this.articleForm.title.length > 50) {
 					this.$message({
-						message: '标题不能大于30个字符',
+						message: '标题不能大于50个字符',
 						type: 'warning',
 						showClose: true
 					})
@@ -381,7 +381,14 @@
 	body {
 		font-size: 15px;
 	}
-
+	::v-deep .v-note-show{
+		overflow-y: scroll;
+		max-height: 550px;
+	}
+	::v-deep .v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.transition{
+		overflow-y: scroll;
+		max-height: 550px;
+	}
 	.el-header {
 		position: fixed;
 		z-index: 1024;
@@ -444,7 +451,7 @@
 	}
 
 	.me-write-editor {
-		min-height: 650px !important;
+		min-height: 550px !important;
 	}
 
 	.me-header-left {
@@ -515,6 +522,13 @@
 			background: none;
 			width: 40px;
 
+		}
+		.me-write-main {
+			padding: 10px;
+			border-radius: 10px;
+			max-width: 500px;
+			margin-left: 5px;
+			margin-right: 5px;
 		}
 
 

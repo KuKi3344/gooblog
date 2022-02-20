@@ -73,8 +73,7 @@
 	@media screen and (max-width:520px) {
 	::-webkit-scrollbar
 	{
-	   
-	   display: none;
+	   width: 5px;
 	}
 	.el-message-box{
 		width:250px !important;

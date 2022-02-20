@@ -157,15 +157,15 @@
 	}
 
 	.el-icon-s-home {
-		color: #04d1ca !important;
+		color: #01cec4 !important;
 	}
 
 	.el-icon-menu {
-		color: #31afdc !important;
+		color: #30b3da !important;
 	}
 
 	.el-icon-s-flag {
-		color: #e76478 !important;
+		color: #da6b6d !important;
 	}
 
 	.el-icon-collection {
@@ -173,7 +173,7 @@
 	}
 
 	.el-icon-edit {
-		color: #e5ba4e !important;
+		color: #d6b06e !important;
 	}
 
 	.el-icon-s-promotion {
@@ -181,7 +181,7 @@
 	}
 
 	.el-icon-user-solid {
-		color: #77afaf !important;
+		color: #6ea1a1 !important;
 	}
 
 	.head {
@@ -259,9 +259,9 @@
 		font-size: 13px;
 		color: #595959 !important;
 		width: 100%;
-		height: 49px !important;
-		line-height: 49px !important;
-		margin-bottom: 10px;
+		height: 55px !important;
+		line-height: 55px !important;
+		margin-bottom: 15px;
 		padding-left: 30px !important;
 	}
 
@@ -303,11 +303,11 @@
 
 	.username {
 		color: #49545b !important;
-		font-size: 12px;
+		font-size: 13px;
 		display: block;
 		width: 100%;
 		text-align: center;
-		margin-top: 80px;
+		margin-top: 70px;
 		margin-bottom: 10px;
 	}
 

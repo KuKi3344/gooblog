@@ -226,11 +226,11 @@
 
 	.img {
 		z-index: 0;
-		opacity: 0.25;
+		opacity: 0.3;
 		position: fixed;
 		width: 100%;
 		height:100%;
-		filter: blur(15px);
+		filter: blur(10px);
 	}
 
 	@media screen and (max-width: 1150px) {

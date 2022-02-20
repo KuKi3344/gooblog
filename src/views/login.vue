@@ -97,7 +97,7 @@
 			},
 			onAgain: function() {
 				this.$message({
-					message: '请求错误，请重试',
+					message: '请求错误,请检查网络且稍后重试',
 					type: 'warning'
 				});
 				// 刷新
@@ -192,7 +192,7 @@
 		box-shadow: 0 15px 25px rgba(212, 212, 212, 0.8);
 	}
 	.verify{
-		position:absolute;
+		position:fixed;
 		left:50%;
 		top:50%;
 		transform: translate(-50%,-50%);
