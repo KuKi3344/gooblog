@@ -37,7 +37,6 @@
 			randomRgb(){
 					var str = ['#278f83','#2fa371','#6aa37a'];
 					let t = str[Math.floor(Math.random()*str.length)];
-					console.log(t)
 					 return {
 						   color:`${t} !important`,
 						   };

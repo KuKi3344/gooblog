@@ -177,3 +177,10 @@ export function searchall(params) {
 		data:params
 	})
 }
+export function modifypwd(params) {
+	return axios({
+		method:'post',
+		url:`${base}/user/private/update/password`,
+		data:params
+	})
+}

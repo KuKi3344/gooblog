@@ -4,12 +4,21 @@
 
 			<div class="me-area">
 				<ul class="me-tag-list">
+					<div class="li-list">
 						<li class="choose">选择标签:</li>
-					<li v-for="t in tags" @click="changetag(t.id,t.tagName)" :key="t.id"
-						class="me-tag-item">
-						<el-tag :style="randomRgb()">{{t.tagName}}</el-tag>
-					</li>
+						<li v-for="t in tags" @click="changetag(t.id,t.tagName)" :key="t.id" class="me-tag-item">
+							<el-tag :style="randomRgb()">{{t.tagName}}</el-tag>
+						</li>
+					</div>
+
+					<div style="width: 100%;">
+						<el-pagination small layout="prev, pager, next" :page-count="pagesum" :current-page.sync="pager"
+							@current-change="handleCurrentChange">
+						</el-pagination>
+					</div>
+
 				</ul>
+
 
 			</div>
 			<el-main class="me-articles">
@@ -35,39 +44,48 @@
 			tagarticle
 		},
 		created() {
-			if(this.$route.query.name){
-				setTimeout(()=>{
-				document.title = `${this.$route.query.name} 标签 -GOOBLOG`
-			},500)	
+			if (this.$route.query.name) {
+				setTimeout(() => {
+					document.title = `${this.$route.query.name} 标签 -GOOBLOG`
+				}, 500)
 			}
 			this.listtags();
 		},
 		data() {
 			return {
-				tags:[]
+				tags: [],
+				alltags: [],
+				pagesum: 1,
+				pager: 1,
 			}
 		},
 		computed: {
 			currenttag() {
-				if(this.$route.query.name){
+				if (this.$route.query.name) {
 					document.title = `${this.$route.query.name} 标签 -GOOBLOG`
 					return this.$route.query.name;
 				}
 				return '全部标签'
 			},
-			},
-		methods: {
-		randomRgb(){
-			var str = ['rgba(99, 190, 119, 0.5)','rgba(89, 177, 155, 0.5)','rgba(211, 146, 147, 0.5)','rgba(67, 154, 171, 0.5)','rgba(207, 173, 129, 0.5)'];
-			let t = str[Math.floor(Math.random()*str.length)];
-			console.log(t)
-			 return {
-				   background:`${t} !important`,
-				   border:`1px solid ${t}`
-					       };
 		},
+		methods: {
+			randomRgb() {
+				var str = ['rgba(99, 190, 119, 0.5)', 'rgba(89, 177, 155, 0.5)', 'rgba(211, 146, 147, 0.5)',
+					'rgba(67, 154, 171, 0.5)', 'rgba(207, 173, 129, 0.5)'
+				];
+				let t = str[Math.floor(Math.random() * str.length)];
+				return {
+					background: `${t} !important`,
+					border: `1px solid ${t}`
+				};
+			},
 			changetag(id, name) {
-				this.$router.push({path:`/tag/all/${id}`,query:{name:name}})
+				this.$router.push({
+					path: `/tag/all/${id}`,
+					query: {
+						name: name
+					}
+				})
 			},
 			listtags() {
 				getalltag().then(resp => {
@@ -79,14 +97,24 @@
 								type: 'error'
 							})
 						} else {
-							this.tags = resp.data.data;
+							this.alltags = resp.data.data;
+							this.pagesum = Math.ceil(this.alltags.length / 10)
+							this.getcurrenttag();
 						}
 					} else {
 						this.$message.error(resp.data.message)
 					}
-				}).catch(err => {
-					this.$message.error('加载失败')
 				})
+			},
+			getcurrenttag() {
+				let pager = this.pager;
+				this.tags = this.alltags.filter(function(value, index, array) {
+					return (index >= (pager - 1) * 10 && index < pager * 10)
+				})
+			},
+			handleCurrentChange(val) {
+				this.pager = val;
+				this.getcurrenttag();
 			}
 		}
 	}
@@ -98,13 +126,14 @@
 		z-index: 0 !important;
 		padding: 20px 0 10px 0;
 	}
-	.choose{
+
+	.choose {
 		font-size: 14px;
-		color:#52816f;
-		width:80px;
-		margin:5px;
+		color: #52816f;
+		width: 80px;
+		margin: 5px;
 		padding: 15px;
-		font-weight:640;
+		font-weight: 640;
 	}
 
 	.el-container {
@@ -119,19 +148,27 @@
 		width: 100%;
 		display: flex;
 		justify-content: flex-start;
-		flex-wrap: wrap;
+		flex-direction: column;
 		padding: 0;
 		text-align: center;
 		list-style-type: none;
-		background: rgba(255, 255, 255,0.9);
+		background: rgba(255, 255, 255, 1);
 		border-radius: 8px;
-		max-height: 200px;
-		overflow-y: scroll;
+		margin-bottom: 5px;
+		align-items: flex-start;
 	}
-	.el-tag{
-		color:#ffffff;
-		border:none;
+
+	.li-list {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
 	}
+
+	.el-tag {
+		color: #ffffff;
+		border: none;
+	}
+
 	.me-tag-item {
 		display: inline-block;
 		width: auto;
@@ -145,9 +182,14 @@
 		float: right;
 	}
 
+	.el-pagination {
+		border-radius: 10px;
+		margin-top: 5px;
+	}
+
 	.me-tag-title {
 		margin: 20px 0 !important;
-		background:rgba(251, 255, 255, 0.8);
+		background: rgba(251, 255, 255, 0.8);
 		color: #549c78;
 		font-weight: 600;
 		letter-spacing: 2px;
@@ -174,10 +216,11 @@
 		margin-right: 10px;
 		width: 100%;
 		background-color: rgba(255, 255, 255, 0.9);
-		padding:0;
+		padding: 0;
 	}
+
 	@media screen and (max-width:520px) {
-		.choose{
+		.choose {
 			font-size: 12px;
 			padding: 10px;
 		}

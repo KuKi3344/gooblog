@@ -1,5 +1,5 @@
 <template>
-	<div style="display: flex;justify-content: center;">
+	<div style="display: flex;justify-content: center;margin-right: 5px;">
 		<el-card>
 			<div class="me-article-header">
 
@@ -57,7 +57,6 @@
 			randomRgb(){
 					var str = ['#70af7e','#50b3b3','#30c59b','#66acd8','#e18283','#f5a379','#3dd2e2','#82c77b','#d6c06e'];
 					let t = str[Math.floor(Math.random()*str.length)];
-					console.log(t)
 					 return {
 						   color:`${t} !important`,
 						       };

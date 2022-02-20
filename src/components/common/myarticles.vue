@@ -26,7 +26,7 @@
 				articles: [],
 				innerPage: {
 					page: 1,
-					pageSize: 12,
+					pageSize: 9,
 					authorId: this.$route.params.id
 				},
 				canRun: true,

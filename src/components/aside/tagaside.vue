@@ -24,7 +24,6 @@
 			randomRgb(){
 				var str = ['rgba(90, 172, 109, 0.5)','rgba(81, 161, 141, 0.5)','rgba(67, 154, 171, 0.5)','rgba(123, 185, 176, 0.5)'];
 				let t = str[Math.floor(Math.random()*str.length)];
-				console.log(t)
 				 return {
 					   background:`${t} !important`,
 					   border:`1px solid ${t}`

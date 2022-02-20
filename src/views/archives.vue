@@ -4,11 +4,19 @@
 
 			<div class="me-area">
 				<ul class="me-month-list">
-					<li class="choose">选择日期:</li>
-					<li v-for="a in archives" @click="changeArchive(a.year, a.month)" :key="a.year + a.month"
-						class="me-month-item">
-						<a :style="randomRgb()">{{`${a.year}年${a.month}月(${a.count})`}}</a>
-					</li>
+					<div class="li-list">
+						<li class="choose">选择日期:</li>
+						<li v-for="a in archives" @click="changeArchive(a.year, a.month)" :key="a.year + a.month"
+							class="me-month-item">
+							<a :style="randomRgb()">{{`${a.year}年${a.month}月(${a.count})`}}</a>
+						</li>
+					</div>
+
+					<div style="width: 100%;">
+						<el-pagination small layout="prev, pager, next" :page-count="pagesum" :current-page.sync="pager" :hide-on-single-page="value"
+							@current-change="handleCurrentChange">
+						</el-pagination>
+					</div>
 				</ul>
 
 			</div>
@@ -45,7 +53,11 @@
 		},
 		data() {
 			return {
-				archives: []
+				archives: [],
+				allarchives:[],
+				pagesum: 1,
+				pager: 1,
+				value:false
 			}
 		},
 		computed: {
@@ -58,13 +70,13 @@
 			},
 		},
 		methods: {
-		randomRgb(){
-				var str = ['#7eb497','#30beae','#63b0cc','#40cfa7','#5b98c6'];
-				let t = str[Math.floor(Math.random()*str.length)];
-				console.log(t)
-				 return {
-					   color:`${t} !important`,
-						       };
+			randomRgb() {
+				var str = ['#7eb497', '#30beae', '#63b0cc', '#40cfa7', '#5b98c6'];
+				let t = str[Math.floor(Math.random() * str.length)];
+
+				return {
+					color: `${t} !important`,
+				};
 			},
 			changeArchive(year, month) {
 				if (month < 10) {
@@ -84,7 +96,12 @@
 								type: 'error'
 							})
 						} else {
-							this.archives = resp.data.data;
+							this.allarchives = resp.data.data;
+							this.pagesum = Math.ceil(this.allarchives.length / 8)
+							if(this.pagesum < 2){
+								this.value = true;
+							}
+							this.getcurrentachives();
 						}
 					} else {
 						this.$message.error(resp.data.message)
@@ -92,6 +109,16 @@
 				}).catch(err => {
 					this.$message.error('加载失败')
 				})
+			},
+			getcurrentachives(){
+				let pager = this.pager;
+				this.archives = this.allarchives.filter(function(value, index, array) {
+					return (index >= (pager - 1) * 8 && index < pager * 8)
+				})
+			},
+			handleCurrentChange(val) {
+				this.pager = val;
+				this.getcurrentachives();
 			}
 		}
 	}
@@ -121,23 +148,30 @@
 		flex-direction: column;
 	}
 
-	.me-month-list {
+	.me-month-list {	
 		width: 100%;
 		display: flex;
 		justify-content: flex-start;
-		flex-wrap: wrap;
+		flex-direction: column;
 		padding: 0;
 		text-align: center;
 		list-style-type: none;
-		background: rgba(251, 255, 255, 0.8);
-		border-radius: 15px;
+		background: rgba(255, 255, 255, 1);
+		border-radius: 8px;
+		margin-bottom: 5px;
+		align-items: flex-start;
 	}
 
 
+	.li-list {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+	}
 	.me-month-item {
 		display: inline-block;
 		width: 100px;
-		padding:10px 5px;
+		padding: 10px 5px;
 		font-size: 13px;
 		color: #649172;
 		margin: 5px;
@@ -179,12 +213,14 @@
 		background-color: rgba(255, 255, 255, 0.9);
 		padding: 0;
 	}
-@media screen and (max-width:520px) {
-		.choose{
+
+	@media screen and (max-width:520px) {
+		.choose {
 			font-size: 12px;
 			padding: 5px;
 		}
-		.me-month-item{
+
+		.me-month-item {
 			font-size: 12px;
 		}
 	}

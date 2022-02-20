@@ -259,9 +259,9 @@
 		font-size: 13px;
 		color: #595959 !important;
 		width: 100%;
-		height: 55px !important;
-		line-height: 55px !important;
-		margin-bottom: 15px;
+		height: 52px !important;
+		line-height: 52px !important;
+		margin-bottom: 10px;
 		padding-left: 30px !important;
 	}
 

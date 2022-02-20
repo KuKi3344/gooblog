@@ -188,7 +188,7 @@
 		margin: 5px;
 		display: flex;
 		flex-direction: column;
-		min-width: 280px;
+		min-width:300px;
 		padding: 0px;
 		line-height: 16px;
 		background-color: rgba(255, 255, 255, 0.8);

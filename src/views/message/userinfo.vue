@@ -22,15 +22,36 @@
 								<el-button size="small" @click="view()">评论/回复</el-button>
 							</el-badge>
 							<el-button size="small" @click="view" v-show="comment<1">评论/回复</el-button>
+							<el-button size="small" @click="tomodify" v-show="!modify">修改密码</el-button>
+							<el-button size="small" @click="modifypwd" v-show="modify">确认修改</el-button>
 						</div>
 					</div>
 					<div class="main-body" v-show="!isupdate">
-						<div class="bodyitem"><b>用户名:</b>&ensp;&ensp;{{user.account}}</div>
-						<div class="bodyitem"><b>昵称:</b>&ensp;&ensp;{{user.nickname}}</div>
-						<div class="bodyitem"><b>手机号:</b>&ensp;&ensp;{{user.phoneNumber}}</div>
-						<div class="bodyitem"><b>邮箱:</b>&ensp;&ensp;{{user.email}}</div>
-						<div class="bodyitem"><b>用户创建时间:</b>&ensp;&ensp;{{user.gmtCreate}}</div>
-						<div class="bodyitem"><b>上次修改时间:</b>&ensp;&ensp;{{user.gmtModified}}</div>
+						<div class="bodyitem"><span class="label"><b>用户名:</b></span>&ensp;&ensp;{{user.account}}</div>
+						<div class="bodyitem"><span class="label"><b>昵称:</b></span>&ensp;&ensp;{{user.nickname}}</div>
+						<div class="bodyitem"><span class="label"><b>手机号:</b></span>&ensp;&ensp;{{user.phoneNumber}}
+						</div>
+						<div class="bodyitem"><span class="label"><b>邮箱:</b></span>&ensp;&ensp;{{user.email}}</div>
+						<div class="bodyitem"><span class="label"><b>用户创建时间:</b></span>&ensp;&ensp;{{user.gmtCreate}}
+						</div>
+						<div class="bodyitem"><span class="label"><b>上次修改时间:</b></span>&ensp;&ensp;{{user.gmtModified}}
+						</div>
+					</div>
+					<div class="inputpwd" v-show="modify">
+					<el-form :rules="rules"	ref="pwd" :model="pwd">
+						<el-form-item prop="oldPassword">
+							<label>旧密码:</label><el-input type="password" v-model="pwd.oldPassword" placeholder="请输入旧密码" size="small">
+							</el-input>
+						</el-form-item>
+						<el-form-item prop="newPasswordForInput">
+							<label>新密码:</label><el-input type="password" auto-complete="false" v-model="pwd.newPasswordForInput" placeholder="请输入密码" size="small">
+							</el-input>
+						</el-form-item>
+						<el-form-item prop="newPasswordForLastInput">
+							<label>确认密码:</label><el-input type="password" auto-complete="false" v-model="pwd.newPasswordForLastInput" placeholder="请输入确认密码" size="small">
+							</el-input>
+						</el-form-item>				
+					</el-form>
 					</div>
 					<div class="myarticles">
 						<div class="title">
@@ -69,14 +90,38 @@
 		getnoreadmes,
 		getallarchives,
 		getalltag,
-		getallcategory
+		getallcategory,
+		modifypwd
 	} from '../../api/article.js'
 	import {
 		upload
 	} from '../../api/upload.js'
 	export default {
 		name: 'userinfo',
+		
 		data() {
+			const checkpwd = (rule, value, cb) => {
+				if (value.length > 5) {
+					var modes = 0;
+					//正则表达式验证符合要求的
+					if (/\d/.test(value)) modes++; //数字
+					if (/[A-z]/.test(value)) modes++; //小写
+					if (/\W/.test(value)) modes++; //特殊字符					
+					if (modes == 1) {
+						cb(new Error('密码强度过低,请包含大小写字母、数字、特殊字符中两种及以上'))
+					}
+					return cb();
+				} else {
+					cb(new Error('请确保密码长度在6位以上'))
+				}
+			}
+			const newPasswordForLastInput = (rule, value, cb) => {
+				if (value != this.pwd.newPasswordForInput) {
+					cb(new Error('两次密码输入不同，请重新输入'))
+				}
+				return cb();
+			}
+			
 			return {
 				userid: this.$route.params.id,
 				user: '',
@@ -90,7 +135,45 @@
 				alltime: '',
 				allcategory: '',
 				updateuser: '',
-				imgUrl: '',
+				// imgUrl: '',
+				modify: false,
+				pwd: {
+					oldPassword: '',
+					newPasswordForInput: '',
+					newPasswordForLastInput: '',
+				},
+				rules: {
+					oldPassword:[
+						{
+							required: true,
+							message: '请输入旧密码',
+							trigger: 'blur'
+						}
+					],
+					newPasswordForInput: [{
+							required: true,
+							message: '请输入新密码',
+							trigger: 'blur'
+						},
+						{
+							validator: checkpwd,
+							trigger: ['blur', 'change'],
+						}
+					],
+				
+					newPasswordForLastInput: [{
+							required: true,
+							message: '请二次输入密码',
+							trigger: 'blur'
+						},
+						{
+							validator: newPasswordForLastInput,
+							trigger: ['blur', 'change'],
+						}
+				
+					],
+				
+				}
 			}
 		},
 		components: {
@@ -156,18 +239,18 @@
 			view() {
 				this.$router.push('/mycomment');
 			},
-			updateinfo() {
-				this.updateuser = this.user;
-				if (this.user.face) {
-					this.imgUrl = this.user.face;
-				} else {
-					this.imgUrl = this.imgsrc;
-				}
-				this.isupdate = true;
-			},
-			update(){
-				this.updateuser.face = this.imgUrl;
-			},
+			// updateinfo() {
+			// 	this.updateuser = this.user;
+			// 	if (this.user.face) {
+			// 		this.imgUrl = this.user.face;
+			// 	} else {
+			// 		this.imgUrl = this.imgsrc;
+			// 	}
+			// 	this.isupdate = true;
+			// },
+			// update(){
+			// 	this.updateuser.face = this.imgUrl;
+			// },
 			getnoread() {
 				getnoreadmes().then(resp => {
 					if (resp.data.code == 200) {
@@ -241,6 +324,31 @@
 					this.$message.error('加载失败')
 				})
 			},
+			tomodify() {
+				this.modify = true
+			},
+			modifypwd(){
+				this.$refs.pwd.validate((valid) => {
+					if (valid) {
+						modifypwd(this.pwd).then(resp=>{
+							if(resp.data.code == 200){
+								this.$message.success('修改成功，请重新登录');
+								this.modify = false;
+								this.clearCookie('Authorization');
+								window.sessionStorage.removeItem('user');
+								//清除vuex中保存的路由，这样保证路由一直是当前用户拥有的
+								this.$router.replace('/login')
+							}else{
+								this.$message.error('修改失败，请稍后再试');
+							}
+						}).catch(err=>{
+							this.$message.warning('操作失败，请稍后再试')
+						})
+					} else {
+						this.$message.error('密码输入格式错误，请检查！')
+					}
+				})
+			}
 		}
 	}
 </script>
@@ -261,6 +369,28 @@
 		margin-bottom: 5px;
 	}
 
+	.inputpwd {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 10px;
+	}
+
+	.input {
+		margin-top: 10px;
+	}
+
+	.inputpwd .el-input {
+		width: 40%;
+		min-width: 150px;
+		margin-left: 15px;
+	}
+
+	.tips {
+		font-size: 12px;
+		color: #d86567;
+	}
+
 	.me-intro {
 		min-width: 280px;
 		width: 100%;
@@ -269,7 +399,10 @@
 		padding: 5px;
 		padding-right: 20px;
 	}
-
+ .el-form label{
+	 font-weight: 600;
+	 color:#4b4b4b;
+ }
 	.head {
 		margin: 10px;
 		background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.3dmgame.com%2Fuploads%2Fimages%2Fnews%2F20200706%2F1594022924_312694.jpg&refer=http%3A%2F%2Fimg.3dmgame.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646881661&t=86531d31067d8ed7e1bea6d6c1ae1239);
@@ -309,18 +442,24 @@
 	.main-head {
 		width: 100%;
 		display: flex;
-		justify-content:flex-end;
+		justify-content: flex-end;
+		margin-right: 20px;
 
 	}
-	.head-right{
-		margin-right: 20px;
+
+	.head-right {
+		float: right;
+		display: flex;
+		justify-content: space-around;
 	}
+
 	.main-body {
 		width: 100%;
 		display: flex;
 		justify-content: flex-start;
 		flex-direction: column;
 		flex-wrap: wrap;
+		margin-bottom: 10px;
 	}
 
 	.main-body .el-input {
@@ -341,6 +480,10 @@
 		font-size: 15px;
 		margin: 12px 15px;
 		color: #464646;
+	}
+
+	.label {
+		 color:#4b4b4b;
 	}
 
 	.bodyinput {
