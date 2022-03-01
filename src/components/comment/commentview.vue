@@ -1,36 +1,46 @@
 <template>
 	<div>
 		<ul>
-			<router-link :to="'/userinfo/'+ comment.author.id">
-				<img :src="comment.author.face" class="authorface" v-if="comment.author.face">
-				<img :src="imgsrc" class="authorface" v-else>
-			</router-link>
-			<!-- 通过绑定id来进行不同人信息的跳转 -->
-			<router-link :to="'/userinfo/'+ comment.author.id" class="authorname">{{comment.author.nickname}}</router-link>
+			<div style="display: flex;align-items: center;">
+				<router-link :to="'/userinfo/'+ comment.author.id">
+					<div class="mypic">
+						<img :src="comment.author.face" class="authorface" v-if="comment.author.face">
+						<img :src="imgsrc" class="authorface" v-else>
+					</div>
+				</router-link>
+				<!-- 通过绑定id来进行不同人信息的跳转 -->
+				<router-link :to="'/userinfo/'+ comment.author.id" class="authorname">{{comment.author.nickname}}
+				</router-link>
+			</div>
+
 			<p class="commentcontent">{{comment.commentContent}}</p>
 			<span class="createtime">{{comment.gmtCreate | format}}</span>
-			<el-button @click="showcomment(-1,comment.author)" type="text" size="small"
-				class="recallcomment">回复</el-button>				
+			<el-button @click="showcomment(-1,comment.author)" type="text" size="small" class="recallcomment">回复
+			</el-button>
 			<el-button @click="removecomment(comment.id,comment.author.id)" type="text" size="small"
 				class="removecomment" v-if="comment.author.id == userid">删除</el-button>
-			<li v-for="(r,index) in filterrecall()" :key="r.id" class="recall">
-				<div style="font-size:13px;">
+			<li v-for="(r,index) in filterrecall()" :key="r.id" class="recall" :id="r.id">
+				<div style="font-size:13px;display: flex;align-items: center;" >
 					<router-link :to="'/userinfo/'+ r.author.id">
-						<img :src="r.author.face" class="rauthorface" v-if="r.author.face">
-						<img :src="imgsrc" class="rauthorface" v-else>
-						</router-link>
+						<div class="mypic2">
+							<img :src="r.author.face" class="rauthorface" v-if="r.author.face">
+							<img :src="imgsrc" class="rauthorface" v-else>
+						</div>
+
+					</router-link>
 					<router-link :to="'/userinfo/'+ r.author.id" class="author">{{r.author.nickname}}</router-link>回复
-					<router-link :to="'/userinfo/'+ r.toUser.id" class="touser">@{{r.toUser.nickname}}</router-link>:{{r.commentContent}}
+					<router-link :to="'/userinfo/'+ r.toUser.id" class="touser">@{{r.toUser.nickname}}</router-link>
+					:{{r.commentContent}}
 				</div>
 				<span class="recalletime">{{r.gmtCreate | format}}</span>
-				<el-button @click="showcomment(-1,r.author)" type="text" size="small"
-					class="recallcomment">回复</el-button>
-					<el-button @click="removecomment(r.id,r.author.id)" type="text" size="small"
-					v-if="r.author.id == userid"	class="removecomment">删除</el-button>
+				<el-button @click="showcomment(-1,r.author)" type="text" size="small" class="recallcomment">回复
+				</el-button>
+				<el-button @click="removecomment(r.id,r.author.id)" type="text" size="small"
+					v-if="r.author.id == userid" class="removecomment">删除</el-button>
 			</li>
 			<div v-show="commentshow" class="showreply">
-				<el-input class="reply" type="textarea" :placeholder="placeholder" 
-				v-model="reply.commentContent" resize="none">
+				<el-input class="reply" type="textarea" :placeholder="placeholder" v-model="reply.commentContent"
+					resize="none">
 				</el-input>
 				<el-button @click="recallcomment()" round size="mini" style="margin:5px;width:60px;">评论</el-button>
 			</div>
@@ -41,7 +51,9 @@
 
 <script>
 	import {
-		getrecall,recall,deletecomment
+		getrecall,
+		recall,
+		deletecomment
 	} from '../../api/article.js'
 	export default {
 		name: 'commentview',
@@ -52,7 +64,7 @@
 				reply: this.getEmptyReply(),
 				commentShowIndex: '',
 				commentshow: false,
-				userid:this.$store.state.id,
+				userid: this.$store.state.id,
 			}
 		},
 		props: {
@@ -62,12 +74,15 @@
 
 			this.getrecall();
 		},
+		mounted(){
+		
+		},
 		methods: {
 			getrecall() {
 				let id = this.$route.params.id;
 				getrecall(id).then(resp => {
 					if (resp.data.code == 200) {
-							this.leveltwo = resp.data.data;
+						this.leveltwo = resp.data.data;
 					} else {
 						this.$message.error(resp.data.message)
 					}
@@ -85,7 +100,7 @@
 					this.reply.toUserId = toUser.id;
 					this.commentshow = true;
 					this.commentShowIndex = commentindex
-				}else{
+				} else {
 					this.commentshow = false;
 					this.commentShowIndex = '';
 				}
@@ -93,45 +108,45 @@
 			},
 			recallcomment() {
 				this.reply.commentContent = this.reply.commentContent;
-					recall(this.reply).then(resp=>{
-						if (resp.data.code == 200) {
-							this.$message.success("回复成功")
-							this.getrecall();
-							this.getEmptyReply();
-							this.commentshow = false;
-							this.commentShowIndex = '';
-						} else {
-							this.$message.error(resp.data.message)
-						}
-					}).catch(err => {
-						this.$message.error('加载失败')
-					})
+				recall(this.reply).then(resp => {
+					if (resp.data.code == 200) {
+						this.$message.success("回复成功")
+						this.getrecall();
+						this.getEmptyReply();
+						this.commentshow = false;
+						this.commentShowIndex = '';
+					} else {
+						this.$message.error(resp.data.message)
+					}
+				}).catch(err => {
+					this.$message.error('加载失败')
+				})
 			},
 			getEmptyReply() {
 				return {
-					level:2,
+					level: 2,
 					toUserId: '',
-					articleId:this.$route.params.id,
+					articleId: this.$route.params.id,
 					parentId: this.comment.id,
 					commentContent: ''
 
 				}
 			},
-			removecomment(id,fromUserId){
+			removecomment(id, fromUserId) {
 				this.$confirm('此评论将被删除, 是否继续?', '提示', {
-				  confirmButtonText: '确定',
-				  cancelButtonText: '取消',
-				  type: 'warning'
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
 				}).then(() => {
-				  deletecomment(id,fromUserId).then(resp=>{
-					  if(resp.data.code == 200){
-						  this.$message.success('删除成功！')
-						  this.getrecall();
-						  this.$emit('getcomment');
-					  }else{
-						  this.$message.error('删除失败,请稍后重试')
-					  }
-				  })
+					deletecomment(id, fromUserId).then(resp => {
+						if (resp.data.code == 200) {
+							this.$message.success('删除成功！')
+							this.getrecall();
+							this.$emit('getcomment');
+						} else {
+							this.$message.error('删除失败,请稍后重试')
+						}
+					})
 				})
 			}
 		}
@@ -149,42 +164,49 @@
 		margin-right: 10px;
 		text-decoration: none !important;
 	}
-	.showreply{
-		width:100%;
+
+	.showreply {
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-end;
 	}
+
 	.authorname {
-		color: #475256;
+		color: #424c53;
 		font-size: 13px;
 	}
-	.authorface {
-		width: 40px;
-		height: 40px;
+
+	.mypic {
+		width: 38px;
+		height: 38px;
 		border: 1px solid #ffffff;
 		border-radius: 50%;
-		vertical-align: middle;
 		background-color: #e5f5ee;
+		display: flex;
+		justify-content: center;
+		overflow: hidden;
+	}
+	.mypic2{
+		width: 30px;
+		height:30px;
+		border: 1px solid #ffffff;
+		border-radius: 50%;
+		background-color: #e5f5ee;
+		display: flex;
+		justify-content: center;
+		overflow: hidden;
+	}
+	.authorface {
+		height: 38px;
+		width: auto;
 		padding: 0;
 	}
 
 	.rauthorface {
-
-		width: 30px;
-
+		width: auto;
 		height: 30px;
-
-		border: 1px solid #ffffff;
-
-		border-radius: 50%;
-
-		vertical-align: middle;
-
-		background-color: #e5f5ee;
-
 		padding: 0;
-		margin-left: 10px;
 
 	}
 
@@ -198,9 +220,9 @@
 		letter-spacing: 1px;
 		font-size: 12px;
 	}
-	.removecomment{
-	
-	}
+
+	.removecomment {}
+
 	.author {
 		font-size: 13px;
 		color: #475256;
@@ -216,7 +238,7 @@
 
 	.recalletime {
 		font-size: 12px;
-		margin-left: 50px;
+		margin-left: 45px;
 		color: #7f7f7f;
 		width: 100%;
 		margin-right: 20px;

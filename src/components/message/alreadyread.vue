@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<mesitem :message="alreadymes" v-if="alreadymes!=''"></mesitem>
-		<el-empty description="暂无消息"></el-empty>
+		<el-empty description="暂无消息" v-else></el-empty>
 	</div>
 </template>
 

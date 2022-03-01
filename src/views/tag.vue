@@ -98,7 +98,7 @@
 							})
 						} else {
 							this.alltags = resp.data.data;
-							this.pagesum = Math.ceil(this.alltags.length / 10)
+							this.pagesum = Math.ceil(this.alltags.length / 8)
 							this.getcurrenttag();
 						}
 					} else {
@@ -109,7 +109,7 @@
 			getcurrenttag() {
 				let pager = this.pager;
 				this.tags = this.alltags.filter(function(value, index, array) {
-					return (index >= (pager - 1) * 10 && index < pager * 10)
+					return (index >= (pager - 1) * 8 && index < pager * 8)
 				})
 			},
 			handleCurrentChange(val) {

@@ -7,27 +7,41 @@
 				<div class="me-view-card">
 					<h1 class="me-view-title">{{article.title}}</h1>
 					<div class="me-view-author">
-						<div>
+						<div class="info">
 							<router-link :to="'/userinfo/'+article.author.id">
-							<img class="me-view-picture" :src="article.author.face" v-if="article.author.face"></img>
-							<img class="me-view-picture" :src="imgsrc" v-else></img>
+								<div class="picture">
+									<img class="me-view-picture" :src="article.author.face"
+										v-if="article.author.face"></img>
+									<img class="me-view-picture" :src="imgsrc" v-else></img>
+								</div>
 
-						</router-link>
-						<div class="me-view-info">
-							<router-link :to="'/userinfo/'+article.author.id">
-							<span>{{article.author.nickname}}</span>
+
 							</router-link>
-							<div class="me-view-meta">
-								<span>{{article.gmtCreate | format}}</span>
-								<span>阅读 {{article.viewCounts}}</span>
-								<span>评论 {{article.commentCounts}}</span>
-							</div>
+							<div class="me-view-info">
+								<router-link :to="'/userinfo/'+article.author.id">
+									<span>{{article.author.nickname}}</span>
+								</router-link>
+								<div class="me-view-meta">
+									<div>
+										<span>{{article.gmtCreate | format}}</span>
+									</div>
+									<div>
+										<span>阅读 {{article.viewCounts}}</span>
+										<span>评论 {{levelone.length}}</span>
+									</div>
 
-						</div>	
+								</div>
+
+							</div>
 						</div>
-					
-						<el-button v-if="article.author.id == this.$store.state.id" @click="editArticle()" size="medium"
-							icon="el-icon-edit" class="edit" type="text">编辑</el-button>
+						<div style="display: flex;align-items: flex-end;"
+							v-if="article.author.id == this.$store.state.id">
+							<el-button @click="editArticle()" size="small" icon="el-icon-edit" class="edit" type="text"
+								circle></el-button>
+							<el-button type="danger" icon="el-icon-delete" size="small" circle @click="deletearticle()">
+							</el-button>
+						</div>
+
 					</div>
 					<div class="me-view-content">
 						<markdown :editor="article.editor"></markdown>
@@ -40,40 +54,50 @@
 
 					<div class="me-view-tag">
 						标签：
-						<el-button @click="tagOrCategory('tag', t.id,t.tagName)" size="mini" type="primary"
-							v-for="t in article.tags" :key="t.id" round plain>{{t.tagName}}</el-button>
+						<el-button v-if="article.tags" @click="tagOrCategory('tag', t.id,t.tagName)" size="mini"
+							type="primary" v-for="t in article.tags" :key="t.id" round plain>{{t.tagName}}</el-button>
+						<span v-else>无</span>
 					</div>
 
 					<div class="me-view-tag">
 						文章分类：
-						<el-button @click="tagOrCategory('category', article.category.id,article.category.categoryName)" size="mini" type="primary"
-							round plain>{{article.category.categoryName}}</el-button>
+						<el-button v-if="article.category.id"
+							@click="tagOrCategory('category', article.category.id,article.category.categoryName)"
+							size="mini" type="primary" round plain>{{article.category.categoryName}}</el-button>
+						<span v-else>暂无</span>
 					</div>
 
 					<div class="me-view-comment">
 						<div class="me-view-comment-write">
-							<el-row :gutter="20">
-								
+							<el-row>
+
 								<div width="40" height="40" style="display: flex;margin-bottom: 10px;">
-									<a style="margin-right: 10px;">
-										<router-link to="/login"><span class="noavator" v-if="!user">未登录</span></router-link>
-										<img class="me-view-picture" :src="user.face" v-if="user&&user.face"></img>
-										<img class="me-view-picture" :src="imgsrc" v-if="user&&!user.face"></img>
+									<a style="margin-right: 5px;">
+										<router-link to="/login"><span class="noavator" v-if="!user">未登录</span>
+										</router-link>
+										<div class="picture">
+											<img class="me-view-picture" :src="user.face" v-if="user&&user.face"></img>
+											<img class="me-view-picture" :src="imgsrc" v-if="user&&!user.face"></img>
+										</div>
+
 									</a>
 									<el-input type="textarea" :autosize="{ minRows: 2}" placeholder="你的评论..."
 										class="me-view-comment-text" v-model="subcomment.commentContent" resize="none">
 									</el-input>
-								</div>	
-								<el-button type="button" size="small" round @click="publishComment()" style="float: right;">评论</el-button>
+								</div>
+								<el-button type="button" size="small" round @click="publishComment()"
+									style="float: right;">评论</el-button>
 							</el-row>
 
 						</div>
 
 						<div class="me-view-comment-title">
-							<span>{{article.commentCounts}} 条评论</span>
+							<span>{{levelone.length}} 条评论</span>
 						</div>
-						<div style="opacity: 1;padding:5px,20px;background:rgba(255,255,255,0.8);border-radius: 8px;"  v-if="levelone.length>0">
-							<commentview v-for="comment in levelone" :key="comment.id" :comment="comment" @getcomment="getcomment" class="comment">
+						<div style="opacity: 1;padding:5px,20px;background:rgba(255,255,255,0.8);border-radius: 8px;"
+							v-if="levelone.length>0">
+							<commentview v-for="comment in levelone" :key="comment.id" :comment="comment" :id="comment.id"
+								@getcomment="getcomment" class="comment" >
 							</commentview>
 
 						</div>
@@ -88,19 +112,22 @@
 </template>
 
 <script>
-	 document.addEventListener('copy', function (event) {
-	    let clipboardData = event.clipboardData || window.clipboardData;
-	    if (!clipboardData) { return; }
-	    let text = window.getSelection().toString();
-	    if (text) {
-	      event.preventDefault();
-	      clipboardData.setData('text/plain', text + `\n 文章归GOO-BLOG所有,详情请看${window.location.href}`);
-	    }
-	  });
+	document.addEventListener('copy', function(event) {
+		let clipboardData = event.clipboardData || window.clipboardData;
+		if (!clipboardData) {
+			return;
+		}
+		let text = window.getSelection().toString();
+		if (text) {
+			event.preventDefault();
+			clipboardData.setData('text/plain', text + `\n 文章归GOO-BLOG所有,详情请看:\t${window.location.href}`);
+		}
+	});
 	import {
 		findarticle,
 		getcomment,
-		comment
+		comment,
+		deletearticle
 	} from '../../api/article.js'
 	import markdown from '../../components/markdown/markdown'
 	import commentview from '../../components/comment/commentview'
@@ -114,10 +141,10 @@
 					commentCounts: 0,
 					viewCounts: 0,
 					summary: '',
-					author:{
-						id:'',
-						nickname:'',
-						face:''
+					author: {
+						id: '',
+						nickname: '',
+						face: ''
 					},
 					tags: [],
 					category: {},
@@ -135,7 +162,7 @@
 				subcomment: {
 					articleId: '',
 					commentContent: '',
-					level:1
+					level: 1
 				}
 			}
 		},
@@ -146,12 +173,6 @@
 		created() {
 			this.findArticleById();
 			this.getcomment();
-			
-		},
-		mounted() {
-			setTimeout(() => {
-				document.title = `${this.article.title}-文章详情`;
-			}, 1000)
 		},
 		methods: {
 			findArticleById() {
@@ -165,11 +186,15 @@
 								type: 'error'
 							})
 						} else {
-							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n").replace(/&lt;/g, "<").replace(/&gt/g, ">");;
+							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n")
+								.replace(/&lt;/g, "<").replace(/&gt/g, ">");
 							Object.assign(this.article, resp.data.data)
+							document.title = `${this.article.title}-文章详情`;
 						}
+					} else if (resp.data.code == 500) {
+						this.$message.warning('该文章已被删除');
 					} else {
-							this.$message.error(resp.data.message)
+						this.$message.error(resp.data.message)
 					}
 				}).catch(err => {
 					this.$message.error('加载失败')
@@ -180,11 +205,11 @@
 					path: `/write/${this.article.id}`
 				})
 			},
-			tagOrCategory(type, id,name) {
+			tagOrCategory(type, id, name) {
 				this.$router.push({
 					path: `/${type}/all/${id}`,
-					query:{
-						name:name
+					query: {
+						name: name
 					}
 				})
 			},
@@ -192,9 +217,9 @@
 				let id = this.$route.params.id;
 				getcomment(id).then(resp => {
 					if (resp.data.code == 200) {
-							this.levelone = resp.data.data;
+						this.levelone = resp.data.data;
 					} else {
-							this.$message.error(resp.data.message)
+						this.$message.error(resp.data.message)
 					}
 				}).catch(err => {
 					this.$message.error('加载失败')
@@ -214,6 +239,36 @@
 				}).catch(err => {
 					this.$message.error('评论失败')
 				})
+			},
+			deletearticle() {
+				this.$confirm('文章将会删除, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.delete();
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消'
+					})
+				});
+			},
+			delete() {
+				let data = {
+					articleId: this.article.id,
+					authorId: this.article.author.id
+				}
+				deletearticle(data).then(resp => {
+					if (resp.data.code == 200) {
+						this.$message.success('删除成功');
+						this.$router.push('/home')
+					} else {
+						this.$message.error('删除失败，请稍后再试')
+					}
+				}).catch(err => {
+					this.$message.error('删除异常')
+				})
 			}
 		}
 
@@ -221,43 +276,66 @@
 </script>
 
 <style scoped="scoped">
-	body{
+	body {
 		font-size: 15px;
 	}
-	a{
+
+	a {
 		text-decoration: none;
 	}
 
 	.me-view-container {
 		width: 100%;
-		min-width:300px;
+		min-width: 300px;
 		display: flex;
 		justify-content: center;
 		opacity: 0.9;
 		border-radius: 10px;
 	}
 
+	.info {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: nowrap;
+		flex-direction: row;
+	}
+
 	.el-main {
 		min-width: 280px;
 		max-width: 900px;
-		
+		background-color: #fff;
+		margin-top: 25px;
+		border-radius: 8px;
+	}
+
+	::v-deep .v-note-wrapper {
+		background: rgba(255, 255, 255, 0.7);
+
 
 	}
-	::v-deep .v-note-wrapper{
-		background: rgba(255, 255, 255, 0.7);
-		
-			
+
+	.picture {
+		width: 40px;
+		height: 40px;
+		overflow: hidden;
+		border-radius: 50%;
+		display: flex;
+		justify-content: center;
+		margin: 0;
 	}
+
 	.me-view-title {
 		font-size: 30px;
 		font-weight: 800;
 		line-height: 1.3;
-		margin-bottom: 20px;
+		margin-bottom: 10px;
+		margin-top: 20px;
+		color: #005273;
 	}
 
 	.comment {
 		border-bottom: 1px solid #dcdcdc;
-		padding-bottom:0px;
+		padding-bottom: 0px;
 		margin-top: 20px;
 	}
 
@@ -267,14 +345,13 @@
 		vertical-align: middle;
 		display: flex;
 		justify-content: space-between;
-		
+
 	}
 
 	.me-view-picture {
-		width: 40px;
+		width: auto;
 		height: 40px;
 		border: 1px solid #ddd;
-		border-radius: 50%;
 		vertical-align: middle;
 		background-color: #5fb878;
 		padding: 0;
@@ -296,21 +373,31 @@
 		display: inline-block;
 		vertical-align: middle;
 		margin-left: 8px;
+		margin-top: 10px;
 	}
-.me-view-info a{
-	color:#3f454b;
-}
+
+	.me-view-info a {
+		color: #32363b;
+		font-size: 14px;
+	}
+
 	.me-view-content {
 		margin-top: 30px !important;
-		background-color: rgba(255,255,255,0.2);
-		border-radius: 20px !important;
-		box-shadow: 2px 2px 2px 2px #d1ded7;
-		
+		background-color: rgba(255, 255, 255, 0.2);
+		border-radius: 10px !important;
+		box-shadow: 0 18px 30px rgba(163, 163, 163, 0.8);
+
 	}
+
 	.me-view-meta {
 		font-size: 12px;
 		margin-top: 5px;
 		color: #667970;
+		display: flex;
+		flex-direction: column;
+		flex-wrap: wrap;
+		flex: 1;
+		width: auto;
 
 	}
 
@@ -368,26 +455,24 @@
 
 	.edit {
 		margin-left: 20px;
-		float: right;	
+		margin-right: 5px;
+		float: right;
 		color: #ffffff;
-		border: 1px solid #428c71;
-		padding: 7px;
-		font-size:0.9vw;
-		width: 65px;
-		height:30px;
-		background-color:#5bad88;
+		font-size: 0.9vw;
+		background-color: #5bad88;
 	}
+
 	@media screen and (max-width: 500px) {
-	    .el-main{
-			margin-left:0px;
-			margin-right:0px;
+		.el-main {
+			margin-left: 0px;
+			margin-right: 0px;
 			padding: 5px;
-			font-size: 12px;
-			
+			margin-top: 40px;
 		}
-		.me-view-title{
+
+		.me-view-title {
 			font-size: 22px !important;
-			margin-top: 50px;
+			margin-top: 20px;
 		}
 	}
 </style>

@@ -1,7 +1,7 @@
 <template>
 	<div class="head">
 			<div class="fleft" >
-				<el-menu :router=true menu-trigger="click" active-text-color="#87f190" :default-active="avtiveIndex"  mode="horizontal">
+				<el-menu :router=true menu-trigger="click" active-text-color="#6dc374" :default-active="avtiveIndex"  mode="horizontal">
 				  <el-menu-item index="/home"><i class="el-icon-s-home"></i></el-menu-item>
 				  <el-menu-item index="/category/all"><i class="el-icon-menu"></i></el-menu-item>
 				  <el-menu-item index="/tag/all"><i class="el-icon-s-flag"></i></el-menu-item>
@@ -121,7 +121,7 @@
 		height:40px;
 		width:70px;
 		display: flex;
-		justify-content: flex-end;
+		justify-content: center;
 		flex-wrap: nowrap;
 		margin-right: 10px;
 	}

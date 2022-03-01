@@ -23,24 +23,17 @@
 			var box = document.querySelector("#loader-wrapper");
 			setTimeout(()=>{
 				box.remove();
-				var box2 = document.getElementById("app");
-				app.setAttribute("style","animation-name: ease;animation-duration: 1s;")
-			},500)
+			},1000)
 			
 		}
 	}
 </script>
 <style>
-	.el-message-box .el-button--primary{
-		background-color: #6cc77c !important;
-		border:1px solid #64cf66 !important;
-		color:#fff !important;
+	html{
+		touch-action: pan-y;
 	}
-	.el-message-box button:hover{
-		border:1px solid #5aba5d !important;
-		background-color: #fff;
-		color:#5aba5d;
-	}
+
+
 	@import url("./assets/css/loader.css");
 	body{
 		padding:0;
@@ -82,13 +75,5 @@
 		
 	
 	}
-@keyframes ease{
-	0%{
-		opacity: 0.6;
-	}
-	100%{
-		opacity: 1;
-	}
-}
 
 </style>

@@ -14,18 +14,16 @@
 				<div class="me-article-author">
 					<router-link :to="'/userinfo/'+author.id" class="me-icon-author">&nbsp;{{author.nickname}}</router-link>
 				</div>
-				<div class="me-pull-right me-article-count">
-					<i class="el-icon-time"></i>&nbsp;{{gmtCreate | format}}
-				</div>
+			
 			</div>
 		
 				<div class="foot">
 					<span class="footview">
 						<i class="el-icon-view"></i>&nbsp;{{viewCounts}}
 					</span>
-					<span class="footview">
-						<i class="el-icon-chat-line-square"></i>&nbsp;{{commentCounts}}
-					</span>
+					<div class="me-pull-right me-article-count">
+						<i class="el-icon-time"></i>&nbsp;{{gmtCreate | format}}
+					</div>
 				</div>
 		</el-card>
 	</div>
@@ -71,8 +69,8 @@
 	}
 	.el-card{
 		flex:1;
-		min-width:250px;
-		max-width: 420px;
+		min-width:280px;
+		max-width: 450px;
 		max-height:350px;
 		min-height:150px;
 		margin:10px 10px;
@@ -105,7 +103,7 @@
 	}
 	.me-article-count{
 		color:#909090;
-		font-size: 0.18rem;
+		font-size: 12px;
 	}
 	.intro{
 		display: flex;
@@ -116,6 +114,8 @@
 	}
 	.foot{
 		width:100%;
+		display: flex;
+		justify-content: space-between;
 	}
 	.me-article-author{
 		font-size: 12px;

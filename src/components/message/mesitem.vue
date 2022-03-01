@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div style="min-height: 550px;">
 		<mesitemmain v-for="m in message" :key="m.id" :m="m" @getmes="getmes"></mesitemmain>
 	</div>
 </template>

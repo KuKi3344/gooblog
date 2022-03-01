@@ -113,7 +113,7 @@ export function  publisharticle(params) {
 }
 export function  editarticle(params) {
 	return axios({
-		method:'post',
+		method:'put',
 		url:`${base}/article/private/update`,
 		data:params
 	})
@@ -181,6 +181,13 @@ export function modifypwd(params) {
 	return axios({
 		method:'post',
 		url:`${base}/user/private/update/password`,
+		data:params
+	})
+}
+export function deletearticle(params) {
+	return axios({
+		method:'put',
+		url:`${base}/article/private/delete`,
 		data:params
 	})
 }

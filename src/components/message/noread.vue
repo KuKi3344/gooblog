@@ -33,6 +33,7 @@
 						          showClose: true,
 						          message: '暂无新消息'
 						        });
+								this.noreadmes = resp.data.data;
 					}
 				}).catch(err => {
 					this.$message.error('获取未读消息失败')
@@ -47,6 +48,7 @@
 		min-height: 550px;
 	}
 	@media screen and (max-width: 520px) {
+		
 		.el-empty{
 		min-height: 450px;
 	}

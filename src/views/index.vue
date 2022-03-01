@@ -106,7 +106,6 @@
 		border-radius: 30px;
 		margin: 10px;
 	}
-
 	.time {
 		color: #fff;
 		letter-spacing: 5px;
@@ -141,6 +140,7 @@
 		display: flex;
 		justify-content: flex-start;
 		flex-wrap: nowrap;
+		
 	}
 #time{
 	animation:appear 0.8s alternate infinite ease-in;
@@ -182,12 +182,9 @@
 	@media screen and (max-width:520px) {
 
 		.bk {
-			height: 40px !important;
+			height: 60px !important;
 			margin-top: 50px !important;
-			border-radius: 10px;
-		}
-		::v-deep .el-input__inner{
-			height:30px !important;
+			border-radius: 15px;
 		}
 
 	}

@@ -45,10 +45,16 @@
 		font-family: "copperplate gothic light";
 	}
 	.page_404 {
-		padding: 40px 0;
+		padding: 20px 0;
 		background: #fff;
 		font-family: 'Arvo', serif;
 		text-align: center;
+		position: absolute;
+		bottom: 0;
+		top:0;
+		left: 0;
+		right: 0;
+		margin: auto;
 	}
 
 	.page_404 img {
@@ -57,19 +63,20 @@
 
 	.four_zero_four_bg {
 
-		background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+		background-image: url(../assets/img/dribbble_1.gif);
 		height: 400px;
 		background-position: center;
+		background-size: contain;
 		background-repeat: no-repeat;
 	}
 
 
 	.four_zero_four_bg h1 {
-		font-size: 80px;
+		font-size: 60px;
 	}
 
 	.four_zero_four_bg h3 {
-		font-size: 80px;
+		font-size: 40px;
 	}
 .contant_box_404{
 	font-family: "book antiqua";
@@ -83,7 +90,7 @@
 		display: inline-block;
 		text-decoration: none;
 		font-family: "agency fb";
-		font-size: 18px;
+		font-size: 15px;
 		letter-spacing: 1px;
 	}
 

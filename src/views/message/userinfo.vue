@@ -4,8 +4,11 @@
 			<el-main class="me-intro">
 				<div class="head">
 					<div class="img">
-						<img :src="user.face" v-if="user.face">
-						<img :src="imgsrc" v-else>
+						<div class="mypic">
+							<img :src="user.face" v-if="user.face">
+							<img :src="imgsrc" v-else>
+						</div>
+
 						<div class="head-title">
 							<div class="name">
 								{{user.nickname}}
@@ -27,35 +30,44 @@
 						</div>
 					</div>
 					<div class="main-body" v-show="!isupdate">
-						<div class="bodyitem"><span class="label"><b>用户名:</b></span>&ensp;&ensp;{{user.account}}</div>
-						<div class="bodyitem"><span class="label"><b>昵称:</b></span>&ensp;&ensp;{{user.nickname}}</div>
-						<div class="bodyitem"><span class="label"><b>手机号:</b></span>&ensp;&ensp;{{user.phoneNumber}}
+						<div class="bodyitem" v-if="this.$store.state.id == user.id"> <span
+								class="label">用户名:</span>&ensp;&ensp;{{user.account}}</div>
+						<div class="bodyitem"><span class="label">昵称:</span>&ensp;&ensp;{{user.nickname}}</div>
+						<div class="bodyitem" v-if="this.$store.state.id == user.id"><span
+								class="label">手机号:</span>&ensp;&ensp;{{user.phoneNumber}}
 						</div>
-						<div class="bodyitem"><span class="label"><b>邮箱:</b></span>&ensp;&ensp;{{user.email}}</div>
-						<div class="bodyitem"><span class="label"><b>用户创建时间:</b></span>&ensp;&ensp;{{user.gmtCreate}}
+						<div class="bodyitem" v-if="this.$store.state.id == user.id"><span
+								class="label">邮箱:</span>&ensp;&ensp;{{user.email}}</div>
+						<div class="bodyitem"><span class="label">用户创建时间:</span>&ensp;&ensp;{{user.gmtCreate}}
 						</div>
-						<div class="bodyitem"><span class="label"><b>上次修改时间:</b></span>&ensp;&ensp;{{user.gmtModified}}
+						<div class="bodyitem" v-if="this.$store.state.id == user.id"><span
+								class="label">上次修改时间:</span>&ensp;&ensp;{{user.gmtModified}}
 						</div>
 					</div>
 					<div class="inputpwd" v-show="modify">
-					<el-form :rules="rules"	ref="pwd" :model="pwd">
-						<el-form-item prop="oldPassword">
-							<label>旧密码:</label><el-input type="password" v-model="pwd.oldPassword" placeholder="请输入旧密码" size="small">
-							</el-input>
-						</el-form-item>
-						<el-form-item prop="newPasswordForInput">
-							<label>新密码:</label><el-input type="password" auto-complete="false" v-model="pwd.newPasswordForInput" placeholder="请输入密码" size="small">
-							</el-input>
-						</el-form-item>
-						<el-form-item prop="newPasswordForLastInput">
-							<label>确认密码:</label><el-input type="password" auto-complete="false" v-model="pwd.newPasswordForLastInput" placeholder="请输入确认密码" size="small">
-							</el-input>
-						</el-form-item>				
-					</el-form>
+						<el-form :rules="rules" ref="pwd" :model="pwd">
+							<el-form-item prop="oldPassword">
+								<label>旧密码:</label>
+								<el-input type="password" v-model="pwd.oldPassword" placeholder="请输入旧密码" size="small">
+								</el-input>
+							</el-form-item>
+							<el-form-item prop="newPasswordForInput">
+								<label>新密码:</label>
+								<el-input type="password" auto-complete="false" v-model="pwd.newPasswordForInput"
+									placeholder="请输入密码" size="small">
+								</el-input>
+							</el-form-item>
+							<el-form-item prop="newPasswordForLastInput">
+								<label>确认密码:</label>
+								<el-input type="password" auto-complete="false" v-model="pwd.newPasswordForLastInput"
+									placeholder="请输入确认密码" size="small">
+								</el-input>
+							</el-form-item>
+						</el-form>
 					</div>
 					<div class="myarticles">
 						<div class="title">
-							<div style="width: 100%;">{{user.nickname}}的文章:</div>
+							<div style="width: 100%;">{{user.nickname}}&ensp;的文章:</div>
 							<!-- 种类选择 -->
 							<el-select v-model="category" placeholder="请选择种类" size="mini" clearable>
 								<el-option v-for="item in allcategory" :key="item.id" :label="item.categoryName"
@@ -98,7 +110,7 @@
 	} from '../../api/upload.js'
 	export default {
 		name: 'userinfo',
-		
+
 		data() {
 			const checkpwd = (rule, value, cb) => {
 				if (value.length > 5) {
@@ -121,7 +133,7 @@
 				}
 				return cb();
 			}
-			
+
 			return {
 				userid: this.$route.params.id,
 				user: '',
@@ -143,13 +155,11 @@
 					newPasswordForLastInput: '',
 				},
 				rules: {
-					oldPassword:[
-						{
-							required: true,
-							message: '请输入旧密码',
-							trigger: 'blur'
-						}
-					],
+					oldPassword: [{
+						required: true,
+						message: '请输入旧密码',
+						trigger: 'blur'
+					}],
 					newPasswordForInput: [{
 							required: true,
 							message: '请输入新密码',
@@ -160,7 +170,7 @@
 							trigger: ['blur', 'change'],
 						}
 					],
-				
+
 					newPasswordForLastInput: [{
 							required: true,
 							message: '请二次输入密码',
@@ -170,9 +180,9 @@
 							validator: newPasswordForLastInput,
 							trigger: ['blur', 'change'],
 						}
-				
+
 					],
-				
+
 				}
 			}
 		},
@@ -187,6 +197,7 @@
 			getuserbyid(this.userid).then(resp => {
 				if (resp.data.code == 200) {
 					this.user = resp.data.data;
+					document.title = `${this.user.nickname}的主页	-	GOOBLOG`;
 				} else {
 					this.$router.go(-1);
 					this.$message.warning('获取用户信息错误');
@@ -196,11 +207,6 @@
 			this.getalltag();
 			this.getalltime();
 			this.getallcategory();
-		},
-		mounted() {
-			setTimeout(() => {
-				document.title = `${this.user.nickname}的主页	-	GOOBLOG`;
-			}, 500)
 		},
 		methods: {
 			// onfilechange(e) {
@@ -327,21 +333,21 @@
 			tomodify() {
 				this.modify = true
 			},
-			modifypwd(){
+			modifypwd() {
 				this.$refs.pwd.validate((valid) => {
 					if (valid) {
-						modifypwd(this.pwd).then(resp=>{
-							if(resp.data.code == 200){
+						modifypwd(this.pwd).then(resp => {
+							if (resp.data.code == 200) {
 								this.$message.success('修改成功，请重新登录');
 								this.modify = false;
 								this.clearCookie('Authorization');
 								window.sessionStorage.removeItem('user');
 								//清除vuex中保存的路由，这样保证路由一直是当前用户拥有的
 								this.$router.replace('/login')
-							}else{
+							} else {
 								this.$message.error('修改失败，请稍后再试');
 							}
-						}).catch(err=>{
+						}).catch(err => {
 							this.$message.warning('操作失败，请稍后再试')
 						})
 					} else {
@@ -381,7 +387,7 @@
 	}
 
 	.inputpwd .el-input {
-		width: 40%;
+		width: 35%;
 		min-width: 150px;
 		margin-left: 15px;
 	}
@@ -399,13 +405,16 @@
 		padding: 5px;
 		padding-right: 20px;
 	}
- .el-form label{
-	 font-weight: 600;
-	 color:#4b4b4b;
- }
+
+	.el-form label {
+		color: #4b4b4b;
+	}
+
 	.head {
 		margin: 10px;
-		background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.3dmgame.com%2Fuploads%2Fimages%2Fnews%2F20200706%2F1594022924_312694.jpg&refer=http%3A%2F%2Fimg.3dmgame.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1646881661&t=86531d31067d8ed7e1bea6d6c1ae1239);
+		background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fphoto%2F2011-10-30%2Fenterdesk.com-5BCEFAF223637E16DE2ABF2E9B00CF46.png&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648091118&t=ee2126814f6f05f0bfebf0d711da4f75);
+		background-position: center;
+		background-size: cover;
 		width: 100%;
 		height: 250px;
 		display: flex;
@@ -460,6 +469,7 @@
 		flex-direction: column;
 		flex-wrap: wrap;
 		margin-bottom: 10px;
+		margin-top: 20px;
 	}
 
 	.main-body .el-input {
@@ -477,16 +487,16 @@
 	}
 
 	.bodyitem {
-		font-size: 15px;
+		font-size: 14px;
 		margin: 12px 15px;
-		color: #464646;
+		color: #4f87cc;
 	}
 
 	.label {
-		 color:#4b4b4b;
+		color: #3d3d3d;
 	}
 
-	.bodyinput {
+	/* 	.bodyinput {
 		font-size: 15px;
 		color: #464646;
 		display: flex;
@@ -494,7 +504,7 @@
 		justify-content: flex-start;
 		align-items: center;
 		margin-left: 15px;
-	}
+	} */
 
 	.img {
 		margin: 20px 30px;
@@ -502,19 +512,26 @@
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;
+		transform: translateY(48px);
 	}
-
-	.img img {
-		width: 75px;
-		height: 75px;
+	.mypic{
+		width: 70px;
+		height:70px;
+		overflow: hidden;
+		display: flex;
+		justify-content: center;
+		border: 1px solid #e8e8e8;
 		border-radius: 50%;
-		border: 2px solid #fff;
-		margin-right: 15px;
+		margin-right: 10px;
+	}
+	.img img {
+		width: auto;
+		height: 70px;
 	}
 
 	.name {
 		text-align: center;
-		font-size: 20px;
+		font-size: 17px;
 		font-weight: 600;
 		letter-spacing: 1px;
 		color: #ffffff;
@@ -546,6 +563,10 @@
 		flex: 1;
 	}
 
+	.title {
+		font-family: "book antiqua";
+	}
+
 	@media screen and (max-width:520px) {
 
 		.el-container {
@@ -570,6 +591,7 @@
 		.img {
 			margin: 5px;
 			margin-left: 15px !important;
+			transform: translateY(21px);
 		}
 
 		.body .el-button {

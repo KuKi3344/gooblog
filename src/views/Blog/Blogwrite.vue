@@ -56,7 +56,7 @@
 				</el-form>
 				<div slot="footer" class="dialog-footer">
 					<el-button @click="publishVisible = false">取 消</el-button>
-					<el-button type="primary" @click="publish('articleForm')">发布</el-button>
+					<el-button @click="publish('articleForm')">发布</el-button>
 				</div>
 			</el-dialog>
 		</el-container>
@@ -111,7 +111,7 @@
 						face: ''
 					},
 					tags: [],
-					category: {},
+					category: '',
 					createDate: ''
 				},
 				editor: {
@@ -127,19 +127,19 @@
 						{
 							max: 80,
 							message: '不能大于180个字符',
-							trigger: 'blur'
+							trigger: ['blur', 'change']
 						}
 					],
 					category: [{
 						required: true,
 						message: '请选择文章分类',
-						trigger: 'change'
+						trigger: ['blur', 'change']
 					}],
 					tags: [{
 						type: 'array',
 						required: true,
 						message: '请选择标签',
-						trigger: 'change'
+						trigger: ['blur', 'change']
 					}]
 				}
 			}
@@ -154,7 +154,7 @@
 				findarticle(id).then(resp => {
 
 					this.articleForm = resp.data.data;
-					this.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n");
+					this.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n").replace(/</g, "&lt;").replace(/>/g, "&gt");
 					this.editor.id = resp.data.data.body.id;
 					let tags = this.articleForm.tags.map(function(item) {
 						return item.id;
@@ -199,71 +199,79 @@
 					})
 					return
 				}
-
 				this.publishVisible = true;
 			},
 			publish(articleForm) {
 
 				let that = this
-
 				this.$refs[articleForm].validate((valid) => {
-						if (valid) {
-
-							let tags = this.articleForm.tags.map(function(item) {
-								return {
-									id: item
-								};
-							});
-							this.editor.value = this.editor.value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-							let article = {
-								authorId: this.articleForm.author.id,
-								articleId: this.articleForm.id,
-								title: this.articleForm.title,
-								summary: this.articleForm.summary,
-								category: this.articleForm.category,
-								tags: tags,
-								body: {
-									content: this.editor.value,
-									contentHtml: '',
-									id:this.editor.id
-								}
-
-							}
-							this.publishVisible = false;
-
-							let loading = this.$loading({
-								lock: true,
-								text: '发布中，请稍后...'
+					if (valid) {
+						if (this.articleForm.category == '') {
+							this.$message({
+								message: '种类不能为空哦',
+								type: 'warning',
+								showClose: true
 							})
-							if (this.type == 'add') {
-								publisharticle(article).then((resp) => {
-									if (resp.data.code == 200) {
-										loading.close();
-										that.$message({
-											message: '发布成功啦',
-											type: 'success',
-											showClose: true
-										})
+							return
+						}
+						let tags = this.articleForm.tags.map(function(item) {
+							return {
+								id: item
+							};
+						});
+						this.editor.value = this.editor.value;
+						let article = {
+							authorId: this.user.id,
+							articleId: this.articleForm.id,
+							title: this.articleForm.title,
+							summary: this.articleForm.summary,
+							category: this.articleForm.category,
+							tags: tags,
+							body: {
+								content: this.editor.value,
+								contentHtml: '',
+								id: this.editor.id
+							}
+
+						}
+						this.publishVisible = false;
+
+						let loading = this.$loading({
+							lock: true,
+							text: '发布中，请稍后...'
+						})
+						if (this.type == 'add') {
+							publisharticle(article).then((resp) => {
+								if (resp.data.code == 200) {
+									loading.close();
+									that.$message({
+										message: '发布成功啦',
+										type: 'success',
+										showClose: true
+									})
+									setTimeout(() => {
 										that.$router.push({
 											path: `/article/${resp.data.data}`
 										})
-									} else {
-										that.$message({
-											message: error,
-											type: '发布文章失败:' + resp.data.message,
-											showClose: true
-										});
-									}
+									}, 500)
 
-								}).catch((error) => {
-									loading.close();
+								} else {
 									that.$message({
 										message: error,
-										type: 'error',
+										type: '发布文章失败:' + resp.data.message,
 										showClose: true
 									});
-								})
-							}else {
+								}
+
+							}).catch((error) => {
+								loading.close();
+								that.$message({
+									message: error,
+									type: 'error',
+									showClose: true
+								});
+							})
+						} else {
 							//更新接口
 							editarticle(article).then((resp) => {
 								if (resp.data.code == 200) {
@@ -299,81 +307,81 @@
 						return false;
 					}
 				});
-		},
-		cancel() {
-			this.$confirm('文章将不会保存, 是否继续?', '提示', {
-				confirmButtonText: '确定',
-				cancelButtonText: '取消',
-				type: 'warning'
-			}).then(() => {
-				this.$router.go(-1);
-			}).catch(() => {
-			this.$message({
-				type: 'info',
-				message: '已取消'
-				})  
-			});          
-		},
-		getCategorysAndTags() {
-			let that = this
-			getallcategory().then(resp => {
-				if (resp.data.code == 200) {
-					that.categorys = resp.data.data
+			},
+			cancel() {
+				this.$confirm('文章将不会保存, 是否继续?', '提示', {
+					confirmButtonText: '确定',
+					cancelButtonText: '取消',
+					type: 'warning'
+				}).then(() => {
+					this.$router.go(-1);
+				}).catch(() => {
+					this.$message({
+						type: 'info',
+						message: '已取消'
+					})
+				});
+			},
+			getCategorysAndTags() {
+				let that = this
+				getallcategory().then(resp => {
+					if (resp.data.code == 200) {
+						that.categorys = resp.data.data
+					} else {
+						that.$message({
+							type: 'error',
+							message: '文章分类加载失败',
+							showClose: true
+						})
+					}
+
+				}).catch(error => {
+					if (error !== 'error') {
+						that.$message({
+							type: 'error',
+							message: '文章分类加载失败',
+							showClose: true
+						})
+					}
+				})
+
+				getalltag().then(resp => {
+					if (resp.data.code == 200) {
+						that.tags = resp.data.data
+					} else {
+						that.$message({
+							type: 'error',
+							message: '标签加载失败',
+							showClose: true
+						})
+					}
+				}).catch(error => {
+					if (error !== 'error') {
+						that.$message({
+							type: 'error',
+							message: '标签加载失败',
+							showClose: true
+						})
+					}
+				})
+
+			},
+			editorToolBarToFixed() {
+
+				let toolbar = document.querySelector('.v-note-op');
+				let curHeight = document.documentElement.scrollTop || document.body.scrollTop;
+				if (curHeight >= 160) {
+					document.getElementById("placeholder").style.display = "block"; //bad  用计算属性较好
+					toolbar.classList.add("me-write-toolbar-fixed");
 				} else {
-					that.$message({
-						type: 'error',
-						message: '文章分类加载失败',
-						showClose: true
-					})
+					document.getElementById("placeholder").style.display = "none";
+					toolbar.classList.remove("me-write-toolbar-fixed");
 				}
-
-			}).catch(error => {
-				if (error !== 'error') {
-					that.$message({
-						type: 'error',
-						message: '文章分类加载失败',
-						showClose: true
-					})
-				}
-			})
-
-			getalltag().then(resp => {
-				if (resp.data.code == 200) {
-					that.tags = resp.data.data
-				} else {
-					that.$message({
-						type: 'error',
-						message: '标签加载失败',
-						showClose: true
-					})
-				}
-			}).catch(error => {
-				if (error !== 'error') {
-					that.$message({
-						type: 'error',
-						message: '标签加载失败',
-						showClose: true
-					})
-				}
-			})
-
-		},
-		editorToolBarToFixed() {
-
-			let toolbar = document.querySelector('.v-note-op');
-			let curHeight = document.documentElement.scrollTop || document.body.scrollTop;
-			if (curHeight >= 160) {
-				document.getElementById("placeholder").style.display = "block"; //bad  用计算属性较好
-				toolbar.classList.add("me-write-toolbar-fixed");
-			} else {
-				document.getElementById("placeholder").style.display = "none";
-				toolbar.classList.remove("me-write-toolbar-fixed");
 			}
-		}
-	},
-	components: {
-		'markdown-editor': MarkdownEditor
-	},
+		},
+		components: {
+			'markdown-editor': MarkdownEditor
+		},
 	}
 </script>
 
@@ -381,14 +389,33 @@
 	body {
 		font-size: 15px;
 	}
-	::v-deep .v-note-show{
+
+	::v-deep .v-note-wrapper .v-note-panel {
 		overflow-y: scroll;
-		max-height: 550px;
+		max-height: 65vh;
 	}
-	::v-deep .v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.transition{
-		overflow-y: scroll;
-		max-height: 550px;
+
+	::v-deep .v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper .content-input-wrapper {
+		overflow: initial;
 	}
+
+	::v-deep .v-note-wrapper .v-note-panel .v-note-edit.divarea-wrapper.transition {
+		overflow: initial;
+	}
+
+	::v-deep .v-note-wrapper .v-note-panel .v-note-show .v-show-content,
+	.v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
+		overflow: initial;
+	}
+
+	::v-deep .v-note-wrapper .v-note-panel .v-note-show {
+		overflow: initial;
+	}
+
+	#write {
+		max-height: 100%;
+	}
+
 	.el-header {
 		position: fixed;
 		z-index: 1024;
@@ -448,10 +475,6 @@
 
 	input::-webkit-input-placeholder {
 		color: #bababa;
-	}
-
-	.me-write-editor {
-		min-height: 550px !important;
 	}
 
 	.me-header-left {
@@ -523,6 +546,7 @@
 			width: 40px;
 
 		}
+
 		.me-write-main {
 			padding: 10px;
 			border-radius: 10px;
@@ -531,6 +555,37 @@
 			margin-right: 5px;
 		}
 
+	}
+
+	@media screen and (max-height:600px) {
+		.me-write-input {
+			font-size: 20px;
+			height: 40px;
+			margin-bottom: 10px;
+			font-weight: 600;
+		}
+
+	}
+
+	@media screen and (max-height:500px) {
+		::v-deep .v-note-wrapper .v-note-panel {
+			max-height: 55vh;
+		}
+
+
+	}
+
+	@media screen and (max-width:1185px) {
+		::v-deep .v-note-wrapper .v-note-panel {
+			max-height: 55vh;
+		}
+
+	}
+
+	@media screen and (max-width:420px) {
+		::v-deep .v-note-wrapper .v-note-panel {
+			max-height: 50vh;
+		}
 
 	}
 </style>

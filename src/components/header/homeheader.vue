@@ -6,21 +6,22 @@
 				<span id="name">GOO BLOG</span>
 				<div v-if="this.$store.state.login" style="width: 100%;">
 					<span class="el-dropdown-link">
-						<i v-if="user.face"> <img :src="user.face"> </i>
-						<i v-else> <img :src="imgsrc">
-						</i>
+						<div class="mypic">
+							<img :src="user.face" v-if="user.face">
+							<img :src="imgsrc" v-else>
+						</div>
+
 					</span>
 					<span class="username">{{user.nickname}}</span>
-					<span class="lasttimebefore">上次登录:</span>
-					<span class="lasttime">{{user.lastLoginDate}}</span>
 				</div>
 				<el-menu :router=true menu-trigger="click" active-text-color="#28352c" :default-active="avtiveIndex">
 					<el-menu-item index="/home"><i class="el-icon-s-home"></i>首页</el-menu-item>
 					<el-menu-item index="/category/all"><i class="el-icon-menu"></i>文章分类</el-menu-item>
 					<el-menu-item index="/tag/all"><i class="el-icon-s-flag"></i>标签</el-menu-item>
-		 		<el-menu-item index="/archives"><i class="el-icon-collection"></i>文章归档</el-menu-item>
+					<el-menu-item index="/archives"><i class="el-icon-collection"></i>文章归档</el-menu-item>
 					<el-menu-item index="/write" class="write"><i class="el-icon-edit"></i>写文章</el-menu-item>
-					<el-menu-item :index="'/userinfo/'+user.id" class="person" v-if="user"><i class="el-icon-user-solid"></i>
+					<el-menu-item :index="'/userinfo/'+user.id" class="person" v-if="user"><i
+							class="el-icon-user-solid"></i>
 						<el-badge :value="msg" :max="99" class="item" v-show="msg!=0">个人中心</el-badge><span
 							v-show="msg==0">个人中心</span>
 					</el-menu-item>
@@ -75,7 +76,7 @@
 				islogin: false,
 				isCollapse: false,
 				screenWidth: document.body.clientWidth,
-				msg:0
+				msg: 0
 			}
 		},
 		created() {
@@ -83,10 +84,8 @@
 			if (this.screenWidth < 1140) {
 				this.isCollapse = true;
 			}
-			if(this.$store.state.id){
-					this.getnoread();
-			}
-		
+			
+
 		},
 		mounted() {
 			const that = this
@@ -95,6 +94,11 @@
 					window.screenWidth = document.body.clientWidth;
 					that.screenWidth = window.screenWidth;
 				})();
+			}
+			if (this.$store.state.id) {
+				this.getnoread();
+				var inc = 10000;
+				setInterval(this.getnoread, inc);
 			}
 		},
 		watch: {
@@ -109,12 +113,11 @@
 			}
 		},
 		methods: {
-			getnoread(){
-				getnoreadmes().then(resp=>{
-					if(resp.data.code==200){
-							this.msg = resp.data.data.length;
-					}
-					else{
+			getnoread() {
+				getnoreadmes().then(resp => {
+					if (resp.data.code == 200) {
+						this.msg = resp.data.data.length;
+					} else {
 						this.$message.info('暂无新消息');
 					}
 				}).catch(err => {
@@ -242,9 +245,11 @@
 		line-height: 50px;
 		flex: 1
 	}
-	.el-badge .el-button{
+
+	.el-badge .el-button {
 		margin: 5px;
 	}
+
 	.el-menu {
 		width: 100%;
 		height: 100%;
@@ -261,7 +266,7 @@
 		width: 100%;
 		height: 52px !important;
 		line-height: 52px !important;
-		margin-bottom: 10px;
+		margin-bottom: 2vh;
 		padding-left: 30px !important;
 	}
 
@@ -289,12 +294,18 @@
 		width: 50px;
 		padding: auto;
 	}
-
+	.mypic{
+		 width: 55px;
+		 height: 55px;
+		 border-radius: 50%;
+		 border: 1px solid #b9e598;
+		 display: flex;
+		 justify-content: center;
+		 overflow: hidden;
+	}
 	.el-dropdown-link img {
 		height: 55px;
-		width: 55px;
-		border-radius: 50%;
-		border: 1px solid #b9e598;
+		width: auto;
 	}
 
 	.el-dropdown-menu {

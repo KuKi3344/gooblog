@@ -17,6 +17,7 @@
 				<el-aside>
 					<div class="aside">
 						<homeaside></homeaside>
+						<notice></notice>
 						<tagaside></tagaside>
 						<articleside cardHeader="热门文章" :articles="hotArticles"></articleside>
 						<articleside cardHeader="最新文章" :articles="newArticles"></articleside>
@@ -42,6 +43,7 @@
 	import homeheader from '../components/header/homeheader'
 	import homeheaderrow from '../components/header/homeheaderrow'
 	import homefooter from '../components/footer/homefooter'
+	import notice from '../components/aside/notice'
 	export default {
 		name: 'Home',
 		components: {
@@ -52,7 +54,8 @@
 			tagaside,
 			articleside,
 			Archiveaside,
-			gotop
+			gotop,
+			notice
 		},
 		data() {
 			return {
@@ -233,7 +236,7 @@
 		filter: blur(10px);
 	}
 
-	@media screen and (max-width: 1150px) {
+	@media screen and (max-width: 1148px) {
 		.main {
 			margin-left: 90px;
 		}

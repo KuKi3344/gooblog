@@ -25,7 +25,7 @@
 		
 		<div class="verify" v-if="toverify">
 			<slide-verify ref="slideblock" @again="onAgain" @success="onSuccess" @fail="onFail" :accuracy="accuracy"
-				:slider-text="text"></slide-verify>
+				:slider-text="text" :imgs="imglist"></slide-verify>
 		</div>
 	</div>
 	</div>
@@ -55,6 +55,7 @@
 				toverify: false,
 				succeed: false,
 				loading: false,
+				imglist:['https://img.googookuki.cn/86ddd119-df48-4f92-9039-dbba86f9b8d5.png','https://img.googookuki.cn/454fada4-64c7-4484-9498-7664882a635d.jpg','https://img.googookuki.cn/21cefd67-e267-40ba-b9d9-55a39ea0266f.jpg','https://img.googookuki.cn/1704bfef-456e-421a-9519-fb6dde8b913b.jpg'],
 				rules: {
 					account: [{
 							required: true,
@@ -134,7 +135,7 @@
 							//没有用封装的方法是因为路由特殊所以需要单独写
 							tologin(this.submitParam).then(resp => {
 								this.loading = false;
-								if (resp.data) {
+								if (resp.data.code==200) {
 									this.setCookieValue("Authorization",resp.data.data);
 									//跳转首页
 									this.$message({
@@ -142,6 +143,11 @@
 										type: 'success'
 									});
 									this.$router.go(-1)
+								}else{
+									this.$message({
+										message: '登录超时，请检查账号密码是否正确',
+										type: 'error'
+									});
 								}
 
 							})
