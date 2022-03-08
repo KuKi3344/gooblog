@@ -17,6 +17,7 @@
 		methods:{
 			getmes(){
 				this.$emit('getmes');
+				this.$emit('getreadmes')
 			}
 		}
 	}

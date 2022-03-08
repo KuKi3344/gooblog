@@ -47,6 +47,9 @@
 		},
 		created() {
 			this.getArticles();
+			setTimeout(() => {
+				document.title = `查找${this.condition}相关文章的结果	-	GOOBLOG`;
+			}, 500)
 		},
 		methods: {
 			load() {

@@ -30,11 +30,6 @@
 				searchlist: [],
 			}
 		},
-		mounted() {
-			setTimeout(() => {
-				document.title = `查找${this.condition}相关文章的结果	-	GOOBLOG`;
-			}, 500)
-		},
 		components:{
 			searcharticle
 		},
@@ -46,8 +41,11 @@
 					page: 1,
 					pageSize: 6
 				}
-				searchall(params).then(resp => {
-					if (resp.data.data.length > 0) {
+				let timer = null;
+				clearInterval(timer);
+				timer = setTimeout(()=>{
+					searchall(params).then(resp => {
+						if (resp.data.data.length > 0) {
 						this.searchlist = resp.data.data;
 						this.searchlist.forEach(function(value, index, array) {
 							that.searchlist[index].value = value.title
@@ -62,6 +60,7 @@
 					}
 
 				})
+				},800)			
 			},
 			handleSelect(item) {
 				this.$router.push(`/article/${item.id}`)

@@ -58,7 +58,7 @@
 	}
 
 	.card p {
-		font-size: 2px;
+		font-size: 12px;
 		letter-spacing: 3px;
 		color: #607176;
 		width: 85%;

@@ -60,7 +60,10 @@
 					page: 1,
 					pageSize: 5
 				}
-				searchall(params).then(resp => {
+				let timer = null;
+				clearInterval(timer);
+				timer = setTimeout(()=>{
+						searchall(params).then(resp => {
 					if (resp.data.data.length > 0) {
 						this.searchlist = resp.data.data;
 						this.searchlist.forEach(function(value, index, array) {
@@ -78,6 +81,8 @@
 					}
 
 				})
+				},800)
+			
 			},
 			handleSelect(item) {
 				this.$router.push(`/article/${item.id}`)

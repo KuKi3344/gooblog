@@ -119,7 +119,7 @@
 							})
 						} else {
 							this.newArticles = resp.data.data;
-							this.newArticles = this.newArticles.filter(item => item.id < 5)
+							this.newArticles = this.newArticles.filter((item,index) => index < 5)
 						}
 					} else {
 						this.$message.error(resp.data.message)

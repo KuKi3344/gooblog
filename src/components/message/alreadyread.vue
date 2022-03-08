@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<mesitem :message="alreadymes" v-if="alreadymes!=''"></mesitem>
+		<mesitem :message="alreadymes"  @getreadmes="getreadmes" v-if="alreadymes!=''"></mesitem>
 		<el-empty description="暂无消息" v-else></el-empty>
 	</div>
 </template>
