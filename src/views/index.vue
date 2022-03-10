@@ -105,7 +105,7 @@
 		background-image: url(../assets/img/bk.png);
 		background-repeat: no-repeat;
 		background-attachment: fixed;
-		background-size: cover;
+		background-size: contain;
 		overflow: hidden;
 		opacity: 0.8;
 		border-radius: 30px;

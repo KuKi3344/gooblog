@@ -23,7 +23,7 @@
 			var box = document.querySelector("#loader-wrapper");
 			setTimeout(()=>{
 				box.remove();
-			},1000)
+			},2000)
 			
 		}
 	}

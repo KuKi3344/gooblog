@@ -174,6 +174,12 @@
 			this.findArticleById();
 			this.getcomment();
 		},
+		watch:{			
+			"$route.params.id"(val){
+				this.findArticleById();
+				this.getcomment();
+			}
+		},
 		methods: {
 			findArticleById() {
 				let id = this.$route.params.id;
