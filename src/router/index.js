@@ -30,30 +30,42 @@ const routes = [{
 	},
 	{
 		path: '/',
-		name: '首页',
+		name: 'home',
 		component: Home,
 		redirect: '/home',
 		children: [{
 				path: '/home',
-				name: '首页',
+				name: 'home',
+				meta:{
+					name:'首页'
+				},
 				component: r => require.ensure([], () => r(require('../views/index')),
 					'index')
 			},
 			{
 				path: '/category/all/:id?',
-				name: '文章分类',
+				name: 'category',
+				meta:{
+					name:'文章分类'
+				},
 				component: r => require.ensure([], () => r(require('../views/category')),
 					'category')
 			},
 			{
 				path: '/tag/all/:id?',
-				name: '所有标签',
+				name: 'tag',
+				meta:{
+					name:'所有标签'
+				},
 				component: r => require.ensure([], () => r(require('../views/tag')),
 					'tag')
 			},
 			{
 				path: '/archives/:id?',
-				name: '所有归档信息',
+				name: 'archives',
+				meta:{
+					name:'所有归档信息'
+				},
 				component: r => require.ensure([], () => r(require('../views/archives')),
 					'archives')
 			},

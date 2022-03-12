@@ -54,7 +54,12 @@ router.beforeEach((to, from, next) => {
 				window.sessionStorage.setItem('user', JSON.stringify(resp.data.data));
 				store.state.id = resp.data.data.id;
 				store.state.login = true;
-				document.title = `${to.name}	-	GOOBLOG`;
+				if(to.meta.name){
+					document.title = `${to.meta.name}	-	GOOBLOG`;
+				}else{
+					document.title = `${to.name}	-	GOOBLOG`;
+				}
+				
 				next();
 			} else {
 				clearCookie('Authorization');
@@ -68,7 +73,11 @@ router.beforeEach((to, from, next) => {
 		if (to.name == '写文章') {
 			Message.warning("请先登录")
 		} else {
-			document.title = `${to.name}	-	GOOBLOG`;
+			if(to.meta.name){
+				document.title = `${to.meta.name}	-	GOOBLOG`;
+			}else{
+				document.title = `${to.name}	-	GOOBLOG`;
+			}
 			next();
 		}
 	}

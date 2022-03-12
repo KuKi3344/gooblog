@@ -1,13 +1,14 @@
 <template>
 	<div style="min-height: 430px;">
-		<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load" class="main"  v-if="articles.length>0">
-		<articleitem v-for="article in articles" v-bind="article" :key="article.id"
-			style="flex:1;margin-bottom: 10px;z-index: 99;">
-		</articleitem>
-	</scroll-page>
-	<el-empty description="暂无" v-else></el-empty>
+			<scroll-page :loading="loading" :offset="offset" :no-data="noData" @load="load" class="main"
+				v-if="articles.length>0">
+				<articleitem v-for="article in articles" v-bind="article" :key="article.id"
+					style="flex:1;margin-bottom: 10px;z-index: 99;">
+				</articleitem>
+			</scroll-page>
+			<el-empty description="暂无" v-else></el-empty>
 	</div>
-	
+
 </template>
 
 <script>
@@ -48,7 +49,7 @@
 				this.innerPage.page = 1;
 				this.getArticles();
 			},
-			category(){
+			category() {
 				this.articles = [];
 				this.innerPage.page = 1;
 				this.getArticles();

@@ -13,7 +13,8 @@
 			</div>
 			<!-- 	</div> -->
 		</div>
-		<articlescrollpage></articlescrollpage>
+					<articlescrollpage></articlescrollpage>
+
 	</div>
 </template>
 

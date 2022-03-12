@@ -219,7 +219,7 @@
 								id: item
 							};
 						});
-						this.editor.value = this.editor.value;
+						this.editor.value = this.editor.value.replace(/</g, "&lt").replace(/>/g, "&gt");
 						let article = {
 							authorId: this.user.id,
 							articleId: this.articleForm.id,

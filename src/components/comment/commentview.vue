@@ -71,7 +71,6 @@
 			comment: Object
 		},
 		created() {
-
 			this.getrecall();
 		},
 		mounted(){
@@ -107,7 +106,7 @@
 
 			},
 			recallcomment() {
-				this.reply.commentContent = this.reply.commentContent;
+				this.reply.commentContent = this.reply.commentContent.replace(/</g, "&lt").replace(/>/g, "&gt");;
 				recall(this.reply).then(resp => {
 					if (resp.data.code == 200) {
 						this.$message.success("回复成功")

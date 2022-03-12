@@ -3,7 +3,7 @@
 		<el-container class="me-view-container">
 
 			<el-main>
-
+				<el-button size="mini" icon="el-icon-arrow-left" @click="$router.go(-1)"></el-button>
 				<div class="me-view-card">
 					<h1 class="me-view-title">{{article.title}}</h1>
 					<div class="me-view-author">
@@ -173,6 +173,7 @@
 		created() {
 			this.findArticleById();
 			this.getcomment();
+			 window.scrollTo(0,0);
 		},
 		watch:{			
 			"$route.params.id"(val){
@@ -192,8 +193,7 @@
 								type: 'error'
 							})
 						} else {
-							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n")
-								.replace(/&lt;/g, "<").replace(/&gt/g, ">");
+							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n");
 							Object.assign(this.article, resp.data.data)
 							document.title = `${this.article.title}-文章详情`;
 						}

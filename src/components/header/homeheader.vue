@@ -101,6 +101,9 @@
 				setInterval(this.getnoread, inc);
 			}
 		},
+		beforeDestroy(){
+			clearInterval();
+		},
 		watch: {
 			/* 监听*/
 			screenWidth(val) {

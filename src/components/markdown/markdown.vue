@@ -81,7 +81,9 @@
 	.v-note-wrapper.fullscreen {
 		top: 60px !important
 	}
-
+	::v-deep  .hljs-regexp{
+		color: #5d9eff !important;
+	}
 	::v-deep .markdown-body h1,
 	::v-deep .markdown-body h2,
 	::v-deep .markdown-body h3,

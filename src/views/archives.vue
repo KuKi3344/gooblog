@@ -48,6 +48,7 @@
 				setTimeout(() => {
 					document.title = `${this.$route.params.id} 文章归档 -GOOBLOG`
 				}, 300)
+				 window.scrollTo(0,0);
 			}
 
 		},

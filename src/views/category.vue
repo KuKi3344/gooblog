@@ -39,6 +39,7 @@
 				setTimeout(() => {
 					document.title = `${this.$route.query.name} 类别 -GOOBLOG`
 				}, 500)
+				 window.scrollTo(0,0);
 			}
 
 			this.listcategory();

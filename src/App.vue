@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-	
 	<router-view></router-view>
 	<!-- 加载动画 -->
 	<div id="loader-wrapper">
@@ -23,7 +22,7 @@
 			var box = document.querySelector("#loader-wrapper");
 			setTimeout(()=>{
 				box.remove();
-			},2000)
+			},1000)
 			
 		}
 	}

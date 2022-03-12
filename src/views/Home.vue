@@ -9,8 +9,9 @@
 		<div class="main">
 			<el-container>
 				<el-main class="me-articles">
-
-					<router-view></router-view>
+					<keep-alive include="home">
+							<router-view></router-view>
+					</keep-alive>			
 					<gotop></gotop>
 							<homefooter></homefooter>
 				</el-main>
