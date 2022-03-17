@@ -121,7 +121,7 @@
 		height:40px;
 		width:70px;
 		display: flex;
-		justify-content: center;
+		justify-content: flex-start;
 		flex-wrap: nowrap;
 		margin-right: 10px;
 	}

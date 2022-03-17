@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-var base = 'https://api.googookuki.cn';
+var base = '';
 
 export function gethottag(){
 	return axios({

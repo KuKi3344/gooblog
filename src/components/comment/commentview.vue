@@ -39,7 +39,7 @@
 					v-if="r.author.id == userid" class="removecomment">删除</el-button>
 			</li>
 			<div v-show="commentshow" class="showreply">
-				<el-input class="reply" type="textarea" :placeholder="placeholder" v-model="reply.commentContent"
+				<el-input class="reply" type="textarea" :placeholder="placeholder" v-model="reply.commentContent" maxlength="300"
 					resize="none">
 				</el-input>
 				<el-button @click="recallcomment()" round size="mini" style="margin:5px;width:60px;">评论</el-button>

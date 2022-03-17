@@ -47,7 +47,7 @@
 					</div>
 				</a>
 				<div v-show="!fold" class="showreply">
-					<el-input class="reply" type="textarea" placeholder="输入你的回复" v-model="reply.commentContent"
+					<el-input class="reply" type="textarea" placeholder="输入你的回复" v-model="reply.commentContent"  maxlength="300"
 						resize="none">
 					</el-input>
 					<el-button @click="recallcomment(m.article.id,m.fromUser.id,m.commentId,m.id)" round size="mini"

@@ -1,5 +1,5 @@
 import axios from 'axios'
-var base = 'https://api.googookuki.cn';
+var base = '';
 export function upload(formdata) {
   return axios({
     headers: {'Content-Type': 'multipart/form-data'},

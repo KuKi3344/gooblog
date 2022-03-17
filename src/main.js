@@ -18,8 +18,7 @@ import {
 	setCookieValue,
 	clearCookie
 } from './assets/js/cookie.js'
-import hljs from 'highlight.js' //导入代码高亮文件
-import 'highlight.js/styles/googlecode.css'  
+
 
 Vue.prototype.$axios = axios;
 Vue.prototype.getCookieValue = getCookieValue;

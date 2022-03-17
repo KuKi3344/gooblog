@@ -81,7 +81,7 @@
 										</div>
 
 									</a>
-									<el-input type="textarea" :autosize="{ minRows: 2}" placeholder="你的评论..."
+									<el-input type="textarea" :autosize="{ minRows: 2}" placeholder="你的评论..." maxlength="300"
 										class="me-view-comment-text" v-model="subcomment.commentContent" resize="none">
 									</el-input>
 								</div>

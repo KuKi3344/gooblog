@@ -12,7 +12,7 @@
 			</div>
 			<div class="intro">
 				<div class="me-article-author">
-					<router-link :to="'/userinfo/'+author.id" class="me-icon-author">&nbsp;{{author.nickname}}</router-link>
+					<div class="me-icon-author">&nbsp;{{author.nickname}}</div>
 				</div>
 			
 			</div>
