@@ -88,6 +88,11 @@ const routes = [{
 				path: '/search/:id',
 				name: '查找文章',
 				component: r => require.ensure([], () => r(require('../views/search')), 'search')
+			},
+			{
+				path:'/chat',
+				name:'聊天室',
+				component: r => require.ensure([], () => r(require('../views/chat')), 'chat')
 			}
 		]
 	}

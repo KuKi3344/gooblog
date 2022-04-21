@@ -1,5 +1,5 @@
 <template>
-	<div style="display: flex;justify-content: center;background:rgba(255, 255, 255, 0.8);">
+	<div style="display: flex;justify-content: center;">
 		<el-container>
 
 			<div class="me-area">
@@ -177,7 +177,6 @@
 		min-width: 280px;
 		margin-right: 10px;
 		width: 100%;
-		background-color: rgba(255, 255, 255, 0.9);
 		padding: 0;
 	}
 	@media screen and (max-width:520px) {

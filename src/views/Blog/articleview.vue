@@ -76,8 +76,8 @@
 										<router-link to="/login"><span class="noavator" v-if="!user">未登录</span>
 										</router-link>
 										<div class="picture">
-											<img class="me-view-picture" :src="user.face" v-if="user&&user.face"></img>
-											<img class="me-view-picture" :src="imgsrc" v-if="user&&!user.face"></img>
+											<img class="me-view-picture" :src="user.face" v-if="user&&user.face">
+											<img class="me-view-picture" :src="imgsrc" v-if="user&&!user.face">
 										</div>
 
 									</a>
@@ -193,7 +193,7 @@
 								type: 'error'
 							})
 						} else {
-							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n");
+							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 							Object.assign(this.article, resp.data.data)
 							document.title = `${this.article.title}-文章详情`;
 						}
@@ -479,6 +479,9 @@
 		.me-view-title {
 			font-size: 22px !important;
 			margin-top: 20px;
+		}
+		.me-view-tag {
+			font-size: 13px !important;
 		}
 	}
 </style>

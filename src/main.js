@@ -19,7 +19,6 @@ import {
 	clearCookie
 } from './assets/js/cookie.js'
 
-
 Vue.prototype.$axios = axios;
 Vue.prototype.getCookieValue = getCookieValue;
 Vue.prototype.setCookieValue = setCookieValue;
@@ -28,6 +27,7 @@ Vue.prototype.imgsrc = "https://img0.baidu.com/it/u=2869476812,1505860764&fm=253
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI);
 Vue.use(SlideVerify)
+
 import {
 	formatTime
 } from './utils/time'
@@ -69,7 +69,7 @@ router.beforeEach((to, from, next) => {
 	}
 	if (!getCookieValue('Authorization')) {
 		//如果没有token就拦截，如果去登录页面不拦截，如果去别的就给调到404页面
-		if (to.name == '写文章') {
+		if (to.name == '写文章'||to.name== '聊天室') {
 			Message.warning("请先登录")
 		} else {
 			if(to.meta.name){

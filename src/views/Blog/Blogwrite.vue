@@ -146,7 +146,7 @@
 		},
 		computed: {
 			title() {
-				return '写文章 - 码神之路'
+				return '写文章 - GOO BLOG'
 			}
 		},
 		methods: {
@@ -154,7 +154,7 @@
 				findarticle(id).then(resp => {
 
 					this.articleForm = resp.data.data;
-					this.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n").replace(/</g, "&lt;").replace(/>/g, "&gt");
+					this.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
 					this.editor.id = resp.data.data.body.id;
 					let tags = this.articleForm.tags.map(function(item) {
 						return item.id;
@@ -219,7 +219,7 @@
 								id: item
 							};
 						});
-						this.editor.value = this.editor.value.replace(/</g, "&lt").replace(/>/g, "&gt");
+						this.editor.value = this.editor.value.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 						let article = {
 							authorId: this.user.id,
 							articleId: this.articleForm.id,
@@ -257,8 +257,8 @@
 
 								} else {
 									that.$message({
-										message: error,
-										type: '发布文章失败:' + resp.data.message,
+										type: error,
+										message: '发布文章失败:' + resp.data.message,
 										showClose: true
 									});
 								}
@@ -277,8 +277,8 @@
 								if (resp.data.code == 200) {
 									loading.close();
 									that.$message({
-										message: '发布成功啦',
-										type: 'success',
+										type: '发布成功啦',
+										message: 'success',
 										showClose: true
 									})
 									that.$router.push({
@@ -286,8 +286,8 @@
 									})
 								} else {
 									that.$message({
-										message: error,
-										type: '发布文章失败:' + resp.data.message,
+										type: error,
+										message: '发布文章失败:' + resp.data.message,
 										showClose: true
 									});
 								}

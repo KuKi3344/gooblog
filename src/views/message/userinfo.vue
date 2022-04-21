@@ -1,20 +1,18 @@
 <template>
-	<div style="display: flex;justify-content: center;z-index: 99 !important;">
+	<div style="display: flex;z-index: 99 !important;width: 100%;">
 		<el-container>
 			<el-main class="me-intro">
 				<div class="head">
-					<div class="img">
-						<div class="mypic">
-							<img :src="user.face" v-if="user.face">
-							<img :src="imgsrc" v-else>
-						</div>
-
-						<div class="head-title">
-							<div class="name">
-								{{user.nickname}}
+					<div class="head-bk">
+						<div class="user">
+							<div class="mypic">
+								<img :src="user.face" v-if="user.face">
+								<img :src="imgsrc" v-else>
 							</div>
-						</div>
 
+							<div class="name">{{user.nickname}}</div>
+							<div class="email"><i class="el-icon-message"></i>&ensp;<span>{{user.email}}</span></div>
+						</div>
 					</div>
 
 				</div>
@@ -360,12 +358,67 @@
 </script>
 
 <style scoped="scoped">
+	.el-icon-message {
+		color: #2abcff;
+		font-weight: 600;
+	}
+
 	.el-container {
 		margin-top: 20px;
 		margin-left: 5px;
 		margin-right: 5px;
 		justify-content: center;
 		flex-direction: column;
+	}
+
+	.head {
+		width: 100%;
+		height: 300px;
+	}
+
+	.head-bk {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		align-items: center;
+		width: 100%;
+		box-sizing: border-box;
+		overflow: hidden;
+		border-radius: 10px;
+		height: 300px;
+		background-image: url(../../assets/img/bk.jpg);
+		background-position: center;
+		background-repeat: no-repeat;
+		z-index: -1;
+		background-size: cover;
+	}
+
+	.user {
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+		align-items: center;
+		overflow: hidden;
+	}
+
+	.user img {
+		width:auto;
+		height: 60px;
+	}
+
+	.name {
+		color: #fff;
+		margin: 5px;
+		letter-spacing: 2px;
+		font-size: 14px !important;
+	}
+
+	.email {
+		font-size: 12px;
+		color: #ffffff;
+		letter-spacing: 2px;
+		margin: 5px;
+		margin-bottom: 20px;
 	}
 
 	.body .el-button {
@@ -398,53 +451,27 @@
 	}
 
 	.me-intro {
-		min-width: 280px;
+		min-width: 260px;
 		width: 100%;
 		background-color: rgba(255, 255, 255, 0.7);
 		border-radius: 10px;
 		padding: 5px;
-		padding-right: 20px;
+		overflow: hidden;
 	}
 
 	.el-form label {
 		color: #4b4b4b;
 	}
 
-	.head {
-		margin: 10px;
-		background: url(https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fup.enterdesk.com%2Fphoto%2F2011-10-30%2Fenterdesk.com-5BCEFAF223637E16DE2ABF2E9B00CF46.png&refer=http%3A%2F%2Fup.enterdesk.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1648091118&t=ee2126814f6f05f0bfebf0d711da4f75);
-		background-position: center;
-		background-size: cover;
-		width: 100%;
-		height: 250px;
-		display: flex;
-		align-items: flex-end;
-		justify-content: space-between;
-		opacity: 0.95;
-		border-top-left-radius: 10px;
-		border-top-right-radius: 10px;
-	}
-
-	.head-title .el-button {
-		padding: 5px 15px;
-		width: 80px;
-	}
-
-	.head-title {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-around;
-	}
-
 	.body {
-		width: 100%;
+		width: 99%;
 		margin: 5px;
-		padding: 5px;
+		padding: 2px;
 		border-bottom: 1px dashed #e7f1f0;
 		display: flex;
 		flex-direction: column;
 		flex-wrap: wrap;
-		align-items: center;
+		align-items: flex-start;
 		justify-content: center;
 	}
 
@@ -506,27 +533,15 @@
 		margin-left: 15px;
 	} */
 
-	.img {
-		margin: 20px 30px;
-		float: left;
-		display: flex;
-		align-items: center;
-		justify-content: flex-start;
-		transform: translateY(48px);
-	}
-	.mypic{
-		width: 70px;
-		height:70px;
+
+	.mypic {
+		width: 60px;
+		height: 60px;
 		overflow: hidden;
 		display: flex;
 		justify-content: center;
-		border: 1px solid #e8e8e8;
 		border-radius: 50%;
-		margin-right: 10px;
-	}
-	.img img {
-		width: auto;
-		height: 70px;
+		margin-bottom: 5px;
 	}
 
 	.name {
@@ -542,7 +557,9 @@
 	.myarticles {
 		width: 100%;
 		border-top: 1px solid #e6e6e6;
-		padding-top: 15px;
+		padding-top: 5px;
+		margin: 0;
+		justify-content: flex-start;
 	}
 
 	.myarticles .title {
@@ -550,7 +567,7 @@
 		font-weight: 600;
 		font-size: 14px;
 		letter-spacing: 2px;
-		margin: 15px 10px;
+		margin: 10px 5px;
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
@@ -573,25 +590,9 @@
 			margin-top: 60px;
 		}
 
-		.img img {
-			width: 45px;
-			height: 45px;
-			margin-right: 5px;
-		}
-
 		.name {
 			font-size: 12px;
 			margin-bottom: 5px;
-		}
-
-		.head {
-			height: 150px;
-		}
-
-		.img {
-			margin: 5px;
-			margin-left: 15px !important;
-			transform: translateY(21px);
 		}
 
 		.body .el-button {
@@ -602,6 +603,14 @@
 		.bodyitem {
 			font-size: 12px;
 			margin: 8px 5px;
+		}
+
+		.head {
+			height: 220px;
+		}
+
+		.head-bk {
+			height: 220px;
 		}
 
 		.head-title .el-button {

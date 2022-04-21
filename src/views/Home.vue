@@ -9,7 +9,7 @@
 		<div class="main">
 			<el-container>
 				<el-main class="me-articles">
-					<keep-alive include="home">
+					<keep-alive include="home,chat">
 							<router-view></router-view>
 					</keep-alive>			
 					<gotop></gotop>
@@ -158,9 +158,9 @@
 	.el-container {
 		height: auto;
 		display: flex;
-		justify-content: center;
-		min-width: 300px;
+		min-width: 280px;
 		flex-wrap: nowrap;
+		margin: 0;
 	}
 
 	.el-aside {
@@ -189,13 +189,11 @@
 
 
 	.me-articles {
-		margin: 5px;
 		display: flex;
 		flex-direction: column;
 		min-width:300px;
 		padding: 0px;
 		line-height: 16px;
-		background-color: rgba(255, 255, 255, 0.8);
 	}
 
 	@media screen and (max-width: 850px) {
@@ -229,7 +227,7 @@
 	}
 
 	.img {
-		z-index: 0;
+		z-index: -1;
 		opacity: 0.3;
 		position: fixed;
 		width: 100%;
@@ -237,7 +235,7 @@
 		filter: blur(10px);
 	}
 
-	@media screen and (max-width: 1148px) {
+	@media screen and (max-width: 1139.5px) {
 		.main {
 			margin-left: 90px;
 		}
@@ -259,8 +257,8 @@
 		}
 
 		.main {
-			margin-left: 10px;
-			margin-right: 10px;
+			margin-left: 5px;
+			margin-right: 5px;
 		}
 	}
 

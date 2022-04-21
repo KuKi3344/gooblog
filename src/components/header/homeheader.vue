@@ -120,8 +120,6 @@
 				getnoreadmes().then(resp => {
 					if (resp.data.code == 200) {
 						this.msg = resp.data.data.length;
-					} else {
-						this.$message.info('暂无新消息');
 					}
 				}).catch(err => {
 					this.$message.error('获取新消息失败')

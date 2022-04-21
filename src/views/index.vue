@@ -6,7 +6,7 @@
 				<span class="timeshow">{{hour}}<span id="time">:</span>{{minute}}</span>
 				<div class="input">
 					<el-autocomplete class="inline-input" v-model="condition" :fetch-suggestions="search" clearable
-						placeholder="请输入内容" :trigger-on-focus="false" @select="handleSelect"  maxlength="20"></el-autocomplete>
+						placeholder="请输入内容" :trigger-on-focus="false" @select="handleSelect"  :maxlength="20"></el-autocomplete>
 					<el-button icon="el-icon-search" size="small" @click="filterall"></el-button>
 				</div>
 
