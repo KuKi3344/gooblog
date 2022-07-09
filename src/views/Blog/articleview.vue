@@ -81,8 +81,9 @@
 										</div>
 
 									</a>
-									<el-input type="textarea" :autosize="{ minRows: 2}" placeholder="你的评论..." maxlength="300"
-										class="me-view-comment-text" v-model="subcomment.commentContent" resize="none">
+									<el-input type="textarea" :autosize="{ minRows: 2}" placeholder="你的评论..."
+										maxlength="300" class="me-view-comment-text" v-model="subcomment.commentContent"
+										resize="none">
 									</el-input>
 								</div>
 								<el-button type="button" size="small" round @click="publishComment()"
@@ -96,8 +97,8 @@
 						</div>
 						<div style="opacity: 1;padding:5px,20px;background:rgba(255,255,255,0.8);border-radius: 8px;"
 							v-if="levelone.length>0">
-							<commentview v-for="comment in levelone" :key="comment.id" :comment="comment" :id="comment.id"
-								@getcomment="getcomment" class="comment" >
+							<commentview v-for="comment in levelone" :key="comment.id" :comment="comment"
+								:id="comment.id" @getcomment="getcomment" class="comment">
 							</commentview>
 
 						</div>
@@ -162,7 +163,8 @@
 				subcomment: {
 					articleId: '',
 					commentContent: '',
-					level: 1
+					level: 1,
+					toUserId: '',
 				}
 			}
 		},
@@ -173,10 +175,10 @@
 		created() {
 			this.findArticleById();
 			this.getcomment();
-			 window.scrollTo(0,0);
+			window.scrollTo(0, 0);
 		},
-		watch:{			
-			"$route.params.id"(val){
+		watch: {
+			"$route.params.id"(val) {
 				this.findArticleById();
 				this.getcomment();
 			}
@@ -193,7 +195,8 @@
 								type: 'error'
 							})
 						} else {
-							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n").replace(/&lt;/g, "<").replace(/&gt;/g, ">");
+							this.article.editor.value = resp.data.data.body.content.replace(/\\r\\n/g, "\n")
+								.replace(/&lt;/g, "<").replace(/&gt;/g, ">");
 							Object.assign(this.article, resp.data.data)
 							document.title = `${this.article.title}-文章详情`;
 						}
@@ -234,6 +237,7 @@
 			publishComment() {
 				this.subcomment.articleId = this.$route.params.id;
 				this.subcomment.commentContent = this.subcomment.commentContent;
+				this.subcomment.toUserId = this.article.author.id
 				comment(this.subcomment).then(resp => {
 					if (resp.data.code == 200) {
 						this.$message.success("评论成功")
@@ -480,6 +484,7 @@
 			font-size: 22px !important;
 			margin-top: 20px;
 		}
+
 		.me-view-tag {
 			font-size: 13px !important;
 		}

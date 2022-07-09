@@ -1,33 +1,30 @@
 <template>
 	<div class="home">
-		<div>
-			<img src="https://dss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2058086203,2012000159&fm=26&gp=0.jpg"
-				class="img">
-		</div>
-		<homeheader :avtiveIndex="activeIndex" class="homeheader"></homeheader>
-		<homeheaderrow :avtiveIndex="activeIndex" class="homeheaderrow"></homeheaderrow>
-		<div class="main">
-			<el-container>
-				<el-main class="me-articles">
-					<keep-alive include="home,chat">
+			<div class="img"></div>
+			<homeheader :avtiveIndex="activeIndex" class="homeheader"></homeheader>
+			<homeheaderrow :avtiveIndex="activeIndex" class="homeheaderrow"></homeheaderrow>
+			<div class="main">
+				<el-container>
+					<el-main class="me-articles">
+						<keep-alive include="home,chat">
 							<router-view></router-view>
-					</keep-alive>			
-					<gotop></gotop>
-							<homefooter></homefooter>
-				</el-main>
-				<el-aside>
-					<div class="aside">
-						<homeaside></homeaside>
-						<notice></notice>
-						<tagaside></tagaside>
-						<articleside cardHeader="热门文章" :articles="hotArticles"></articleside>
-						<articleside cardHeader="最新文章" :articles="newArticles"></articleside>
-						<Archiveaside cardHeader="文章归档" :archives="articlearchives"></Archiveaside>
-					</div>
-				</el-aside>
-			</el-container>
+						</keep-alive>
+						<gotop></gotop>
+						<homefooter></homefooter>
+					</el-main>
+					<el-aside>
+						<div class="aside">
+							<homeaside></homeaside>
+							<notice></notice>
+							<tagaside></tagaside>
+							<articleside cardHeader="热门文章" :articles="hotArticles"></articleside>
+							<articleside cardHeader="最新文章" :articles="newArticles"></articleside>
+							<Archiveaside cardHeader="文章归档" :archives="articlearchives"></Archiveaside>
+						</div>
+					</el-aside>
+				</el-container>
+			</div>
 		</div>
-	</div>
 </template>
 
 <script>
@@ -120,7 +117,7 @@
 							})
 						} else {
 							this.newArticles = resp.data.data;
-							this.newArticles = this.newArticles.filter((item,index) => index < 5)
+							this.newArticles = this.newArticles.filter((item, index) => index < 5)
 						}
 					} else {
 						this.$message.error(resp.data.message)
@@ -155,6 +152,14 @@
 </script>
 
 <style scoped="scoped">
+	.img {
+		z-index: -1;
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(188, 226, 225, 0.3);
+	}
+
 	.el-container {
 		height: auto;
 		display: flex;
@@ -191,7 +196,7 @@
 	.me-articles {
 		display: flex;
 		flex-direction: column;
-		min-width:300px;
+		min-width: 300px;
 		padding: 0px;
 		line-height: 16px;
 	}
@@ -226,14 +231,6 @@
 		z-index: 999;
 	}
 
-	.img {
-		z-index: -1;
-		opacity: 0.3;
-		position: fixed;
-		width: 100%;
-		height:100%;
-		filter: blur(10px);
-	}
 
 	@media screen and (max-width: 1139.5px) {
 		.main {

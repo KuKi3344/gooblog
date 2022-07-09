@@ -6,7 +6,7 @@
 	      <strong>
 	       KuKi and Noblegasesgoo
 	      </strong>
-		  <br/>滇ICP备2022000707号
+		  <br/><a href="https://beian.miit.gov.cn/#/Integrated/index">滇ICP备2022000707号</a>
 	    </p>
 	  </div>
 	</el-footer>
@@ -20,6 +20,11 @@
 </script>
 
 <style scoped="scoped">
+	a{
+		text-decoration: none;
+		color: #353535;
+		
+	}
 	.me-area{
 		height:60px !important;
 	}

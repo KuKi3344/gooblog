@@ -29,7 +29,7 @@
 		margin: 15px;
 		animation-name: ease;
 		animation-duration: 2s;
-		background: rgba(251, 255, 255, 0.95);
+		background: rgba(255, 255, 255, 1);
 		border-radius: 10px;
 	}
 

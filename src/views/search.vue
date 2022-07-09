@@ -1,5 +1,5 @@
 <template>
-	<div style="display: flex;justify-content: center;background:rgba(255, 255, 255, 0.8);min-height: 550px;">
+	<div style="display: flex;justify-content: center;;min-height: 550px;">
 		<el-container>
 
 			<div class="me-area">
@@ -97,7 +97,7 @@
 		margin-right: 10px;
 		margin-top: 10px;
 		width: 100%;
-		background: rgba(255, 255, 255, 0.9);
+		
 		padding: 0;
 	}
 

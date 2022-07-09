@@ -16,7 +16,8 @@
 		name: 'chat',
 		data() {
 			return {
-				username:''
+				username: '',
+				text: ''
 			}
 		},
 		created() {
@@ -24,7 +25,8 @@
 				if (resp.data.code == 200) {
 					setTimeout(() => {
 						this.username = resp.data.data.account;
-						this.getconnect(resp.data.data.account, resp.data.data.nickname, resp.data.data.face);
+						this.getconnect(resp.data.data.account, resp.data.data.nickname, resp.data.data
+							.face);
 					}, 500)
 				} else {
 					this.clearCookie('Authorization');
@@ -53,7 +55,6 @@
 						face: face
 					}))
 				})
-
 				send.addEventListener('click', function() {
 					if (input.value != '') {
 						socket.send(JSON.stringify({
@@ -63,10 +64,13 @@
 						input.value = ''
 					}
 				})
+
+
 				socket.addEventListener('message', function(e) {
 					let data = JSON.parse(e.data);
+					data.msg = data.msg.replace(/</g, "&lt").replace(/>/g, "&gt");
 					if (data.type == 'msg') {
-						if (data.username !==username) {
+						if (data.username !== username) {
 							var every = document.createElement('div');
 							every.innerHTML = `<div class="pic"><img src="${data.face}"></div>
 						<div class="mesmain">
@@ -162,11 +166,9 @@
 	}
 
 	.chat {
-		flex: 1;
 		margin: 20px;
 		margin-top: 50px;
 		height: 500px;
-		max-height: 500px;
 		background-color: #F5F6F7;
 		display: flex;
 		justify-content: center;
@@ -182,14 +184,16 @@
 	}
 
 	.chatuserleft,
-	.chatuserright{
+	.chatuserright {
 		font-size: 12px;
 		color: #6d6d6d;
 	}
-	.chatuserleft{
+
+	.chatuserleft {
 		text-align: left;
 	}
-	.chatuserright{
+
+	.chatuserright {
 		text-align: right;
 	}
 
@@ -227,20 +231,22 @@
 		overflow: hidden;
 		word-wrap: break-word;
 	}
-	.mycontent{
-			width: auto;
-			max-width: 280px;
-			min-height: 15px;
-			margin-top: 5px;
-			background-color: #1d64ff;
-			color: #fff;
-			padding: 10px;
-			border-radius: 5px;
-			font-size: 13px;
-			word-break: break-all;
-			overflow: hidden;
-			word-wrap: break-word;
+
+	.mycontent {
+		width: auto;
+		max-width: 280px;
+		min-height: 15px;
+		margin-top: 5px;
+		background-color: #1d64ff;
+		color: #fff;
+		padding: 10px;
+		border-radius: 5px;
+		font-size: 13px;
+		word-break: break-all;
+		overflow: hidden;
+		word-wrap: break-word;
 	}
+
 	.option input::-webkit-input-placeholder {
 		color: #bababa;
 	}
@@ -286,12 +292,18 @@
 		border: none !important;
 		outline: none !important;
 	}
+
 	@media screen and (max-width:520px) {
-		.content{
+		.content {
 			max-width: 180px !important;
 		}
+
 		.option {
 			min-height: 100px !important;
+		}
+
+		.chat {
+			width: 450px;
 		}
 	}
 </style>

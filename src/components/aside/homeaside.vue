@@ -95,7 +95,7 @@
 		margin: 15px;
 		animation-name: ease;
 		animation-duration: 2s;
-		background: rgba(246, 247, 247, 1.0);
+		background: rgba(253, 253, 253, 1.0);
 		border-radius: 10px;
 		display: flex;
 		flex-direction: column;
