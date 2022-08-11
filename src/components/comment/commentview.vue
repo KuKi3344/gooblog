@@ -20,17 +20,25 @@
 			<el-button @click="removecomment(comment.id,comment.author.id)" type="text" size="small"
 				class="removecomment" v-if="comment.author.id == userid">删除</el-button>
 			<li v-for="(r,index) in filterrecall()" :key="r.id" class="recall" :id="r.id">
-				<div style="font-size:13px;display: flex;align-items: center;" >
-					<router-link :to="'/userinfo/'+ r.author.id">
-						<div class="mypic2">
-							<img :src="r.author.face" class="rauthorface" v-if="r.author.face">
-							<img :src="imgsrc" class="rauthorface" v-else>
+				<div style="font-size:13px;display: flex;flex-direction:column;">
+					<div style="display: flex;">
+						<router-link :to="'/userinfo/'+ r.author.id">
+							<div class="mypic2">
+								<img :src="r.author.face" class="rauthorface" v-if="r.author.face">
+								<img :src="imgsrc" class="rauthorface" v-else>
+							</div>
+
+						</router-link>
+						<div style="display: flex;align-items: center;">
+							<router-link :to="'/userinfo/'+ r.author.id" class="author">{{r.author.nickname}}
+							</router-link>
+							<span width="30">回复</span>
+							<router-link :to="'/userinfo/'+ r.toUser.id" class="touser">@{{r.toUser.nickname}}:
+							</router-link>
 						</div>
 
-					</router-link>
-					<router-link :to="'/userinfo/'+ r.author.id" class="author">{{r.author.nickname}}</router-link>回复
-					<router-link :to="'/userinfo/'+ r.toUser.id" class="touser">@{{r.toUser.nickname}}</router-link>
-					:{{r.commentContent}}
+					</div>
+					<div style="margin:10px 40px 0 40px;letter-spacing: 1px;line-height: 18px;">{{r.commentContent}}</div>
 				</div>
 				<span class="recalletime">{{r.gmtCreate | format}}</span>
 				<el-button @click="showcomment(-1,r.author)" type="text" size="small" class="recallcomment">回复
@@ -39,8 +47,8 @@
 					v-if="r.author.id == userid" class="removecomment">删除</el-button>
 			</li>
 			<div v-show="commentshow" class="showreply">
-				<el-input class="reply" type="textarea" :placeholder="placeholder" v-model="reply.commentContent" maxlength="300"
-					resize="none">
+				<el-input class="reply" type="textarea" :placeholder="placeholder" v-model="reply.commentContent"
+					maxlength="300" resize="none">
 				</el-input>
 				<el-button @click="recallcomment()" round size="mini" style="margin:5px;width:60px;">评论</el-button>
 			</div>
@@ -73,8 +81,8 @@
 		created() {
 			this.getrecall();
 		},
-		mounted(){
-		
+		mounted() {
+
 		},
 		methods: {
 			getrecall() {
@@ -186,9 +194,10 @@
 		justify-content: center;
 		overflow: hidden;
 	}
-	.mypic2{
+
+	.mypic2 {
 		width: 30px;
-		height:30px;
+		height: 30px;
 		border: 1px solid #ffffff;
 		border-radius: 50%;
 		background-color: #e5f5ee;
@@ -196,6 +205,7 @@
 		justify-content: center;
 		overflow: hidden;
 	}
+
 	.authorface {
 		height: 38px;
 		width: auto;
@@ -246,6 +256,8 @@
 	.commentcontent {
 		font-size: 15px;
 		color: #393939;
+		letter-spacing: 1px;
+		line-height: 18px;
 	}
 
 	.createtime {

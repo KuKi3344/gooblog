@@ -6,9 +6,7 @@
 			<div class="main">
 				<el-container>
 					<el-main class="me-articles">
-						<keep-alive include="home,chat">
 							<router-view></router-view>
-						</keep-alive>
 						<gotop></gotop>
 						<homefooter></homefooter>
 					</el-main>

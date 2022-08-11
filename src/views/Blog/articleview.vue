@@ -3,7 +3,7 @@
 		<el-container class="me-view-container">
 
 			<el-main>
-				<el-button size="mini" icon="el-icon-arrow-left" @click="$router.go(-1)"></el-button>
+				<el-button size="mini" icon="el-icon-arrow-left" @click="$router.back()"></el-button>
 				<div class="me-view-card">
 					<h1 class="me-view-title">{{article.title}}</h1>
 					<div class="me-view-author">
@@ -344,7 +344,7 @@
 	}
 
 	.comment {
-		border-bottom: 1px solid #dcdcdc;
+		border-bottom: 1px solid #efefef;
 		padding-bottom: 0px;
 		margin-top: 20px;
 	}

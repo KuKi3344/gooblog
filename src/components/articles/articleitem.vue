@@ -70,7 +70,7 @@
 	.el-card{
 		flex:1;
 		min-width:250px;
-		max-width: 450px;
+		max-width: 470px;
 		max-height:350px;
 		min-height:150px;
 		margin:10px 10px;

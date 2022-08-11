@@ -1,6 +1,6 @@
 <template>
 
-  <div ref="scroll" id="scroll-page" style="overflow: hidden">
+  <div ref="scroll" id="scroll-page" style="overflow: hidden;">
     <slot></slot>
     <div
       style="height: 40px;margin-top: 10px;z-index: 1"
